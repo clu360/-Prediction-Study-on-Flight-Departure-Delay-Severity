@@ -1,0 +1,41 @@
+{
+  "batch_rows": 50000,
+  "buckets": 32,
+  "code_sha256": "4a44d2b4ae9c04f165ffee4900492fd28e9c30fdd8e87aad03c8c2aeb9394d5e",
+  "config": {
+    "clock_tolerance_minutes": 1,
+    "evaluation_airports": [
+      "ATL",
+      "DFW",
+      "DEN",
+      "ORD",
+      "LAX"
+    ],
+    "max_turnaround_minutes": 1440,
+    "prediction_offset_minutes": 1,
+    "sensitivity_turnaround_minutes": 720
+  },
+  "config_sha256": "053b3cb3f7ae8eab34ecb32e9bb7fb9c517e3fc92fdc7479a7caf99d338cb178",
+  "dependencies": {
+    "airportsdata": "20250909",
+    "polars": "1.35.2",
+    "polars-runtime-32": "1.35.2",
+    "pyarrow": "22.0.0",
+    "tzdata": "2025.2"
+  },
+  "run_key": "7211470fe996245f58999e0bcb3d18863033f82b675f851abed1e0a7d0617d5a",
+  "source_sha256": {
+    "1": "bce4a1a67ec97d7e65546411d051314ef2c50548dcf9d6d350b479c53bb56df8",
+    "10": "7042da6c5e68b5905c9a8b10f004c3073edc65e8e5555a463d02c0c61af0ac93",
+    "11": "4ab02ccd510182b9f0f6ed9b102f899bbcab76bcdb23cc768e1ab5effcd76179",
+    "12": "489a0895c105e2ae7f26846f8ae2567a13e78af6b3dbb37b1a50ae53261bbc68",
+    "2": "5666f6fa2d5dfc24eaa654560e2b1098e6cd085cf7f2a972cbaff1b7a4f7746e",
+    "3": "0ca2a12730641e97827da7931f6deaab73d34a04589ec3d99e3b3e8c542a0e89",
+    "4": "f376457a5428fcf9d7ba3a2c559d63c041373ff880678b7394ca003e2d389dbf",
+    "5": "5f87ef9a5963ec0301ff6e43412c838ec8679bef1a3c7557546800997f8e0f5f",
+    "6": "a5f1ba0c83a5623e6f2fe51245843be423a375d0a4f0547de29f612e7a1136ae",
+    "7": "a56ad38adfb6c7896a36ae9916e5b23b652cf7874b6aa6946a95b0b20eef195e",
+    "8": "6c45f0d3e9acc4bf3defa7779a00f582b4edf40d26097d8014b467a8ce21693a",
+    "9": "53f49bffbbf4292c651ff5082423951632d45fc55a3770d4393f783430c35769"
+  }
+}

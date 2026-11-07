@@ -1,0 +1,9 @@
+{
+  "max_scheduled_duration_min": 1510.0,
+  "scheduled_duration_over_720_flag_only": 4,
+  "long_scheduled_cancelled": 3,
+  "long_scheduled_operated": 1,
+  "max_resolved_taxi_out_min": 379.0,
+  "min_signed_departure_delay_min": -115.0,
+  "max_signed_departure_delay_min": 4352.0
+}
