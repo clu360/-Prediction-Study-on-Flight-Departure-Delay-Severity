@@ -1,0 +1,22 @@
+{
+  "parquet": {
+    "filename": "full_features.parquet",
+    "rows": 6461609,
+    "columns": 21,
+    "source_features": 20,
+    "size_bytes": 285994872,
+    "sha256": "dcba1f79f4039e96e6350c3b302722ab6bb12a0ab398c9ceb0b00711c43f5379",
+    "all_values_verified": true
+  },
+  "csv": {
+    "filename": "full_features.csv",
+    "rows": 6461609,
+    "columns": 21,
+    "source_features": 20,
+    "size_bytes": 1386931893,
+    "sha256": "542670df1e33776a8e21c51a549ea41f60e89333bbf8e6cc5170ed631cca5f98",
+    "all_values_verified": true
+  },
+  "labels_location": "targets/ (separate labels; never predictors)",
+  "metadata_location": "metadata/ (separate identity, timestamps and audit flags)"
+}

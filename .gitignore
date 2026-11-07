@@ -12,4 +12,5 @@ __pycache__/
 build/
 dist/
 !reports/*.csv
+!reports/phase2/*.csv
 !configs/*.csv

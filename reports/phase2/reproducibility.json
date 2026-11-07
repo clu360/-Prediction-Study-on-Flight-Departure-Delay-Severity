@@ -1,0 +1,18 @@
+{
+  "combined_logical_sha256": "509c8ecc9937bdd6f62b543a1885081548581619715ec5c8abb3d0f2a44539c9",
+  "elapsed_seconds": 469.0319999998901,
+  "identical_counts": true,
+  "identical_logical_hashes": true,
+  "initial_execution": {
+    "build_seconds": 230.76599999982864,
+    "counts": {
+      "full_features": 6461609,
+      "metadata": 6461609,
+      "targets": 6461609
+    },
+    "process_peak_rss_bytes": 1246765056,
+    "source_cache_reused": true
+  },
+  "partitions": 12219,
+  "passed": true
+}

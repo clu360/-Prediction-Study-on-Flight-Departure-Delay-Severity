@@ -2,7 +2,7 @@
 
 Team: Caleb Lu, Ho Young Lee, Christopher Yi.
 
-Phase 1 implements deterministic preprocessing of the twelve 2025 **BTS Reporting Carrier** monthly exports. One completed target has one three-class label and one explicit predecessor-link decision. No models or Phase 2 feature matrices are implemented.
+Phase 1 implements deterministic preprocessing of the twelve 2025 **BTS Reporting Carrier** monthly exports. Phase II constructs three causal feature groups and fold-aware sparse numerical matrices on the unchanged cohort. No classifiers or MLP training are implemented.
 
 ## Install and run
 
@@ -60,3 +60,40 @@ python scripts/build_validation_report.py
 ```
 
 The last report command expects the real-data acceptance, reproducibility, Arrow and aggregate quality evidence from the validated run. See [methodology](docs/preprocessing_methodology.md), [data dictionary](docs/data_dictionary.md), and the [validation handoff](reports/VALIDATION.md) for limitations, exact counts, source hashes and Phase 2 decisions. No public raw/processed records are committed. A local `data/preliminary-run/` retains the superseded diagnostic run; `data/processed/` is the official final output location.
+
+## Phase II: features and fold-local matrices
+
+Phase II reads the validated Phase I partitions and its complete normalized master schedule. It never reruns linkage or changes source files. From the repository root after installation:
+
+```sh
+pytest -q
+python -m flight_delay.cli features --processed-dir data/processed --out-dir data/features --config configs/phase2.yaml
+python -m flight_delay.cli features-audit --features-dir data/features
+python -m flight_delay.cli feature-fold --fold 2025-04 --feature-set G1_G2_G3 --encoding onehot
+```
+
+`data/features/full_features` contains ID + exactly 20 mixed-type features; `targets` holds labels; `metadata` holds timestamps, history support and inherited audit flags. Tables use target-local `year=2025/month=MM` Parquet partitions. Data and caches remain ignored. The four checked configurations in `configs/feature_groups.yaml` are G1 (9), G1_G2 (14), G1_G3 (15) and G1_G2_G3 (20).
+
+G3 uses strictly earlier observed outcomes over 28 days, alpha=20 hierarchical smoothing, and independent seven-day **master scheduled** volume including eventual cancellations/diversions. Earlier test-month observations may update features. Every target's own outcome is excluded. Early missing histories remain null/zero as specified; no future data fills them.
+
+```python
+from flight_delay.features.transforms import build_fold
+X_train, X_test, y_train, y_test, train_ids, test_ids, transformer = build_fold(
+    "2025-04", "G1_G2_G3", encoding="onehot")
+```
+
+The existing Phase I fold manifest determines membership. Each transformer fits categorical vocabularies, median imputation and StandardScaler on training rows only, then transforms the test month in batches. X is Float32 sparse CSR with unknown-category support. Use `--no-scale` for an otherwise identical tree-compatible interface. Labels keep class order [0,1,2]. No model is fitted.
+
+Rebuild verification and all-view full April smoke tests:
+
+```sh
+python scripts/validate_phase2_run.py --features-dir data/features --processed-dir data/processed
+python scripts/export_phase2_tables.py --features-dir data/features
+python scripts/export_phase2_review.py --features-dir data/features
+```
+
+Changed input/config/feature-code signatures require a fresh output directory; unknown existing output folders and corrupted/incomplete caches are never overwritten. Phase I intermediate master events must remain available. See [Phase II methodology](docs/phase2_methodology.md), [feature dictionary](docs/phase2_feature_dictionary.md), and [full-data validation](reports/PHASE2_VALIDATION.md). All flight-level features, numerical matrices and sample rows stay local; public evidence contains aggregates only.
+
+An existing completed source cache can be reused in a fresh output folder with `--reuse-cache path/to/prior/features/cache`; source fingerprints must match and every cache file hash is verified before use.
+
+The complete single-file exports requested for handoff are `data/features/exports/full_features.csv` and `full_features.parquet`: all samples, one ID column and exactly twenty feature columns. Labels and metadata remain separate. Export verification checks every column against the validated partitioned table, preserves Parquet dtypes, independently reads every Parquet batch with Arrow, and writes SHA-256 checksums.

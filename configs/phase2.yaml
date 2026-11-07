@@ -1,0 +1,6 @@
+history_days: 28
+schedule_days: 7
+alpha: 20.0
+history_regime: causal_online
+matrix_batch_rows: 50000
+evaluation_airports: [ATL, DFW, DEN, ORD, LAX]
