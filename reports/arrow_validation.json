@@ -1,0 +1,37 @@
+{
+  "engine": "pyarrow==22.0.0",
+  "tables": {
+    "flights_clean": {
+      "rows": 6879485,
+      "expected_rows": 6879485,
+      "passed": true,
+      "schema": "record_id: large_string\nsource_month: int8\nflight_date: date32[day]\nreporting_airline: large_string\nflight_number: large_string\ntail_number: large_string\norigin: large_string\ndest: large_string\ncrs_dep_time: large_string\ncrs_arr_time: large_string\ncrs_elapsed_time: double\ndistance: double\ntarget_crs_dep_utc: timestamp[us, tz=UTC]\ntarget_crs_arr_utc: timestamp[us, tz=UTC]\ntarget_dep_delay_min: double\ntarget_class: int8\ncancelled: double\ndiverted: double\nraw_source_month: int8\nraw_source_file: large_string\nraw_row_number: uint32\ntimestamp_quality_flag: large_string"
+    },
+    "flight_connections": {
+      "rows": 6879485,
+      "expected_rows": 6879485,
+      "passed": true,
+      "schema": "target_record_id: large_string\nprior_record_id: large_string\nsource_month: int8\nlink_status: large_string\nlink_reason: large_string\nprediction_time_utc: timestamp[us, tz=UTC]\nprior_wheels_off_utc: timestamp[us, tz=UTC]\nprior_actual_gate_departure_utc: timestamp[us, tz=UTC]\ntakeoff_time_source: large_string\nprior_scheduled_departure_utc: timestamp[us, tz=UTC]\nprior_scheduled_arrival_utc: timestamp[us, tz=UTC]\nscheduled_turnaround_min: double\nprior_to_target_schedule_gap_min: double\nprior_route_continuity_ok: bool\ntimestamp_quality_flag: large_string\nambiguous_tail_rotation_flag: bool\ntail_has_unknown_order: bool\nconflicting_service_duplicate_flag: bool\naudit_target_departed_before_prediction: bool\naudit_prior_arrived_before_prediction: bool\naudit_prior_arrival_after_target_departure: bool\naudit_prior_observed_arrival_utc: timestamp[us, tz=UTC]"
+    },
+    "modeling_cohort": {
+      "rows": 6461609,
+      "expected_rows": 6461609,
+      "passed": true,
+      "schema": "target_record_id: large_string\nprior_record_id: large_string\nflight_date: date32[day]\ntarget_origin: large_string\ntarget_dest: large_string\ntarget_carrier: large_string\ntarget_flight_number: large_string\ntarget_crs_dep_utc: timestamp[us, tz=UTC]\ntarget_crs_dep_local_hour: int8\ntarget_day_of_week: int8\ntarget_month: int8\ntarget_crs_elapsed_min: double\ntarget_distance_miles: double\nprior_origin: large_string\nprior_dest: large_string\nprior_dep_delay_min: double\nprior_crs_elapsed_min: double\nprior_wheels_off_utc: timestamp[us, tz=UTC]\nprediction_time_utc: timestamp[us, tz=UTC]\nscheduled_turnaround_min: double\nminutes_until_target_crs_dep_at_prediction: double\ntarget_class: int8\ntarget_dep_delay_min: double\nsource_month: int8\ntimestamp_quality_flag: large_string\ntakeoff_time_source: large_string"
+    },
+    "history_departure_events": {
+      "rows": 6898735,
+      "expected_rows": 6898735,
+      "passed": true,
+      "schema": "record_id: large_string\nsource_month: int8\nflight_date: date32[day]\norigin: large_string\nreporting_airline: large_string\nobserved_departure_time_utc: timestamp[us, tz=UTC]\ndep_delay: double\ndeparture_severity: int8\ncancelled: double\ndiverted: double\nvalid_observation: bool\ngate_departure_clock_ok: bool\ntimestamp_quality_flag: large_string"
+    },
+    "folds": {
+      "rows": 19697112,
+      "expected_rows": 19697112,
+      "passed": true,
+      "schema": "target_record_id: large_string\nsource_month: int8\nfold_id: large_string\ntrain_months: large_string\ntest_month: int8\nrole: large_string\nis_final_holdout: bool"
+    }
+  },
+  "passed": true,
+  "elapsed_seconds": 11.311999999918044
+}

@@ -1,0 +1,15 @@
+data/
+*.csv
+*.zip
+*.parquet
+*.arrow
+*.log
+*.egg-info/
+__pycache__/
+.pytest_cache/
+.venv/
+.env*
+build/
+dist/
+!reports/*.csv
+!configs/*.csv

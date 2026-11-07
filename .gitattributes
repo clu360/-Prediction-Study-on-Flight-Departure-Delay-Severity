@@ -1,0 +1,10 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.csv text eol=lf
+# The supplied Markdown specification uses intentional two-space hard breaks.
+docs/phase1_specification.md whitespace=-blank-at-eol

@@ -1,0 +1,9 @@
+{
+  "flagged_connections": 14,
+  "min_arrival_overlap_minutes": 1.0,
+  "max_arrival_overlap_minutes": 150.0,
+  "prior_arrival_clocks_confirmed": 13,
+  "prior_arrival_clock_contradictions": 1,
+  "target_gate_clocks_confirmed": 14,
+  "linkage_eligibility_unchanged": true
+}

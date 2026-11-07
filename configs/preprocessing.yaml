@@ -1,0 +1,5 @@
+max_turnaround_minutes: 1440
+sensitivity_turnaround_minutes: 720
+prediction_offset_minutes: 1
+clock_tolerance_minutes: 1
+evaluation_airports: [ATL, DFW, DEN, ORD, LAX]

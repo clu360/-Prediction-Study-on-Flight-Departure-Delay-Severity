@@ -1,0 +1,376 @@
+{
+  "acceptance_checks": {
+    "all_parquet_readable_schema_stable": true,
+    "cohort_matches_valid_link_count": true,
+    "cohort_target_ids_match": true,
+    "connection_target_ids_match": true,
+    "five_evaluation_airports_present": true,
+    "fold_calendar_membership": true,
+    "history_observations_valid": true,
+    "immediate_predecessor_same_tail": true,
+    "input_bytes_preserved": true,
+    "logical_hashes_match": true,
+    "no_stale_or_missing_partitions": true,
+    "one_connection_per_target_count": true,
+    "raw_clean_accounting": true,
+    "review_examples_count": true,
+    "review_examples_month_coverage": true,
+    "target_exclusion_accounting": true,
+    "twelve_months": true,
+    "unique_keys": true,
+    "utc_schema": true,
+    "valid_cohort_timing_and_continuity": true,
+    "valid_labels": true
+  },
+  "acceptance_passed": true,
+  "classes": {
+    "flights_clean": [
+      {
+        "count": 5387042,
+        "percentage": 78.30589062989453,
+        "target_class": 0
+      },
+      {
+        "count": 940795,
+        "percentage": 13.675369595253134,
+        "target_class": 1
+      },
+      {
+        "count": 551648,
+        "percentage": 8.018739774852333,
+        "target_class": 2
+      }
+    ],
+    "modeling_cohort": [
+      {
+        "count": 5199881,
+        "percentage": 80.47347030747295,
+        "target_class": 0
+      },
+      {
+        "count": 883015,
+        "percentage": 13.665559150979268,
+        "target_class": 1
+      },
+      {
+        "count": 378713,
+        "percentage": 5.860970541547778,
+        "target_class": 2
+      }
+    ]
+  },
+  "counts": {
+    "excluded_targets": 122134,
+    "flight_connections": 6879485,
+    "flights_clean": 6879485,
+    "folds": 19697112,
+    "history_departure_events": 6898735,
+    "modeling_cohort": 6461609,
+    "raw": 7001619,
+    "valid_link_percentage": 93.92576624558379
+  },
+  "exact_duplicate_raw_rows": 0,
+  "exclusion_counts": [
+    {
+      "count": 113768,
+      "link_reason": "airport_mismatch",
+      "link_status": "invalid"
+    },
+    {
+      "count": 3038,
+      "link_reason": "ambiguous_rotation",
+      "link_status": "invalid"
+    },
+    {
+      "count": 94058,
+      "link_reason": "gap_over_24h",
+      "link_status": "invalid"
+    },
+    {
+      "count": 76619,
+      "link_reason": "intervening_cancelled_or_diverted",
+      "link_status": "invalid"
+    },
+    {
+      "count": 122,
+      "link_reason": "invalid_prior_schedule",
+      "link_status": "invalid"
+    },
+    {
+      "count": 62973,
+      "link_reason": "late_prior_takeoff",
+      "link_status": "invalid"
+    },
+    {
+      "count": 61162,
+      "link_reason": "negative_scheduled_turnaround",
+      "link_status": "invalid"
+    },
+    {
+      "count": 6086,
+      "link_reason": "no_previous_record",
+      "link_status": "invalid"
+    },
+    {
+      "count": 50,
+      "link_reason": "predecessor_missing_takeoff",
+      "link_status": "invalid"
+    },
+    {
+      "count": 6461609,
+      "link_reason": "valid",
+      "link_status": "valid"
+    }
+  ],
+  "execution": {
+    "buckets": [
+      {
+        "bucket": 0,
+        "clean": 256971,
+        "conflicts": 0,
+        "linked": 240335,
+        "master": 261458
+      },
+      {
+        "bucket": 1,
+        "clean": 177110,
+        "conflicts": 0,
+        "linked": 166844,
+        "master": 179939
+      },
+      {
+        "bucket": 2,
+        "clean": 226451,
+        "conflicts": 0,
+        "linked": 213353,
+        "master": 229785
+      },
+      {
+        "bucket": 3,
+        "clean": 198387,
+        "conflicts": 0,
+        "linked": 186386,
+        "master": 201836
+      },
+      {
+        "bucket": 4,
+        "clean": 196113,
+        "conflicts": 0,
+        "linked": 184208,
+        "master": 198955
+      },
+      {
+        "bucket": 5,
+        "clean": 217082,
+        "conflicts": 0,
+        "linked": 204114,
+        "master": 220560
+      },
+      {
+        "bucket": 6,
+        "clean": 194595,
+        "conflicts": 0,
+        "linked": 183754,
+        "master": 209809
+      },
+      {
+        "bucket": 7,
+        "clean": 169111,
+        "conflicts": 0,
+        "linked": 158541,
+        "master": 171873
+      },
+      {
+        "bucket": 8,
+        "clean": 215759,
+        "conflicts": 0,
+        "linked": 202851,
+        "master": 219255
+      },
+      {
+        "bucket": 9,
+        "clean": 221186,
+        "conflicts": 0,
+        "linked": 207572,
+        "master": 224561
+      },
+      {
+        "bucket": 10,
+        "clean": 240963,
+        "conflicts": 0,
+        "linked": 226361,
+        "master": 245030
+      },
+      {
+        "bucket": 11,
+        "clean": 234738,
+        "conflicts": 0,
+        "linked": 220432,
+        "master": 238403
+      },
+      {
+        "bucket": 12,
+        "clean": 234377,
+        "conflicts": 0,
+        "linked": 219824,
+        "master": 238151
+      },
+      {
+        "bucket": 13,
+        "clean": 201864,
+        "conflicts": 0,
+        "linked": 188694,
+        "master": 205031
+      },
+      {
+        "bucket": 14,
+        "clean": 208394,
+        "conflicts": 0,
+        "linked": 195416,
+        "master": 211652
+      },
+      {
+        "bucket": 15,
+        "clean": 228975,
+        "conflicts": 0,
+        "linked": 215028,
+        "master": 232837
+      },
+      {
+        "bucket": 16,
+        "clean": 228503,
+        "conflicts": 0,
+        "linked": 214928,
+        "master": 231962
+      },
+      {
+        "bucket": 17,
+        "clean": 204405,
+        "conflicts": 0,
+        "linked": 192316,
+        "master": 207983
+      },
+      {
+        "bucket": 18,
+        "clean": 212116,
+        "conflicts": 0,
+        "linked": 198686,
+        "master": 215359
+      },
+      {
+        "bucket": 19,
+        "clean": 206710,
+        "conflicts": 0,
+        "linked": 194295,
+        "master": 209689
+      },
+      {
+        "bucket": 20,
+        "clean": 216246,
+        "conflicts": 0,
+        "linked": 202904,
+        "master": 219754
+      },
+      {
+        "bucket": 21,
+        "clean": 212776,
+        "conflicts": 0,
+        "linked": 200173,
+        "master": 215770
+      },
+      {
+        "bucket": 22,
+        "clean": 228636,
+        "conflicts": 0,
+        "linked": 214988,
+        "master": 232527
+      },
+      {
+        "bucket": 23,
+        "clean": 246586,
+        "conflicts": 0,
+        "linked": 231640,
+        "master": 250472
+      },
+      {
+        "bucket": 24,
+        "clean": 201565,
+        "conflicts": 0,
+        "linked": 188637,
+        "master": 205142
+      },
+      {
+        "bucket": 25,
+        "clean": 203478,
+        "conflicts": 0,
+        "linked": 190365,
+        "master": 206856
+      },
+      {
+        "bucket": 26,
+        "clean": 232570,
+        "conflicts": 0,
+        "linked": 218306,
+        "master": 236645
+      },
+      {
+        "bucket": 27,
+        "clean": 211518,
+        "conflicts": 0,
+        "linked": 198678,
+        "master": 214752
+      },
+      {
+        "bucket": 28,
+        "clean": 209682,
+        "conflicts": 0,
+        "linked": 197349,
+        "master": 212737
+      },
+      {
+        "bucket": 29,
+        "clean": 225155,
+        "conflicts": 0,
+        "linked": 212583,
+        "master": 228491
+      },
+      {
+        "bucket": 30,
+        "clean": 201183,
+        "conflicts": 0,
+        "linked": 188617,
+        "master": 204484
+      },
+      {
+        "bucket": 31,
+        "clean": 216280,
+        "conflicts": 0,
+        "linked": 203431,
+        "master": 219861
+      }
+    ],
+    "elapsed_seconds": 250.21899999980815,
+    "process_peak_rss_bytes": 2389626880,
+    "raw_files_unchanged": true,
+    "sampled_peak_rss_bytes": 1975844864
+  },
+  "invalid_flags": 0,
+  "missing_tail": 12501,
+  "retrospective_valid_link_audit_flags": {
+    "audit_prior_arrival_after_target_departure": 14,
+    "audit_prior_arrived_before_prediction": 0,
+    "audit_target_departed_before_prediction": 1
+  },
+  "sensitivity_12h_count": 6157416,
+  "takeoff_sources_primary": [
+    {
+      "count": 6461609,
+      "takeoff_time_source": "parsed"
+    }
+  ],
+  "target_exclusion_counts": {
+    "cancelled": 102876,
+    "diverted": 19258,
+    "eligible": 6879485
+  }
+}

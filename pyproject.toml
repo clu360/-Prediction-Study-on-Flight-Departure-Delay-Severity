@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flight-delay"
+version = "0.1.0"
+description = "Auditable BTS incoming-aircraft preprocessing for ISyE 6740"
+requires-python = ">=3.11"
+dependencies = ["polars==1.35.2", "pyarrow==22.0.0", "airportsdata==20250909", "tzdata==2025.2", "PyYAML==6.0.3", "psutil==7.1.3"]
+
+[project.optional-dependencies]
+dev = ["pytest==8.4.2"]
+
+[project.scripts]
+flight-delay = "flight_delay.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

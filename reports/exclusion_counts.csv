@@ -1,0 +1,11 @@
+link_status,link_reason,count
+invalid,airport_mismatch,113768
+invalid,ambiguous_rotation,3038
+invalid,gap_over_24h,94058
+invalid,intervening_cancelled_or_diverted,76619
+invalid,invalid_prior_schedule,122
+invalid,late_prior_takeoff,62973
+invalid,negative_scheduled_turnaround,61162
+invalid,no_previous_record,6086
+invalid,predecessor_missing_takeoff,50
+valid,valid,6461609
