@@ -1,0 +1,20 @@
+{
+  "global_history_count_28d": {
+    "mean": 512530.19987204426,
+    "median": 537797.0,
+    "min": 2,
+    "max": 563349
+  },
+  "airport_history_count_28d": {
+    "mean": 9541.0492104985,
+    "median": 7987.0,
+    "min": 0,
+    "max": 28313
+  },
+  "airline_airport_count_28d": {
+    "mean": 2935.250708917856,
+    "median": 1326.0,
+    "min": 0,
+    "max": 19841
+  }
+}

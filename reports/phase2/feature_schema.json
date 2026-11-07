@@ -1,0 +1,53 @@
+{
+  "full_features": {
+    "g1_carrier": "String",
+    "g1_crs_elapsed_min": "Float64",
+    "g1_day_of_week": "Int8",
+    "g1_dep_hour_cos": "Float64",
+    "g1_dep_hour_sin": "Float64",
+    "g1_dest": "String",
+    "g1_distance_miles": "Float64",
+    "g1_month": "Int8",
+    "g1_origin": "String",
+    "g2_minutes_until_crs_dep_at_prediction": "Float64",
+    "g2_prior_crs_elapsed_min": "Float64",
+    "g2_prior_dep_delay_min": "Float64",
+    "g2_prior_origin": "String",
+    "g2_scheduled_turnaround_min": "Float64",
+    "g3_airline_airport_count_28d": "Int64",
+    "g3_airline_airport_severe_rate_28d": "Float64",
+    "g3_airport_mean_dep_delay_28d": "Float64",
+    "g3_airport_moderate_rate_28d": "Float64",
+    "g3_airport_scheduled_volume_7d": "Int64",
+    "g3_airport_severe_rate_28d": "Float64",
+    "target_record_id": "String"
+  },
+  "metadata": {
+    "airport_history_count_28d": "Int64",
+    "audit_prior_arrival_after_target_departure": "Boolean",
+    "audit_prior_arrived_before_prediction": "Boolean",
+    "audit_target_departed_before_prediction": "Boolean",
+    "flight_date": "Date",
+    "global_history_count_28d": "Int64",
+    "history_available_days": "Float64",
+    "history_max_event_utc": "Datetime(time_unit='us', time_zone='UTC')",
+    "no_airline_airport_history": "Boolean",
+    "no_airport_history": "Boolean",
+    "no_global_history": "Boolean",
+    "own_outcome_excluded": "Boolean",
+    "prediction_time_utc": "Datetime(time_unit='us', time_zone='UTC')",
+    "prior_record_id": "String",
+    "source_month": "Int8",
+    "takeoff_time_source": "String",
+    "target_carrier": "String",
+    "target_crs_dep_utc": "Datetime(time_unit='us', time_zone='UTC')",
+    "target_origin": "String",
+    "target_record_id": "String",
+    "timestamp_quality_flag": "String"
+  },
+  "targets": {
+    "target_class": "Int8",
+    "target_dep_delay_min": "Float64",
+    "target_record_id": "String"
+  }
+}

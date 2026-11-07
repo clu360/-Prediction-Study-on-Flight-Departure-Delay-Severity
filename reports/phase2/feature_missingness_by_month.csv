@@ -1,0 +1,13 @@
+source_month,rows,g1_carrier,g1_origin,g1_dest,g1_dep_hour_sin,g1_dep_hour_cos,g1_day_of_week,g1_month,g1_crs_elapsed_min,g1_distance_miles,g2_prior_origin,g2_prior_dep_delay_min,g2_prior_crs_elapsed_min,g2_scheduled_turnaround_min,g2_minutes_until_crs_dep_at_prediction,g3_airport_moderate_rate_28d,g3_airport_severe_rate_28d,g3_airport_mean_dep_delay_28d,g3_airport_scheduled_volume_7d,g3_airline_airport_severe_rate_28d,g3_airline_airport_count_28d
+1,482934,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,218,0,0,0
+2,466318,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0
+3,558899,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0
+4,547836,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+5,564296,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,0,0
+6,559011,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0
+7,566757,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+8,558470,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0,0,0
+9,532178,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+10,572886,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0
+11,519971,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0
+12,532053,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0

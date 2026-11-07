@@ -1,0 +1,35 @@
+{
+  "input_sha256": "bfe40e828cb1f9162b41c29c7f68752846cc80f1158a52b4791843ef43e58d16",
+  "tables": {
+    "flight_connections": {
+      "partitions": 384,
+      "rows": 6879485,
+      "schema_matches": true
+    },
+    "flights_clean": {
+      "partitions": 384,
+      "rows": 6879485,
+      "schema_matches": true
+    },
+    "folds": {
+      "partitions": 384,
+      "rows": 19697112,
+      "schema_matches": true
+    },
+    "history_departure_events": {
+      "partitions": 384,
+      "rows": 6898735,
+      "schema_matches": true
+    },
+    "modeling_cohort": {
+      "partitions": 384,
+      "rows": 6461609,
+      "schema_matches": true
+    }
+  },
+  "master_rows": 7001619,
+  "phase1_signature": "7211470fe996245f58999e0bcb3d18863033f82b675f851abed1e0a7d0617d5a",
+  "source_partition_count": 6656,
+  "processed_dir": "data/processed",
+  "master_dir": "data/interim/7211470fe996245f58999e0bcb3d18863033f82b675f851abed1e0a7d0617d5a"
+}

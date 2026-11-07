@@ -1,0 +1,184 @@
+[
+  {
+    "X_test_shape": [
+      547836,
+      694
+    ],
+    "X_train_shape": [
+      1508151,
+      694
+    ],
+    "class_order": [
+      0,
+      1,
+      2
+    ],
+    "dtype": "float32",
+    "elapsed_seconds": 15.593000000109896,
+    "feature_set": "G1",
+    "is_final_holdout": false,
+    "process_peak_rss_bytes": 3350941696,
+    "source_column_count": 9,
+    "test_class_counts": [
+      456025,
+      65603,
+      26208
+    ],
+    "test_csr_bytes": 37252852,
+    "test_ids_sha256": "d007051c1c090438b16657706f0572dd9d89b478980f25a16ae603996eb063f1",
+    "test_rows": 547836,
+    "train_class_counts": [
+      1252653,
+      181714,
+      73784
+    ],
+    "train_csr_bytes": 114619480,
+    "train_ids_sha256": "9eecce5d171198c0d956bd31a128d6c66f20db4d39d725ff6e7c72d3b7be9efb",
+    "train_only_fit": true,
+    "train_rows": 1508151,
+    "unknown_categories_test": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 0,
+      "g1_dest": 0,
+      "g1_month": 547836,
+      "g1_origin": 0
+    }
+  },
+  {
+    "X_test_shape": [
+      547836,
+      1031
+    ],
+    "X_train_shape": [
+      1508151,
+      1031
+    ],
+    "class_order": [
+      0,
+      1,
+      2
+    ],
+    "dtype": "float32",
+    "elapsed_seconds": 17.437999999849126,
+    "feature_set": "G1_G2",
+    "is_final_holdout": false,
+    "process_peak_rss_bytes": 4787818496,
+    "source_column_count": 14,
+    "test_class_counts": [
+      456025,
+      65603,
+      26208
+    ],
+    "test_csr_bytes": 59166292,
+    "test_ids_sha256": "d007051c1c090438b16657706f0572dd9d89b478980f25a16ae603996eb063f1",
+    "test_rows": 547836,
+    "train_class_counts": [
+      1252653,
+      181714,
+      73784
+    ],
+    "train_csr_bytes": 174945520,
+    "train_ids_sha256": "9eecce5d171198c0d956bd31a128d6c66f20db4d39d725ff6e7c72d3b7be9efb",
+    "train_only_fit": true,
+    "train_rows": 1508151,
+    "unknown_categories_test": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 0,
+      "g1_dest": 0,
+      "g1_month": 547836,
+      "g1_origin": 0,
+      "g2_prior_origin": 0
+    }
+  },
+  {
+    "X_test_shape": [
+      547836,
+      700
+    ],
+    "X_train_shape": [
+      1508151,
+      700
+    ],
+    "class_order": [
+      0,
+      1,
+      2
+    ],
+    "dtype": "float32",
+    "elapsed_seconds": 14.186999999918044,
+    "feature_set": "G1_G3",
+    "is_final_holdout": false,
+    "process_peak_rss_bytes": 5002252288,
+    "source_column_count": 15,
+    "test_class_counts": [
+      456025,
+      65603,
+      26208
+    ],
+    "test_csr_bytes": 63548980,
+    "test_ids_sha256": "d007051c1c090438b16657706f0572dd9d89b478980f25a16ae603996eb063f1",
+    "test_rows": 547836,
+    "train_class_counts": [
+      1252653,
+      181714,
+      73784
+    ],
+    "train_csr_bytes": 187010728,
+    "train_ids_sha256": "9eecce5d171198c0d956bd31a128d6c66f20db4d39d725ff6e7c72d3b7be9efb",
+    "train_only_fit": true,
+    "train_rows": 1508151,
+    "unknown_categories_test": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 0,
+      "g1_dest": 0,
+      "g1_month": 547836,
+      "g1_origin": 0
+    }
+  },
+  {
+    "X_test_shape": [
+      547836,
+      1037
+    ],
+    "X_train_shape": [
+      1508151,
+      1037
+    ],
+    "class_order": [
+      0,
+      1,
+      2
+    ],
+    "dtype": "float32",
+    "elapsed_seconds": 16.233999999938533,
+    "feature_set": "G1_G2_G3",
+    "is_final_holdout": false,
+    "process_peak_rss_bytes": 5875814400,
+    "source_column_count": 20,
+    "test_class_counts": [
+      456025,
+      65603,
+      26208
+    ],
+    "test_csr_bytes": 85462420,
+    "test_ids_sha256": "d007051c1c090438b16657706f0572dd9d89b478980f25a16ae603996eb063f1",
+    "test_rows": 547836,
+    "train_class_counts": [
+      1252653,
+      181714,
+      73784
+    ],
+    "train_csr_bytes": 247336768,
+    "train_ids_sha256": "9eecce5d171198c0d956bd31a128d6c66f20db4d39d725ff6e7c72d3b7be9efb",
+    "train_only_fit": true,
+    "train_rows": 1508151,
+    "unknown_categories_test": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 0,
+      "g1_dest": 0,
+      "g1_month": 547836,
+      "g1_origin": 0,
+      "g2_prior_origin": 0
+    }
+  }
+]
