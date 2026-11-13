@@ -3,10 +3,13 @@
 from pathlib import Path
 import argparse
 import gc
+import os
+import platform
 import time
 import joblib
 import numpy as np
 import polars as pl
+import psutil
 from scipy.sparse import csr_matrix
 from threadpoolctl import threadpool_limits
 
@@ -241,6 +244,26 @@ def verify(cfg):
     )
     write_json(store.root / "verification.json", result)
     write_json(cfg.path("reports_dir") / "result_verification.json", result)
+    runtime = dict(
+        run_id=store.run_id,
+        captured_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        python_version=platform.python_version(),
+        operating_system=platform.system(),
+        os_release=platform.release(),
+        architecture=platform.machine(),
+        node_physical_cpu_cores=psutil.cpu_count(logical=False),
+        node_logical_cpu_cores=psutil.cpu_count(),
+        allocated_cpu_affinity=len(psutil.Process().cpu_affinity()),
+        estimator_threads=cfg["threads"],
+        per_process_outer_parallelism=cfg["outer_parallelism"],
+        max_process_rss_gib=cfg["max_rss_gib"],
+        dependencies=store.context["versions"],
+        execution_backend="Slurm" if os.environ.get("SLURM_JOB_ID") else "local",
+        slurm_job_id=os.environ.get("SLURM_JOB_ID"),
+        hardware_scope="Verification job; batch_execution.json records global array resources",
+    )
+    write_json(store.root / "runtime_environment.json", runtime)
+    write_json(cfg.path("reports_dir") / "runtime_environment.json", runtime)
     print("Independent full-result verification passed", flush=True)
 
 

@@ -217,7 +217,11 @@ display(Markdown('**Input validation:** ' + json.dumps(manifest.get('upstream_va
 verification=load_json('result_verification.json',{})
 display(Markdown('**Independent saved-results verification:** ' + json.dumps({k:verification.get(k) for k in ['passed','models_verified','prediction_rows','checks']})))
 reproducibility=load_json('reproducibility_check.json',{})
-display(Markdown('**Repeated development predictions (verification only):** ' + json.dumps({k:reproducibility.get(k) for k in ['passed','complete','compared_fits','available_previous_fits','compared_prediction_rows','absolute_tolerance','scope']})))
+if reproducibility:
+    label='Current run' if reproducibility.get('corrected_run') == manifest.get('run_id') else 'Historical implementation check for '+str(reproducibility.get('corrected_run'))
+    display(Markdown('**Repeated development predictions (verification only; '+label+'):** ' + json.dumps({k:reproducibility.get(k) for k in ['passed','complete','compared_fits','available_previous_fits','compared_prediction_rows','absolute_tolerance','scope']})))
+else:
+    display(Markdown('Repeated full-population development predictions are unavailable for this run; seeded synthetic checks are recorded in the test evidence.'))
 """)
     notebook = dict(
         cells=cells,
