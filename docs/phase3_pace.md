@@ -31,6 +31,8 @@ Worker attempts have isolated result directories identified by Slurm job and res
 
 Private job scripts and job IDs are in `data/model_outputs/phase3_pace/slurm/workflow.json`. The launcher refuses to overwrite an existing workflow; inspect and recover recorded jobs instead of submitting duplicate chains. The public `batch_execution.json` contains aggregate scheduling/provenance information without the account name or private filesystem paths. `squeue` and `sacct` establish actual job state; an interrupted SSH observation does not imply a failed job.
 
+From the local workstation, `python scripts/check_phase3_pace.py --logs` reads the saved private connection metadata, checks Slurm state and completed checkpoint counts, and keeps the monitoring snapshot under ignored `data/`. It reuses the existing SSH identity and strict known-host verification; it does not submit or cancel jobs. Login load balancing can route separate observations to different login nodes, so the shared workflow/accounting records are the authoritative job evidence.
+
 The free `embers` queue is preemptible; the user authorized the paid `inferno` account for this run. Account policy is described by [PACE](https://pace.gatech.edu/compute-and-storage-accounts-phoenix/), and array dependency semantics by [Slurm](https://slurm.schedmd.com/job_array.html). Report observed queue/runtime and any retries. Local and cluster experiment contexts remain separate; only the chosen completed cluster run supplies official study performance.
 
 ## Validation
