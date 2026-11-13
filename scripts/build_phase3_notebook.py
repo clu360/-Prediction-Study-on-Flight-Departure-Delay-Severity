@@ -156,16 +156,19 @@ if final.height:
 display(pl.DataFrame(ablation)) if ablation else display(Markdown('Ablations unavailable.'))
 """)
     md(
-        "## Confusion matrices, calibration and probability distributions\nReliability bins are ten equal-width intervals with counts. Brier score is mean summed squared error over three classes. Mean soft probabilities differ from argmax class proportions."
+        "## Confusion matrices, calibration and probability distributions\nEach model/view has separate November, December and pooled panels. Reliability bins are ten equal-width intervals with counts. Brier score is mean summed squared error over three classes. Mean soft probabilities differ from argmax class proportions."
     )
     code("""holdout_details = [r for r in details if r['evaluation_stage']=='frozen_holdout']
 for r in holdout_details:
-    if r['scored_month'] != '2025-11_12_pooled':
-        continue
     m=r['metrics']
     fig, axes=plt.subplots(1,3,figsize=(14,3.5))
     axes[0].imshow(m['confusion_matrix'], cmap='Blues')
-    axes[0].set(xlabel='Predicted class [0,1,2]',ylabel='Observed class [0,1,2]',title='Confusion matrix')
+    axes[0].set(xlabel='Predicted class',ylabel='Observed class',title='Confusion matrix',xticks=range(3),yticks=range(3))
+    counts=np.asarray(m['confusion_matrix'])
+    for observed in range(3):
+        for predicted in range(3):
+            axes[0].text(predicted,observed,format(counts[observed,predicted],','),ha='center',va='center',
+                color='white' if counts[observed,predicted] > counts.max()/2 else 'black')
     for c in range(3):
         points=[b for b in m['calibration'] if b['class_id']==c and b['n']>0]
         axes[1].plot([b['mean_probability'] for b in points],[b['observed_rate'] for b in points],marker='o',label=str(c))
@@ -175,7 +178,7 @@ for r in holdout_details:
     for offset,key,label in [(-.25,'observed_proportions','Observed'),(0,'mean_probabilities','Mean probability'),(.25,'argmax_proportions','Argmax share')]:
         axes[2].bar(x+offset,m[key],width=.25,label=label)
     axes[2].set(xticks=x,title='Class distributions'); axes[2].legend(fontsize=8)
-    fig.suptitle(r['model']+'/'+r['feature_view']+' pooled frozen holdout'); plt.show()
+    fig.suptitle(r['model']+'/'+r['feature_view']+' '+r['scored_month']+' frozen holdout'); plt.show(); plt.close(fig)
 if not holdout_details:
     display(Markdown('Confusion/calibration/distribution panels unavailable.'))
 """)
@@ -188,7 +191,8 @@ for r in holdout_details:
         airport_rows.append(dict(model=r['model'],view=r['feature_view'],period=r['scored_month'],airport=airport,
             n=m['n'],macro_f1=m['macro_f1'],severe_recall=m['severe_recall'],log_loss=m['log_loss'],
             observed_minimal=m['observed_proportions'][0],observed_moderate=m['observed_proportions'][1],observed_severe=m['observed_proportions'][2],
-            mean_p_minimal=m['mean_probabilities'][0],mean_p_moderate=m['mean_probabilities'][1],mean_p_severe=m['mean_probabilities'][2]))
+            mean_p_minimal=m['mean_probabilities'][0],mean_p_moderate=m['mean_probabilities'][1],mean_p_severe=m['mean_probabilities'][2],
+            argmax_severe_share=m['argmax_proportions'][2]))
 display(pl.DataFrame(airport_rows)) if airport_rows else display(Markdown('Airport comparisons unavailable.'))
 """)
     md(
@@ -210,6 +214,10 @@ else:
 display(pl.DataFrame(compute,infer_schema_length=None)) if compute else display(Markdown('Experiment resource measurements unavailable.'))
 display(Markdown('**Incomplete items / limits:** ' + json.dumps(manifest.get('limits',[]))))
 display(Markdown('**Input validation:** ' + json.dumps(manifest.get('upstream_validation',{}))))
+verification=load_json('result_verification.json',{})
+display(Markdown('**Independent saved-results verification:** ' + json.dumps({k:verification.get(k) for k in ['passed','models_verified','prediction_rows','checks']})))
+reproducibility=load_json('reproducibility_check.json',{})
+display(Markdown('**Repeated development predictions (verification only):** ' + json.dumps({k:reproducibility.get(k) for k in ['passed','complete','compared_fits','available_previous_fits','compared_prediction_rows','absolute_tolerance','scope']})))
 """)
     notebook = dict(
         cells=cells,
@@ -231,7 +239,9 @@ display(Markdown('**Input validation:** ' + json.dumps(manifest.get('upstream_va
         / "notebooks/03_classical_models_analysis.ipynb"
     )
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(notebook, indent=1) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(notebook, indent=1, sort_keys=True) + "\n", encoding="utf-8"
+    )
 
 
 if __name__ == "__main__":

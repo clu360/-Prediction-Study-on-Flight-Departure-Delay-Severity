@@ -1,8 +1,10 @@
 """Execute the analysis notebook in a checkout containing aggregates only."""
 
 from pathlib import Path
+import argparse
 import os
 import asyncio
+import re
 import shutil
 import nbformat
 from nbclient import NotebookClient
@@ -10,13 +12,19 @@ from nbclient import NotebookClient
 
 def main():
     root = Path(__file__).resolve().parents[1]
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--reports-dir", type=Path, default=root / "reports/phase3")
+    parser.add_argument("--check-name", default="aggregate_only")
+    args = parser.parse_args()
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", args.check_name):
+        raise ValueError("Check name must be a simple directory-safe label")
     output = root / "data/model_outputs/phase3/notebook_checks"
-    checkout = output / "aggregate_only_checkout"
+    checkout = output / f"{args.check_name}_checkout"
     (checkout / "notebooks").mkdir(parents=True, exist_ok=True)
     shutil.copyfile(root / "pyproject.toml", checkout / "pyproject.toml")
-    if (root / "reports/phase3").exists():
+    if args.reports_dir.exists():
         shutil.copytree(
-            root / "reports/phase3", checkout / "reports/phase3", dirs_exist_ok=True
+            args.reports_dir, checkout / "reports/phase3", dirs_exist_ok=True
         )
     notebook = nbformat.read(
         root / "notebooks/03_classical_models_analysis.ipynb", as_version=4
@@ -39,7 +47,7 @@ def main():
         kernel_name="flight-delay-phase3",
         resources={"metadata": {"path": str(checkout / "notebooks")}},
     ).execute()
-    nbformat.write(notebook, output / "aggregate_only.executed.ipynb")
+    nbformat.write(notebook, output / f"{args.check_name}.executed.ipynb")
     assert all(
         not cell.get("outputs")
         or all(item.get("output_type") != "error" for item in cell["outputs"])
