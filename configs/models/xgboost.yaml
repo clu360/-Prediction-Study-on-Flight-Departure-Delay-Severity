@@ -1,0 +1,6 @@
+name: xgboost
+fixed: {subsample: 0.8, colsample_bytree: 0.8, tree_method: hist, objective: 'multi:softprob', num_class: 3, eval_metric: mlogloss}
+grid:
+  max_depth: [4, 6]
+  learning_rate: [0.05, 0.1]
+  n_estimators: [200, 400]

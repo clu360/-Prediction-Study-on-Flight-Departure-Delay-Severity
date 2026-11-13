@@ -1,0 +1,58 @@
+# Phase III methodology and execution
+
+The adopted [implementation plan](phase3_specification.md) authorizes classical models only. Phase I preprocessing and all Phase II feature modules remain unchanged. This phase adds experiments around the same source IDs, features and folds; it does not reconstruct aircraft links or histories.
+
+## Protocol
+
+Three distinct operations are recorded: within-window estimator fitting, across-window hyperparameter selection, and the final frozen forecast. The target retains signed departure-delay thresholds 15 and 60 minutes, with class order [0,1,2]. Exactly four source-column allowlists retain 9, 14, 15 and 20 predictors.
+
+Development fits on Jan–Mar→Apr through Jul–Sep→Oct. Every declared candidate is screened on April, July and October, on the complete eligible populations. At most two candidates per model/view advance to all seven development months. Screening scores are reused only through content-verified checkpoints. Rank by equal-month mean macro-F1; ties within 1e-6 use lower mean log loss, lower population standard deviation, lower median estimator fit time and lexical parameter JSON. Tolerance ties are anchored to the best value at each criterion to avoid nontransitive comparisons. There is one feature-independent prior baseline per fold.
+
+The final fit uses only training membership from the November manifest: August–October. The final loader fits one new FoldTransformer, then a new estimator. Both objects are serialized before scoring, and their checksums must remain identical for November and December. December uses only the December manifest's test IDs, never its September–November training rows. A run lock and a persistent primary-holdout lock prevent retuning after holdout access, including under a different run configuration. Resumption reloads the saved fitted state rather than refitting it. A new scientific experiment after examining these months requires a fresh held-out period.
+
+Observed earlier test-month outcomes may be present in the immutable causal G3 inputs. Those observations never update learned parameters, category vocabularies, imputation, scaling or calibration. No calibration, alternate month encoding, permutation selection or MLP is implemented. No scores from November or December determine any choice.
+
+## Data loading and transformations
+
+Existing `build_fold` scans its supplied feature roots. To use it unchanged without even opening holdout-only target partitions during development, the runner creates private, read-only-by-convention month-scoped hardlink facades. They contain only that fold's three training months and following validation month. Source bytes are never copied or rewritten; existing links are checked with filesystem identity before reuse. Source files and facade files are read only. Filesystems without hardlink support fail explicitly rather than silently using a broader scan.
+
+IDs and labels are joined one-to-one. Manifest IDs are checked against exact feature and label populations, including extra and duplicate rows. Matrices are CSR float32. Numerical imputation/scaling and categorical vocabularies use training rows only. Candidates within a fold/view reuse identical matrices and receive distinct copies of that fold's fitted transformer. Matrices and learned state never cross folds. The one-hot month block is necessarily unknown/all-zero in every following-month evaluation; unknown counts are logged, including for both final months.
+
+## Models and probability semantics
+
+- Baseline: unsmoothed training-class proportions, independent of predictors.
+- Logistic regression: sparse SAGA, L2; C and class weighting are explicit candidates. Convergence warnings are retained.
+- Random forest: bounded depth/leaves/tree counts, bootstrap and sqrt feature sampling, at most four threads.
+- XGBoost: pinned 3.1.2, CPU histogram, `multi:softprob`, three classes and multiclass log loss. No early stopping against a scored month.
+
+Factories reject unknown parameters and return unfitted estimators. Probability columns are explicitly mapped using classes_, never implicit numeric position. Missing-class baselines remain three-dimensional; logistic/forest probabilities for absent classes are zero. Learned fits with fewer than two classes and XGBoost fits without all three classes fail explicitly instead of fabricating observations. A real eligible training population is never supplemented or silently downsampled.
+
+Probabilities must be finite, in [0,1], shape N×3 and sum to one within 1e-6. Only after that check, tiny float32 summation error is normalized numerically; this is not fitted calibration. The predicted class is argmax over the ordered vector.
+
+## Selection artifacts, evaluation and interpretation
+
+Every candidate's metrics, parameters, ID digests, probability digest, convergence warnings and resources are checkpointed atomically. Candidate predictions are cached in private Parquet files so selected development outputs can reuse those exact probabilities without additional fitting. Selected copies must match both file and probability/ID hashes. Hardlinks avoid duplicating their bytes where supported. Baseline predictions are saved on its first and only development fit. All predictions/models remain private under `data/model_outputs`; a 15 GiB free-disk reserve is enforced.
+
+Monthly evaluation includes accuracy, macro/weighted F1, per-class precision/recall/F1, severe recall/precision, multiclass log loss, Brier score (mean summed three-component squared error), OVR AUC, confusion matrix, observed proportions, mean probabilities, argmax proportions and ten equal-width reliability bins with counts. Undefined class AUC is null; macro AUC is null if any component is undefined. Classification metrics use all three labels and zero_division=0. Pooled holdout metrics are recomputed from concatenated predictions and validated unique IDs.
+
+Airport analysis joins target-origin metadata by ID. It checks causal history cutoffs and reports ATL/DFW/DEN/ORD/LAX slices of models trained on the full eligible network. Feature interpretation maps encoded columns back to source predictors and G1/G2/G3. Summed absolute logistic coefficients and tree impurity/gain importance are associations, with known encoding/importance biases. Independently tuned ablations compare information plus selected hyperparameters, not isolated causal effects. Counts and correlation cautions are supplied; no IID confidence intervals or bootstrap claims are made.
+
+## Reproducibility and compute
+
+Run signatures include resolved configuration/grids, source/configuration hashes, input digest, class order, dependency versions and the history policy. Checkpoints include record and artifact hashes. Development resumption verifies only allowed-month partitions; it never opens November/December targets. Full input checks belong to the separate validation stage. Stored signatures, selected-configuration evidence and fitted-state checksums are rechecked before final scoring. Atomic replacement and a single-writer lock prevent duplicate or mixed writes; interrupted lock files require inspection of the recorded PID before removal.
+
+Outer parallelism is one, estimator/BLAS threads at most four, and only one fold/view's sparse matrices are held at a time. Each bundle is shared across all three learned model families and all requested candidates for that fold/view. Full screening needs 12 bundles rather than independently rebuilding them for each model; completing the remaining development months needs 16 more. Candidate prediction caching eliminates the former 84 selected-configuration replay fits. The configured wall-time and process-memory limits are cooperative checks between operations; native fit calls are not hard-preempted. RSS is sampled during measured operations. Full screening involves 264 learned-model fits plus seven baselines; two shortlisted candidates per model/view add 96 fits, and frozen final fitting adds 13. The official population and original candidate grids are never silently reduced. Synthetic smoke grids and row counts are deliberately small, explicitly marked as non-study output and kept outside public model scores.
+
+The validation gate requires complete local artifacts, fresh Phase I checks and all 19 Phase II acceptance checks, matching schemas/counts and byte checksums. Cloud placeholders and stalled audits fail or time out with an explicit incomplete status. Prior success markers alone do not open the training gate. Windows uses extended paths for private artifacts and a fresh bytecode-cache prefix to avoid stale OneDrive caches.
+
+### Recovery of unavailable storage
+
+OneDrive blocked some original storage fragments even though the complete CSV exports were readable. The working inputs therefore live under ignored `data/phase3_inputs`; original artifacts are untouched. Readable Phase I tables and audit provenance were copied byte-for-byte. The feature and target CSV values were converted back to their original dtypes and partition layout, and all 4,073 original logical hashes were required to match for each table.
+
+Unavailable master-event storage was recovered with the unchanged normalization routine from the original monthly CSVs; every raw source SHA-256 and every one of the 4,736 original master-file byte hashes had to match. Aircraft linkage, cohort membership and folds were not recomputed. Historical support/audit metadata was recovered with the unchanged Phase II history routine, accepted only when all 4,073 original metadata logical hashes matched. Predictor values remain the original checksum-verified CSV values. These are storage-equivalence checks, not revised feature definitions or a replacement cohort. The full independent Phase I/II audits still run on the working copies before training.
+
+`scripts/hydrate_raw_inputs.py` requests complete local bytes through the documented Windows cloud-file API and verifies original hashes. `scripts/restore_master_storage.py`, `restore_feature_csv.py` and `restore_phase3_metadata.py` fail on any disagreement with the original checksums; they never overwrite the original tables. Code fingerprints cover the model/data implementation and configurations. Executable notebook cells are separately fingerprinted and frozen when holdout evaluation starts; saved outputs or Markdown findings do not invalidate fitted model state.
+
+## Notebook
+
+`notebooks/03_classical_models_analysis.ipynb` reads aggregate CSV/JSON files only. It contains parameter-selection tables, development trends, frozen monthly/pooled comparisons, ablations, confusion/calibration/distribution panels, airport slices, source/group importances and compute/limitation summaries. Missing real results are marked unavailable. `scripts/execute_phase3_notebook.py` verifies execution in a minimal checkout containing only aggregate reports; executed outputs remain private. The committed notebook contains no saved outputs or estimator fitting.

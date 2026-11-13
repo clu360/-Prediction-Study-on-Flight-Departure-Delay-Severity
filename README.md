@@ -2,7 +2,7 @@
 
 Team: Caleb Lu, Ho Young Lee, Christopher Yi.
 
-Phase 1 implements deterministic preprocessing of the twelve 2025 **BTS Reporting Carrier** monthly exports. Phase II constructs three causal feature groups and fold-aware sparse numerical matrices on the unchanged cohort. No classifiers or MLP training are implemented.
+Phase 1 implements deterministic preprocessing of the twelve 2025 **BTS Reporting Carrier** monthly exports. Phase II constructs three causal feature groups and fold-aware sparse numerical matrices on the unchanged cohort. Phase III adds classical-model tuning and frozen holdout evaluation; actual run status is recorded in `reports/phase3/PHASE3_VALIDATION.md`. MLP training remains out of scope.
 
 ## Install and run
 
@@ -20,6 +20,29 @@ python -m flight_delay.cli audit --processed-dir data/processed
 ```
 
 Inputs can remain in their existing folder: nothing moves or modifies them. `data/raw` is an optional ignored destination. CSV filenames are not assumed. ZIP members are inspected individually. Every month must have exactly one authoritative source. The manifest records the actual filenames, hashes, headers, row counts, missing fields, duplicate counts and coverage; discovery stops on mismatches.
+
+### Existing Windows project workspace
+
+When VS Code opens the parent `Project` folder, select `flight-delay/.venv/Scripts/python.exe` as its interpreter. The active environment lives inside the repository; the older parent-level `.venv` is superseded. From the repository folder, use:
+
+```powershell
+& .\.venv\Scripts\Activate.ps1
+$env:PYTHONPYCACHEPREFIX = Join-Path $PWD '.venv/pycache'
+python -m pip check
+python -m pytest -q
+python -m flight_delay.cli --help
+```
+
+The cache prefix keeps bytecode in the new environment and avoids stalled reads of old OneDrive-backed `__pycache__` files. The parent workspace's local VS Code settings configure this for new terminals and the test runner. For a single command, `python -X pycache_prefix=.venv/pycache -m pytest -q` provides the same isolation.
+
+Select `.venv/Scripts/python.exe` when opening the repository itself. If activation is unavailable, invoke `.\.venv\Scripts\python.exe` directly. Moving a workspace between computers can leave an environment's base interpreter, editable installation and command launchers pointing to old locations. Create a fresh environment with an available Python 3.12 interpreter and install the pinned dependencies:
+
+```powershell
+python -m venv .venv
+& .\.venv\Scripts\python.exe -m pip install -e '.[dev]'
+```
+
+The base dependencies support preprocessing, feature engineering and scikit-learn models. Install the pinned Phase III XGBoost dependency with `python -m pip install -e '.[dev,modeling]'`. Neural-network frameworks remain a later-phase dependency. Installing modeling dependencies does not train models or change the research protocol.
 
 ## Outputs
 
@@ -95,5 +118,49 @@ python scripts/export_phase2_review.py --features-dir data/features
 Changed input/config/feature-code signatures require a fresh output directory; unknown existing output folders and corrupted/incomplete caches are never overwritten. Phase I intermediate master events must remain available. See [Phase II methodology](docs/phase2_methodology.md), [feature dictionary](docs/phase2_feature_dictionary.md), and [full-data validation](reports/PHASE2_VALIDATION.md). All flight-level features, numerical matrices and sample rows stay local; public evidence contains aggregates only.
 
 An existing completed source cache can be reused in a fresh output folder with `--reuse-cache path/to/prior/features/cache`; source fingerprints must match and every cache file hash is verified before use.
+
+## Phase III: classical models and strict frozen holdout
+
+From the repository, with the repaired environment active and `PYTHONPYCACHEPREFIX` set as above:
+
+```powershell
+python -m pip install -e '.[dev,modeling,notebook]'
+python -m pytest -q
+python -m flight_delay.cli phase3-smoke --config configs/phase3.yaml
+python -m flight_delay.cli phase3-validate --config configs/phase3.yaml
+```
+
+The smoke command uses private, deterministic synthetic fixtures and reduced smoke-only grids. Its scores are never study results.
+
+For a separate real-data CSV readiness check, run `python scripts/check_phase3_csv.py --rows-per-month 2000`. It verifies both complete exports and produces private prediction files from a fixed Jan–Mar/April subset. This diagnostic does not select official hyperparameters or replace the required upstream audit; see [CSV readiness](reports/phase3/CSV_READINESS.md).
+
+Run `python scripts/export_csv_readiness.py` to refresh its aggregate CSV/JSON reports and the notebook's separate readiness table/chart. This does not populate official study results.
+
+Once the real-data validation gate passes:
+
+```powershell
+python -m flight_delay.cli phase3-tune --config configs/phase3.yaml --resume
+python -m flight_delay.cli phase3-final --config configs/phase3.yaml --selected reports/phase3/selected_configs.json --resume
+python -m flight_delay.cli phase3-report --config configs/phase3.yaml
+```
+
+`python -u scripts/run_phase3_end_to_end.py --config configs/phase3.yaml` runs validation, resumable full development, frozen holdout scoring, independent result verification, reporting and aggregate-only notebook execution sequentially. It resumes the same checkpoints after a development command reaches its wall-time budget; other errors stop with an explicit private execution status.
+
+The current configuration reads hash-equivalent local working inputs under `data/phase3_inputs`. When recovering the existing OneDrive-backed project, the recovery helpers hydrate and hash-check the original monthly files, restore master storage with exact original byte checksums, restore feature/target storage from the validated exports, and require every original metadata logical hash to match. Original source records, linkages, features and folds remain untouched. See the storage-recovery section in [methodology](docs/phase3_methodology.md).
+
+The baseline fits once per development fold. Logistic regression, random forest and XGBoost use the four existing views. Official candidate grids are 6/8/8, screened on April/July/October; at most two finalists are evaluated on all seven April–October development folds. Selection uses equal-month macro-F1, with deterministic declared tie breakers. No official fitting population is downsampled.
+
+The final estimator and transformer fit once on August–October and remain unchanged for both November and December. **The primary December result does not use the December rolling training fold.** Once holdout scoring starts, persistent locks prevent retuning or changing the selected run. Resumption reloads the saved models. Inspect any interrupted `.writer.lock` PID before removing a stale lock; never delete the primary-holdout lock to retune against already examined months.
+
+All fitted artifacts, flight-level predictions, input facades and logs remain under ignored `data/model_outputs/phase3/`. Public `reports/phase3/` contains only aggregate metrics, candidate/selection evidence, provenance and validation status. Missing real results leave a header-only metric CSV and an explicitly incomplete selection file. OneDrive data and metadata must be readable locally; stale source caches, failed audits, signature mismatches and unsupported hardlinks fail explicitly. Windows long paths are supported for private artifacts.
+
+To execute the analysis notebook without private inputs:
+
+```powershell
+python -m ipykernel install --prefix .venv --name flight-delay-phase3 --display-name 'Flight Delay (Phase III)'
+python scripts/execute_phase3_notebook.py
+```
+
+The source notebook is `notebooks/03_classical_models_analysis.ipynb`. It reads persisted aggregates, fits nothing, and marks unavailable analyses clearly. Executed notebook copies remain private. Rebuild its source with `python scripts/build_phase3_notebook.py`. See [Phase III methodology](docs/phase3_methodology.md) for selection, causal input policy, numerical probability normalization, uncertainty and resource limitations, and [validation](reports/phase3/PHASE3_VALIDATION.md) for completed and incomplete runs.
 
 The complete single-file exports requested for handoff are `data/features/exports/full_features.csv` and `full_features.parquet`: all samples, one ID column and exactly twenty feature columns. Labels and metadata remain separate. Export verification checks every column against the validated partitioned table, preserves Parquet dtypes, independently reads every Parquet batch with Arrow, and writes SHA-256 checksums.

@@ -1,12 +1,18 @@
-name: Phase 1 tests
+name: Flight delay validation
 on: [push, pull_request]
 jobs:
   synthetic-tests:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - run: python -m pip install -e '.[dev]'
-      - run: pytest -q
+          python-version: ${{ matrix.python-version }}
+      - run: python -m pip install -e '.[dev,modeling,notebook]'
+      - run: python -m pytest -q
+      - run: python -m ruff check src/flight_delay/models src/flight_delay/experiments src/flight_delay/cli.py tests/test_phase3*.py tests/conftest.py
+      - run: python -m ipykernel install --prefix .venv --name flight-delay-phase3 --display-name 'Flight Delay (Phase III)'
+      - run: python scripts/execute_phase3_notebook.py
