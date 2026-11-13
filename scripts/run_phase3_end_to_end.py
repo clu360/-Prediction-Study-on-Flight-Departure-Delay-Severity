@@ -15,6 +15,11 @@ from flight_delay.experiments.results import write_json
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=Path("configs/phase3.yaml"))
+    parser.add_argument(
+        "--resume-validated",
+        action="store_true",
+        help="Reuse a passed full audit only after rechecking its source and input fingerprints",
+    )
     args = parser.parse_args()
     cfg = Phase3Config.load(args.config)
     frozen_source = code_fingerprints(cfg.root)
@@ -66,6 +71,22 @@ def main():
         ("notebook", ["scripts/execute_phase3_notebook.py"]),
     ]
     completed = []
+    if args.resume_validated:
+        from flight_delay.experiments.inputs import verified_gate
+
+        gate = verified_gate(cfg, "development")
+        steps = steps[1:]
+        completed.append(
+            dict(
+                stage="validate",
+                reused_verified_gate=True,
+                input_digest=gate["input_digest"],
+            )
+        )
+        print(
+            "Reusing passed full audit after source/input fingerprint checks",
+            flush=True,
+        )
     for stage, arguments in steps:
         attempts = 0
         while True:
