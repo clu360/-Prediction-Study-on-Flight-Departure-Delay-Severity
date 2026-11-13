@@ -1,0 +1,78 @@
+# PACE batch execution; scientific grids and all training/holdout rules are unchanged.
+version: phase3-frozen-v1-pace-e071fbfc0cbb
+year: 2025
+processed_dir: data/phase3_inputs/processed
+features_dir: data/phase3_inputs/features
+output_dir: data/model_outputs/phase3_pace
+reports_dir: reports/phase3
+development_folds:
+- 2025-04
+- 2025-05
+- 2025-06
+- 2025-07
+- 2025-08
+- 2025-09
+- 2025-10
+screening_folds:
+- 2025-04
+- 2025-07
+- 2025-10
+final_train_months:
+- 8
+- 9
+- 10
+final_eval_months:
+- 11
+- 12
+views:
+- G1
+- G1_G2
+- G1_G3
+- G1_G2_G3
+class_order:
+- 0
+- 1
+- 2
+models:
+- baseline
+- logistic
+- random_forest
+- xgboost
+model_configs:
+  baseline: configs/models/baseline.yaml
+  logistic: configs/models/logistic.yaml
+  random_forest: configs/models/random_forest.yaml
+  xgboost: configs/models/xgboost.yaml
+primary_metric: macro_f1
+tie_breakers:
+- log_loss
+- macro_f1_std
+- median_runtime
+- lexical_key
+tie_tolerance: 1.0e-06
+shortlist_size: 2
+seed: 6740
+encoding: onehot
+scale: true
+matrix_batch_rows: 50000
+calibration: none
+calibration_bins: 10
+evaluation_airports:
+- ATL
+- DFW
+- DEN
+- ORD
+- LAX
+outer_parallelism: 1
+threads: 4
+max_wall_seconds: 14400
+max_rss_gib: 8
+input_read_timeout_seconds: 900
+metadata_read_timeout_seconds: 15
+candidate_budget_reason: null
+smoke_rows_per_month: 90
+history_policy: causal_online_inputs_only_frozen_learned_state
+permutation_importance: false
+bootstrap_repetitions: 0
+candidate_prediction_policy: persist_all_private
+min_free_disk_gib: 15
