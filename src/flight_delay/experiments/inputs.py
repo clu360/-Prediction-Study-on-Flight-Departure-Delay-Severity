@@ -7,7 +7,7 @@ import subprocess
 import sys
 import numpy as np
 import polars as pl
-import joblib
+from ..models.state import state_hash
 import psutil
 from ..features.transforms import FoldTransformer, build_fold
 from ..features.views import VIEWS
@@ -410,12 +410,12 @@ def final_holdout_loader(cfg, view):
 def holdout_month(cfg, month, view, transformer):
     if month not in [11, 12] or transformer.columns != VIEWS[view]:
         raise ValueError("Only the two frozen holdout months are permitted")
-    before = joblib.hash(transformer)
+    before = state_hash(transformer)
     ids = memberships(cfg.path("processed_dir"), f"2025-{month:02}", "test")
     frame = checked_rows(cfg, ids, [month], view)
     X = transformer.transform(frame)
     unknown = transformer.unknown_counts(frame)
-    if joblib.hash(transformer) != before:
+    if state_hash(transformer) != before:
         raise ValueError("Holdout transform mutated learned state")
     return X, frame["target_class"].to_numpy(), frame[ID].to_numpy(), unknown
 

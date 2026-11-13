@@ -118,6 +118,23 @@ def test_end_to_end_development_sentinels_frozen_final_resume_pooling_and_redact
     )
     assert len(fits) == 13, "Resume refit a frozen model"
     assert runner.report(cfg, store)["completion_status"] == "complete"
+    # Exercise the actual independent verifier on all 13 serialized model/view fits.
+    import importlib.util
+    from pathlib import Path
+
+    spec = importlib.util.spec_from_file_location(
+        "verify_phase3_results",
+        Path(__file__).resolve().parents[1] / "scripts/verify_phase3_results.py",
+    )
+    verifier = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(verifier)
+    monkeypatch.setattr(verifier, "verified_gate", lambda *_: gate)
+    verifier.verify(cfg)
+    evidence = read_json(cfg.path("reports_dir") / "result_verification.json")
+    assert evidence["passed"] and evidence["models_verified"] == 13
+    assert evidence["prediction_rows"] == 13 * 24
+    assert all(r["reloaded_prediction_rows"] == 24 for r in evidence["models"])
+    assert len(fits) == 13, "Verification fitted another estimator"
     with pytest.raises(ValueError, match="locked"):
         runner.tune(cfg, True, gate=gate)
     public = "".join(

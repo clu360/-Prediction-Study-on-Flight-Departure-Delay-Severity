@@ -7,7 +7,12 @@ import time
 import joblib
 import numpy as np
 import polars as pl
+from scipy.sparse import csr_matrix
+from threadpoolctl import threadpool_limits
 
+from flight_delay.features.views import ALL
+from flight_delay.models.registry import ordered_probabilities
+from flight_delay.models.state import state_hash
 from flight_delay.experiments.config import Phase3Config
 from flight_delay.experiments.evaluation import evaluate, airport_metrics
 from flight_delay.experiments.inputs import (
@@ -39,6 +44,44 @@ def equivalent(expected, actual):
     return expected == actual
 
 
+def check_reloaded_predictions(cfg, state, frame, month, sample_cache):
+    """Replay a deterministic bounded sample without fitting or changing state."""
+    sample = frame.head(1024)
+    estimator, transformer = state["estimator"], state["transformer"]
+    before = (state_hash(estimator), state_hash(transformer))
+    if transformer is None:
+        matrix = csr_matrix((sample.height, 0), dtype=np.float32)
+    else:
+        if month not in sample_cache:
+            sample_cache[month] = (
+                table_scan(cfg.path("features_dir"), "full_features", [month])
+                .filter(
+                    pl.col("target_record_id").is_in(
+                        sample["target_record_id"].to_list()
+                    )
+                )
+                .select("target_record_id", *ALL)
+                .collect(engine="streaming")
+                .sort("target_record_id")
+            )
+        features = sample_cache[month]
+        if (
+            features["target_record_id"].to_list()
+            != sample["target_record_id"].to_list()
+        ):
+            raise ValueError("Reload verification sample is missing or misaligned")
+        matrix = transformer.transform(features)
+    with threadpool_limits(limits=cfg["threads"]):
+        actual = ordered_probabilities(estimator, matrix)
+    if (state_hash(estimator), state_hash(transformer)) != before:
+        raise ValueError("Reloaded inference changed frozen fitted state")
+    if not np.allclose(
+        actual, sample.select(PROB_COLUMNS).to_numpy(), atol=1e-8, rtol=1e-7
+    ):
+        raise ValueError("Reloaded model predictions differ from saved predictions")
+    return sample.height
+
+
 def verify(cfg):
     started = time.monotonic()
     gate = verified_gate(cfg, "frozen_holdout")
@@ -52,6 +95,7 @@ def verify(cfg):
     reference = {}
     total_rows = 0
     verified = []
+    sample_cache = {}
     for item in selection["selected"].values():
         name, view = item["model"], item["feature_view"]
         fit = store.load(f"final/fits/{name}_{view}")
@@ -65,14 +109,13 @@ def verify(cfg):
             )
         state = joblib.load(store.root / f"final/frozen_model_{name}_{view}.joblib")
         if (
-            joblib.hash(state["estimator"]) != fit["model_hash"]
-            or joblib.hash(state["transformer"]) != fit["transformer_hash"]
+            state_hash(state["estimator"]) != fit["model_hash"]
+            or state_hash(state["transformer"]) != fit["transformer_hash"]
         ):
             raise ValueError("Serialized frozen state differs from its fit checksum")
-        del state
-        gc.collect()
         frames = []
         origins = []
+        replayed = 0
         for month in [11, 12]:
             period = f"2025-{month:02}"
             record = store.load(f"final/months/{name}_{view}_{period}")
@@ -104,6 +147,9 @@ def verify(cfg):
                 probabilities.argmax(axis=1), frame["y_pred"].to_numpy()
             ):
                 raise ValueError("Saved argmax classes are wrong")
+            replayed += check_reloaded_predictions(
+                cfg, state, frame, month, sample_cache
+            )
             values = origins_for(cfg, frame["target_record_id"].to_numpy(), month)
             metrics = evaluate(frame["y_true"].to_numpy(), probabilities)
             airports = airport_metrics(
@@ -159,13 +205,14 @@ def verify(cfg):
                 feature_view=view,
                 pooled_rows=pooled.height,
                 model_fit_id=fit["model_fit_id"],
+                reloaded_prediction_rows=replayed,
             )
         )
         print(
             f"Independently verified {name}/{view}: {pooled.height:,} frozen-holdout rows",
             flush=True,
         )
-        del frames, origins, pooled, probabilities
+        del frames, origins, pooled, probabilities, state
         gc.collect()
     result = dict(
         passed=True,
@@ -181,12 +228,15 @@ def verify(cfg):
             "class_order_and_simplex",
             "saved_argmax",
             "frozen_fit_checksums",
+            "reloaded_frozen_prediction_replay",
             "monthly_metrics",
             "pooled_metrics",
             "origin_airport_metrics",
             "causal_history_cutoffs",
         ],
         models=verified,
+        reloaded_prediction_tolerance=dict(atol=1e-8, rtol=1e-7),
+        reloaded_prediction_sampling="first 1024 sorted manifest IDs per holdout month",
         verification_seconds=time.monotonic() - started,
     )
     write_json(store.root / "verification.json", result)

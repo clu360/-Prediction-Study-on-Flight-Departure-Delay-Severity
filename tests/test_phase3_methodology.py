@@ -174,3 +174,115 @@ def test_fresh_seeded_classifiers_reproduce_probabilities():
             atol=1e-7,
             rtol=0,
         )
+
+
+@pytest.mark.parametrize("name", ["baseline", "logistic"])
+def test_reloaded_prediction_verifier_rejects_mismatched_outputs(phase3_fixture, name):
+    import importlib.util
+    import joblib
+    import polars as pl
+    from flight_delay.experiments.inputs import final_holdout_loader, holdout_month
+    from flight_delay.experiments.results import prediction_frame
+    from flight_delay.models.registry import create, ordered_probabilities
+
+    spec = importlib.util.spec_from_file_location(
+        "verify_phase3_results",
+        Path(__file__).resolve().parents[1] / "scripts/verify_phase3_results.py",
+    )
+    verifier = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(verifier)
+    cfg, _ = phase3_fixture
+    transformer, train, y, _ = final_holdout_loader(cfg, "G1")
+    test, truth, ids, _ = holdout_month(cfg, 11, "G1", transformer)
+    if name == "baseline":
+        train = csr_matrix((len(y), 0), dtype=np.float32)
+        test = csr_matrix((len(truth), 0), dtype=np.float32)
+        transformer = None
+    estimator = create(name, cfg.grids[name][0]).fit(train, y)
+    state_path = cfg.root / "reloaded.joblib"
+    joblib.dump(dict(estimator=estimator, transformer=transformer), state_path)
+    state = joblib.load(state_path)
+    frame = prediction_frame(
+        "test",
+        name,
+        "G1",
+        "frozen_holdout",
+        "2025-11",
+        ids,
+        truth,
+        ordered_probabilities(estimator, test),
+        "fit",
+    )
+    cache = {}
+    assert verifier.check_reloaded_predictions(cfg, state, frame, 11, cache) == len(
+        truth
+    )
+    wrong = frame.with_columns(
+        (pl.col("p_minimal") * 0.99).alias("p_minimal"),
+        (pl.col("p_severe") + pl.col("p_minimal") * 0.01).alias("p_severe"),
+    )
+    with pytest.raises(ValueError, match="differ from saved"):
+        verifier.check_reloaded_predictions(cfg, state, wrong, 11, cache)
+
+
+@pytest.mark.parametrize("name", ["baseline", "logistic", "random_forest", "xgboost"])
+def test_logical_model_hash_survives_serialization_and_prediction(name):
+    import io
+    import joblib
+    from flight_delay.models.registry import create, ordered_probabilities
+    from flight_delay.models.state import state_hash
+
+    cfg = Phase3Config.load()
+    params = dict(cfg.grids[name][0])
+    if name in ["random_forest", "xgboost"]:
+        params.update(n_estimators=3, max_depth=2)
+    matrix = csr_matrix(
+        np.random.default_rng(6740).normal(size=(60, 6)).astype(np.float32)
+    )
+    model = create(name, params).fit(matrix, np.arange(60) % 3)
+    expected = ordered_probabilities(model, matrix)
+    original = state_hash(model)
+    for _ in range(3):
+        buffer = io.BytesIO()
+        joblib.dump(model, buffer, compress=3)
+        buffer.seek(0)
+        model = joblib.load(buffer)
+        assert state_hash(model) == original
+        assert np.allclose(
+            ordered_probabilities(model, matrix), expected, atol=1e-8, rtol=1e-7
+        )
+        assert state_hash(model) == original
+    # Changing a parameter or fitted numerical value must change the fingerprint.
+    if name == "baseline":
+        model.priors_[0] += 0.01
+    elif name == "logistic":
+        model.coef_[0, 0] += 0.01
+    elif name == "random_forest":
+        model.estimators_[0].tree_.threshold[0] += 0.01
+    elif name == "xgboost":
+        model.set_params(max_depth=params["max_depth"] + 1)
+    assert state_hash(model) != original
+
+
+def test_logical_array_hash_ignores_strides_and_tree_padding_but_checks_values():
+    from flight_delay.models.state import state_hash
+
+    view = np.arange(12, dtype=np.float32).reshape(3, 4)[:, 1:]
+    assert state_hash(view) == state_hash(np.ascontiguousarray(view))
+    dtype = np.dtype(
+        {
+            "names": ["flag", "weight"],
+            "formats": ["u1", "f8"],
+            "offsets": [0, 8],
+            "itemsize": 24,
+        }
+    )
+    first, second = np.zeros(3, dtype=dtype), np.ones(3, dtype=dtype)
+    first.view(np.uint8)[:] = 0x55
+    second.view(np.uint8)[:] = 0xAA
+    for array in (first, second):
+        array["flag"] = 1
+        array["weight"] = [0.2, 0.3, 0.5]
+    assert state_hash(first) == state_hash(second)
+    second["weight"][0] += 0.01
+    assert state_hash(first) != state_hash(second)

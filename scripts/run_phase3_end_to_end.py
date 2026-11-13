@@ -109,7 +109,7 @@ def main():
                 )
                 break
             if (
-                stage == "development"
+                stage in {"development", "frozen_holdout"}
                 and attempts < 8
                 and any("Wall-time budget exhausted" in line for line in lines)
             ):

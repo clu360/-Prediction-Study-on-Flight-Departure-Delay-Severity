@@ -11,6 +11,7 @@ import threading
 import time
 import warnings
 import joblib
+from ..models.state import state_hash
 import numpy as np
 import polars as pl
 import psutil
@@ -176,10 +177,10 @@ def fit_estimator(cfg, name, params, X, y, budget):
 
 
 def predict_frozen(model, transformer, X):
-    before = (joblib.hash(model), joblib.hash(transformer))
+    before = (state_hash(model), state_hash(transformer))
     start = time.monotonic()
     p = ordered_probabilities(model, X)
-    if before != (joblib.hash(model), joblib.hash(transformer)):
+    if before != (state_hash(model), state_hash(transformer)):
         raise ValueError("Inference mutated the frozen estimator or transformer")
     return p, time.monotonic() - start
 
@@ -210,8 +211,8 @@ def evaluate_development(
             view=view,
             params=params,
             train_ids=ids_hash(bundle.train_ids),
-            model_hash=joblib.hash(estimator),
-            transformer_hash=joblib.hash(transformer),
+            model_hash=state_hash(estimator),
+            transformer_hash=state_hash(transformer),
         )
     )
     p, inference = predict_frozen(estimator, transformer, bundle.X_test)
@@ -228,8 +229,8 @@ def evaluate_development(
         train_ids_hash=ids_hash(bundle.train_ids),
         test_ids_hash=ids_hash(bundle.test_ids),
         probability_hash=probabilities_hash(p),
-        transformer_hash=joblib.hash(transformer),
-        model_hash=joblib.hash(estimator),
+        transformer_hash=state_hash(transformer),
+        model_hash=state_hash(estimator),
         metrics=evaluate(bundle.y_test, p),
         airport_metrics=airport_metrics(
             bundle.y_test, p, origins, cfg["evaluation_airports"]
@@ -759,8 +760,8 @@ def frozen_final(cfg, selected_path, resume=False, *, gate=None):
                     train_ids_hash=train_digest,
                     train_months=[8, 9, 10],
                     training_cutoff="2025-10-31 target-local date",
-                    model_hash=joblib.hash(estimator),
-                    transformer_hash=joblib.hash(transformer),
+                    model_hash=state_hash(estimator),
+                    transformer_hash=state_hash(transformer),
                     warnings=messages,
                     resources=dict(
                         preprocessing_seconds=preprocessing,
@@ -777,9 +778,9 @@ def frozen_final(cfg, selected_path, resume=False, *, gate=None):
                 write_model(
                     model_path, dict(estimator=estimator, transformer=transformer)
                 )
-                if transformer_path.exists() and joblib.hash(
+                if transformer_path.exists() and state_hash(
                     joblib.load(transformer_path)
-                ) != joblib.hash(transformer):
+                ) != state_hash(transformer):
                     raise ValueError(
                         "Final transformer disagrees across models on the same view"
                     )
@@ -831,8 +832,8 @@ def frozen_final(cfg, selected_path, resume=False, *, gate=None):
                     with budget.measure():
                         p, inference = predict_frozen(estimator, transformer, X)
                     if (
-                        joblib.hash(estimator) != fitted["model_hash"]
-                        or joblib.hash(transformer) != fitted["transformer_hash"]
+                        state_hash(estimator) != fitted["model_hash"]
+                        or state_hash(transformer) != fitted["transformer_hash"]
                     ):
                         raise ValueError("Final fit checksum changed between months")
                     record = dict(
@@ -846,8 +847,8 @@ def frozen_final(cfg, selected_path, resume=False, *, gate=None):
                         provenance_hash=store.signature,
                         train_ids_hash=fitted["train_ids_hash"],
                         test_ids_hash=ids_hash(ids),
-                        model_hash=joblib.hash(estimator),
-                        transformer_hash=joblib.hash(transformer),
+                        model_hash=state_hash(estimator),
+                        transformer_hash=state_hash(transformer),
                         metrics=evaluate(y, p),
                         airport_metrics=airport_metrics(
                             y,

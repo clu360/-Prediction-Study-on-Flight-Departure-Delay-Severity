@@ -144,7 +144,7 @@ python -m flight_delay.cli phase3-final --config configs/phase3.yaml --selected 
 python -m flight_delay.cli phase3-report --config configs/phase3.yaml
 ```
 
-`python -u scripts/run_phase3_end_to_end.py --config configs/phase3.yaml` runs validation, resumable full development, frozen holdout scoring, independent result verification, reporting and aggregate-only notebook execution sequentially. It resumes the same checkpoints after a development command reaches its wall-time budget; other errors stop with an explicit private execution status.
+`python -u scripts/run_phase3_end_to_end.py --config configs/phase3.yaml` runs validation, resumable full development, frozen holdout scoring, independent result verification, reporting and aggregate-only notebook execution sequentially. It resumes the same checkpoints after a development or frozen-holdout command reaches its wall-time budget; other errors stop with an explicit private execution status. Holdout resumption reloads completed frozen fits and never retunes them.
 
 The current configuration reads hash-equivalent local working inputs under `data/phase3_inputs`. When recovering the existing OneDrive-backed project, the recovery helpers hydrate and hash-check the original monthly files, restore master storage with exact original byte checksums, restore feature/target storage from the validated exports, and require every original metadata logical hash to match. Original source records, linkages, features and folds remain untouched. See the storage-recovery section in [methodology](docs/phase3_methodology.md).
 
