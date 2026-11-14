@@ -141,7 +141,9 @@ Once the real-data validation gate passes:
 ```powershell
 python -m flight_delay.cli phase3-tune --config configs/phase3.yaml --resume
 python -m flight_delay.cli phase3-final --config configs/phase3.yaml --selected reports/phase3/selected_configs.json --resume
+python scripts/verify_phase3_results.py --config configs/phase3.yaml
 python -m flight_delay.cli phase3-report --config configs/phase3.yaml
+python scripts/summarize_phase3_execution.py --config configs/phase3.yaml
 ```
 
 `python -u scripts/run_phase3_end_to_end.py --config configs/phase3.yaml` runs validation, resumable full development, frozen holdout scoring, independent result verification, reporting and aggregate-only notebook execution sequentially. It resumes the same checkpoints after a development or frozen-holdout command reaches its wall-time budget; other errors stop with an explicit private execution status. Holdout resumption reloads completed frozen fits and never retunes them.

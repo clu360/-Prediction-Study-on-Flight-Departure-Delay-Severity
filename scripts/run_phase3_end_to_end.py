@@ -68,6 +68,10 @@ def main():
             "report",
             ["-m", "flight_delay.cli", "phase3-report", "--config", str(args.config)],
         ),
+        (
+            "execution_summary",
+            ["scripts/summarize_phase3_execution.py", "--config", str(args.config)],
+        ),
         ("notebook", ["scripts/execute_phase3_notebook.py"]),
     ]
     completed = []

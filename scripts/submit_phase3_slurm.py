@@ -110,6 +110,7 @@ def submit(root, config, account, partition, qos, concurrency, dry_run=False):
             + f"{cli} phase3-final --config {config_arg} --selected reports/phase3/selected_configs.json --resume\n"
             f"{python} scripts/verify_phase3_results.py --config {config_arg}\n"
             f"{cli} phase3-report --config {config_arg}\n"
+            f"{python} scripts/summarize_phase3_execution.py --config {config_arg}\n"
             f"{python} scripts/execute_phase3_notebook.py\n",
         ),
     ]

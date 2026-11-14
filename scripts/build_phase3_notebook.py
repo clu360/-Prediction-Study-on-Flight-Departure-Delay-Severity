@@ -212,6 +212,15 @@ else:
     )
     code("""compute=[dict(model=r['model'],view=r['feature_view'],period=r['scored_month'],**r.get('resources',{})) for r in details]
 display(pl.DataFrame(compute,infer_schema_length=None)) if compute else display(Markdown('Experiment resource measurements unavailable.'))
+execution=load_json('execution_summary.json',{})
+if execution:
+    display(Markdown('**Unique fitted units:** ' + json.dumps(execution.get('fit_counts',{}))))
+    display(pl.DataFrame(execution.get('compute',[]),infer_schema_length=None))
+    display(Markdown(execution.get('resource_interpretation','')))
+    display(Markdown('**Warnings across all candidate and final fits:** ' + json.dumps(execution.get('warning_counts',{}))))
+    if execution.get('fit_warnings'): display(pl.DataFrame(execution['fit_warnings'],infer_schema_length=None))
+else:
+    display(Markdown('The complete unique-fit compute/warnings summary is not yet available.'))
 display(Markdown('**Incomplete items / limits:** ' + json.dumps(manifest.get('limits',[]))))
 display(Markdown('**Input validation:** ' + json.dumps(manifest.get('upstream_validation',{}))))
 verification=load_json('result_verification.json',{})
