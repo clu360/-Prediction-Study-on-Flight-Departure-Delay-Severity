@@ -234,6 +234,10 @@ if reproducibility:
     display(Markdown('**Repeated development predictions (verification only; '+label+'):** ' + json.dumps({k:reproducibility.get(k) for k in ['passed','complete','compared_fits','available_previous_fits','compared_prediction_rows','absolute_tolerance','scope']})))
 else:
     display(Markdown('Repeated full-population development predictions are unavailable for this run; seeded synthetic checks are recorded in the test evidence.'))
+cross_platform=load_json('cross_platform_reproducibility.json',{})
+if cross_platform and cross_platform.get('corrected_run') == manifest.get('run_id'):
+    display(Markdown('**Cross-platform diagnostic:** ' + json.dumps({k:cross_platform.get(k) for k in ['passed','complete','compared_fits','fits_exceeding_tolerance','absolute_tolerance','scope']})))
+    display(pl.DataFrame(cross_platform.get('comparisons',[]),infer_schema_length=None))
 """)
     notebook = dict(
         cells=cells,

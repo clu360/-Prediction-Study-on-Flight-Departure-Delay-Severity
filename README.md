@@ -140,6 +140,7 @@ Once the real-data validation gate passes:
 
 ```powershell
 python -m flight_delay.cli phase3-tune --config configs/phase3.yaml --resume
+python scripts/repeat_phase3_seeded.py --config configs/phase3.yaml
 python -m flight_delay.cli phase3-final --config configs/phase3.yaml --selected reports/phase3/selected_configs.json --resume
 python scripts/verify_phase3_results.py --config configs/phase3.yaml
 python -m flight_delay.cli phase3-report --config configs/phase3.yaml

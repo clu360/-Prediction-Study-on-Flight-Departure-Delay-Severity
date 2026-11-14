@@ -16,7 +16,7 @@ from flight_delay.experiments.results import (
 )
 
 
-def compare(cfg, previous_run, current_run):
+def compare(cfg, previous_run, current_run, *, strict=True):
     base = cfg.path("output_dir")
     stores = []
     for name in [previous_run, current_run]:
@@ -67,18 +67,25 @@ def compare(cfg, previous_run, current_run):
             or previous["evaluation_stage"] != "development"
         ):
             raise ValueError("Only development predictions may enter this comparison")
-        arrays = []
+        arrays, frames = [], []
         for store, record in [(old, previous), (new, current)]:
             name = next(x for x in record["artifacts"] if x.endswith(".parquet"))
-            arrays.append(
-                pl.read_parquet(store.root / name, columns=PROB_COLUMNS).to_numpy()
+            frame = pl.read_parquet(
+                store.root / name, columns=["target_record_id", "y_true", *PROB_COLUMNS]
             )
+            frames.append(frame)
+            arrays.append(frame.select(PROB_COLUMNS).to_numpy())
+        if not frames[0]["target_record_id"].equals(
+            frames[1]["target_record_id"]
+        ) or not frames[0]["y_true"].equals(frames[1]["y_true"]):
+            raise ValueError("Paired prediction rows have different IDs or labels")
         before, after = arrays
         check_probabilities(before, len(before))
         check_probabilities(after, len(after))
-        if before.shape != after.shape or not np.allclose(
-            before, after, atol=1e-7, rtol=0
-        ):
+        if before.shape != after.shape:
+            raise ValueError("Paired prediction arrays have different shapes")
+        within = bool(np.allclose(before, after, atol=1e-7, rtol=0))
+        if strict and not within:
             raise ValueError(
                 "Repeated seeded development predictions differ beyond tolerance"
             )
@@ -90,6 +97,9 @@ def compare(cfg, previous_run, current_run):
                 candidate_id=current["selected_config_id"],
                 prediction_rows=len(after),
                 max_absolute_difference=float(np.abs(before - after).max()),
+                mean_absolute_difference=float(np.abs(before - after).mean()),
+                argmax_changed_rows=int((before.argmax(1) != after.argmax(1)).sum()),
+                within_declared_tolerance=within,
                 ordered_probability_digest_matches=previous["probability_hash"]
                 == current["probability_hash"],
             )
@@ -97,7 +107,7 @@ def compare(cfg, previous_run, current_run):
     if not records:
         raise ValueError("No completed paired development predictions found")
     result = dict(
-        passed=True,
+        passed=all(row["within_declared_tolerance"] for row in records),
         complete=len(records) == len(previous_paths),
         verification_only=True,
         used_for_selection=False,
@@ -113,10 +123,23 @@ def compare(cfg, previous_run, current_run):
         available_previous_fits=len(previous_paths),
         compared_prediction_rows=sum(x["prediction_rows"] for x in records),
         comparisons=records,
+        strict_assertion=strict,
+        fits_exceeding_tolerance=sum(
+            not row["within_declared_tolerance"] for row in records
+        ),
         scope="Complete-population development reproducibility only; interrupted fits never enter current selection or performance tables",
     )
-    write_json(new.root / "reproducibility_check.json", result)
-    write_json(cfg.path("reports_dir") / "reproducibility_check.json", result)
+    name = (
+        "reproducibility_check.json"
+        if strict
+        else "cross_platform_reproducibility.json"
+    )
+    if not strict:
+        result["scope"] = (
+            "Cross-platform development diagnostic; numeric differences are reported as failures at the unchanged tolerance, not treated as a passing seeded-repeat gate. Metadata, IDs and labels must still match."
+        )
+    write_json(new.root / name, result)
+    write_json(cfg.path("reports_dir") / name, result)
     return result
 
 
@@ -125,9 +148,17 @@ if __name__ == "__main__":
     parser.add_argument("--config", type=Path, default=Path("configs/phase3.yaml"))
     parser.add_argument("--previous-run", required=True)
     parser.add_argument("--current-run", required=True)
+    parser.add_argument(
+        "--diagnose-differences",
+        action="store_true",
+        help="Record all numeric differences without asserting a pass; structural mismatches still fail",
+    )
     args = parser.parse_args()
     result = compare(
-        Phase3Config.load(args.config), args.previous_run, args.current_run
+        Phase3Config.load(args.config),
+        args.previous_run,
+        args.current_run,
+        strict=not args.diagnose_differences,
     )
     print(
         json.dumps(

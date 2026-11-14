@@ -48,6 +48,10 @@ def main():
             ],
         ),
         (
+            "seeded_repeat",
+            ["scripts/repeat_phase3_seeded.py", "--config", str(args.config)],
+        ),
+        (
             "frozen_holdout",
             [
                 "-m",

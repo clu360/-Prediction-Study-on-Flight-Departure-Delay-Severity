@@ -85,9 +85,18 @@ def submit(root, config, account, partition, qos, concurrency, dry_run=False):
             f"{staged_batch} prepare --config {config_arg} --stage C\n",
         ),
         (
-            "finalists_C",
+            "seeded_repeat",
             "merge_B_plan_C",
-            f"0-15%{concurrency}",
+            None,
+            "04:00:00",
+            common
+            + runtime
+            + f"{python} -u scripts/repeat_phase3_seeded.py --config {config_arg} --stage-inputs\n",
+        ),
+        (
+            "finalists_C",
+            "seeded_repeat" if concurrency == 1 else "merge_B_plan_C",
+            f"0-15%{max(1, concurrency - 1)}",
             "08:00:00",
             common
             + runtime
@@ -144,7 +153,10 @@ def submit(root, config, account, partition, qos, concurrency, dry_run=False):
             f"--output={directory}/{name}-%A_%a.log",
         ]
         if parent:
-            command.append(f"--dependency=afterok:{ids[parent]}")
+            dependencies = [ids[parent]]
+            if name == "frozen_final_verify":
+                dependencies.append(ids["seeded_repeat"])
+            command.append("--dependency=afterok:" + ":".join(dependencies))
         if array:
             command.extend([f"--array={array}", "--requeue"])
         command.append(str(path))
@@ -164,6 +176,9 @@ def submit(root, config, account, partition, qos, concurrency, dry_run=False):
                 array=array,
                 walltime=wall,
                 script=path.name,
+                additional_dependencies=["seeded_repeat"]
+                if name == "frozen_final_verify"
+                else [],
             )
         )
         write_metadata(directory / "workflow.json", workflow)

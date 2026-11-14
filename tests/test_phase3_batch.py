@@ -134,9 +134,23 @@ def test_slurm_final_scoring_requires_successful_selection_and_bounded_arrays(
         8,
     )
     stages = {stage["stage"]: stage for stage in result["stages"]}
+    commands = {
+        stage["stage"]: command for stage, command in zip(result["stages"], calls)
+    }
     assert stages["frozen_final_verify"]["parent"] == "select"
-    assert f"--dependency=afterok:{stages['select']['job_id']}" in calls[-1]
-    assert f"--dependency=afterok:{stages['screen_B']['job_id']}" in calls[3]
-    assert f"--dependency=afterok:{stages['finalists_C']['job_id']}" in calls[5]
-    assert "--array=0-11%8" in calls[2] and "--array=0-15%8" in calls[4]
+    assert (
+        f"--dependency=afterok:{stages['select']['job_id']}:{stages['seeded_repeat']['job_id']}"
+        in calls[-1]
+    )
+    assert (
+        f"--dependency=afterok:{stages['screen_B']['job_id']}"
+        in commands["merge_B_plan_C"]
+    )
+    assert (
+        f"--dependency=afterok:{stages['finalists_C']['job_id']}" in commands["select"]
+    )
+    assert (
+        "--array=0-11%8" in commands["screen_B"]
+        and "--array=0-15%7" in commands["finalists_C"]
+    )
     assert all("--cpus-per-task=4" in command for command in calls)
