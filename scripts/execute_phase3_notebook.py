@@ -31,6 +31,11 @@ def main():
     )
     os.environ["JUPYTER_PATH"] = str(root / ".venv/share/jupyter")
     os.environ["PYTHONPYCACHEPREFIX"] = str(root / ".venv/pycache")
+    # These are bounded aggregate tables, not flight-level records. Keep every
+    # configuration and its complete parameter dictionary visible in saved output.
+    os.environ["POLARS_FMT_MAX_ROWS"] = "-1"
+    os.environ["POLARS_FMT_MAX_COLS"] = "-1"
+    os.environ["POLARS_FMT_STR_LEN"] = "1024"
     for variable, name in [
         ("IPYTHONDIR", "ipython"),
         ("MPLCONFIGDIR", "matplotlib"),
