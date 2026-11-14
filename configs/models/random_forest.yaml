@@ -1,0 +1,6 @@
+name: random_forest
+fixed: {max_features: sqrt, bootstrap: true}
+grid:
+  n_estimators: [100, 200]
+  max_depth: [12, 24]
+  min_samples_leaf: [2, 10]

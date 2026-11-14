@@ -1,0 +1,79 @@
+{
+  "absolute_tolerance": 1e-07,
+  "additional_verification_fits": 4,
+  "available_previous_fits": 4,
+  "class_order": [
+    0,
+    1,
+    2
+  ],
+  "compared_fits": 4,
+  "compared_prediction_rows": 2191344,
+  "comparisons": [
+    {
+      "argmax_changed_rows": 0,
+      "candidate_id": "44136fa355b3678a",
+      "feature_view": "independent",
+      "max_absolute_difference": 0.0,
+      "mean_absolute_difference": 0.0,
+      "model": "baseline",
+      "ordered_probability_digest_matches": true,
+      "prediction_rows": 547836,
+      "scored_month": "2025-04",
+      "within_declared_tolerance": true
+    },
+    {
+      "argmax_changed_rows": 0,
+      "candidate_id": "c4327ef566e03f44",
+      "feature_view": "G1",
+      "max_absolute_difference": 0.0,
+      "mean_absolute_difference": 0.0,
+      "model": "logistic",
+      "ordered_probability_digest_matches": true,
+      "prediction_rows": 547836,
+      "scored_month": "2025-04",
+      "within_declared_tolerance": true
+    },
+    {
+      "argmax_changed_rows": 0,
+      "candidate_id": "c2ee987d10b4c2dd",
+      "feature_view": "G1",
+      "max_absolute_difference": 2.220446049250313e-16,
+      "mean_absolute_difference": 2.4234417584365036e-18,
+      "model": "random_forest",
+      "ordered_probability_digest_matches": true,
+      "prediction_rows": 547836,
+      "scored_month": "2025-04",
+      "within_declared_tolerance": true
+    },
+    {
+      "argmax_changed_rows": 0,
+      "candidate_id": "3b6f770ba58e504f",
+      "feature_view": "G1",
+      "max_absolute_difference": 0.0,
+      "mean_absolute_difference": 0.0,
+      "model": "xgboost",
+      "ordered_probability_digest_matches": true,
+      "prediction_rows": 547836,
+      "scored_month": "2025-04",
+      "within_declared_tolerance": true
+    }
+  ],
+  "complete": true,
+  "corrected_run": "phase3-709172c896241ac3a355",
+  "data_kind": "real",
+  "fits_exceeding_tolerance": 0,
+  "independent_repeat": true,
+  "input_digest": "39b736c868ad5f78feceb1472ed9a43b24f8a74e727d784fd8e1ba3da0b9af60",
+  "official_performance_fit_count_unchanged": true,
+  "passed": true,
+  "platform": "Linux",
+  "previous_run": "phase3-fa9875bc8e371064d910",
+  "relative_tolerance": 0,
+  "same_platform": true,
+  "scope": "Same-platform independent repeats: one full-population April/G1 fit per family, all four compared; not a rerun of every candidate/view/fold",
+  "seed": 6740,
+  "strict_assertion": true,
+  "used_for_selection": false,
+  "verification_only": true
+}

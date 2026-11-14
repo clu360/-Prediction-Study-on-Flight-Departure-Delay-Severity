@@ -10,7 +10,9 @@ requires-python = ">=3.11"
 dependencies = ["polars==1.35.2", "pyarrow==22.0.0", "airportsdata==20250909", "tzdata==2025.2", "PyYAML==6.0.3", "psutil==7.1.3", "numpy==2.2.6", "scipy==1.16.3", "scikit-learn==1.7.2", "joblib==1.5.2", "threadpoolctl==3.6.0"]
 
 [project.optional-dependencies]
-dev = ["pytest==8.4.2"]
+dev = ["pytest==8.4.2", "ruff==0.14.4"]
+modeling = ["xgboost==3.1.2"]
+notebook = ["matplotlib==3.10.7", "nbformat==5.10.4", "nbclient==0.10.2", "ipykernel==6.30.1"]
 
 [project.scripts]
 flight-delay = "flight_delay.cli:main"

@@ -1,0 +1,437 @@
+{
+  "additional_verification_fits": 4,
+  "compute": [
+    {
+      "feature_view": "independent",
+      "fit_seconds": 0.22097982093691826,
+      "fits": 7,
+      "max_sampled_process_rss_bytes": 1079492608,
+      "model": "baseline",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1",
+      "fit_seconds": 7653.7095333162,
+      "fits": 26,
+      "max_sampled_process_rss_bytes": 2578153472,
+      "model": "logistic",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1_G2",
+      "fit_seconds": 4372.45421531715,
+      "fits": 26,
+      "max_sampled_process_rss_bytes": 3036286976,
+      "model": "logistic",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1_G2_G3",
+      "fit_seconds": 6114.556552226539,
+      "fits": 26,
+      "max_sampled_process_rss_bytes": 3687530496,
+      "model": "logistic",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1_G3",
+      "fit_seconds": 15570.820138873998,
+      "fits": 26,
+      "max_sampled_process_rss_bytes": 3187609600,
+      "model": "logistic",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1",
+      "fit_seconds": 21236.88594009832,
+      "fits": 32,
+      "max_sampled_process_rss_bytes": 3878838272,
+      "model": "random_forest",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1_G2",
+      "fit_seconds": 12824.835875986726,
+      "fits": 32,
+      "max_sampled_process_rss_bytes": 4419543040,
+      "model": "random_forest",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1_G2_G3",
+      "fit_seconds": 20676.048706633854,
+      "fits": 32,
+      "max_sampled_process_rss_bytes": 5237448704,
+      "model": "random_forest",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1_G3",
+      "fit_seconds": 28170.693241026136,
+      "fits": 32,
+      "max_sampled_process_rss_bytes": 4981809152,
+      "model": "random_forest",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1",
+      "fit_seconds": 1296.4936469842214,
+      "fits": 32,
+      "max_sampled_process_rss_bytes": 3878838272,
+      "model": "xgboost",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1_G2",
+      "fit_seconds": 1693.473050785251,
+      "fits": 32,
+      "max_sampled_process_rss_bytes": 4419543040,
+      "model": "xgboost",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1_G2_G3",
+      "fit_seconds": 1721.1017564488575,
+      "fits": 32,
+      "max_sampled_process_rss_bytes": 5237448704,
+      "model": "xgboost",
+      "stage": "development"
+    },
+    {
+      "feature_view": "G1_G3",
+      "fit_seconds": 1462.2566601843573,
+      "fits": 32,
+      "max_sampled_process_rss_bytes": 4981809152,
+      "model": "xgboost",
+      "stage": "development"
+    },
+    {
+      "feature_view": "independent",
+      "fit_seconds": 1.0609027240425348,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 958967808,
+      "model": "baseline",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1",
+      "fit_seconds": 350.89622002397664,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 2193207296,
+      "model": "logistic",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1_G2",
+      "fit_seconds": 198.67661944392603,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 2686652416,
+      "model": "logistic",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1_G2_G3",
+      "fit_seconds": 311.81284602405503,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 3239759872,
+      "model": "logistic",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1_G3",
+      "fit_seconds": 376.7252441740129,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 3239759872,
+      "model": "logistic",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1",
+      "fit_seconds": 2166.8423810770037,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 4092395520,
+      "model": "random_forest",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1_G2",
+      "fit_seconds": 527.6949730040506,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 4407783424,
+      "model": "random_forest",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1_G2_G3",
+      "fit_seconds": 912.3276190420147,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 4672016384,
+      "model": "random_forest",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1_G3",
+      "fit_seconds": 1298.35284494597,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 4672016384,
+      "model": "random_forest",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1",
+      "fit_seconds": 72.16378087399062,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 4672016384,
+      "model": "xgboost",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1_G2",
+      "fit_seconds": 75.04442162206396,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 4672016384,
+      "model": "xgboost",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1_G2_G3",
+      "fit_seconds": 81.98251882789191,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 4672016384,
+      "model": "xgboost",
+      "stage": "frozen_final_fit"
+    },
+    {
+      "feature_view": "G1_G3",
+      "fit_seconds": 73.30550652800594,
+      "fits": 1,
+      "max_sampled_process_rss_bytes": 4672016384,
+      "model": "xgboost",
+      "stage": "frozen_final_fit"
+    }
+  ],
+  "data_kind": "real",
+  "fit_counts": {
+    "development": 367,
+    "frozen_final": 13,
+    "total": 380
+  },
+  "fit_warnings": [
+    {
+      "config_id": "1098f084c236fe39",
+      "feature_view": "G1_G3",
+      "model": "logistic",
+      "period": "2025-06",
+      "stage": "development",
+      "warnings": [
+        "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge"
+      ]
+    },
+    {
+      "config_id": "1098f084c236fe39",
+      "feature_view": "G1_G3",
+      "model": "logistic",
+      "period": "2025-10",
+      "stage": "development",
+      "warnings": [
+        "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge"
+      ]
+    },
+    {
+      "config_id": "54e86ee2f5412794",
+      "feature_view": "G1_G3",
+      "model": "logistic",
+      "period": "2025-10",
+      "stage": "development",
+      "warnings": [
+        "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge"
+      ]
+    },
+    {
+      "config_id": "c4327ef566e03f44",
+      "feature_view": "G1_G3",
+      "model": "logistic",
+      "period": "2025-07",
+      "stage": "development",
+      "warnings": [
+        "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge"
+      ]
+    },
+    {
+      "config_id": "d6f31b94d6ec3bda",
+      "feature_view": "G1_G3",
+      "model": "logistic",
+      "period": "2025-07",
+      "stage": "development",
+      "warnings": [
+        "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge"
+      ]
+    },
+    {
+      "config_id": "fb448bad2db80c42",
+      "feature_view": "G1_G3",
+      "model": "logistic",
+      "period": "2025-06",
+      "stage": "development",
+      "warnings": [
+        "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge"
+      ]
+    },
+    {
+      "config_id": "fb448bad2db80c42",
+      "feature_view": "G1_G3",
+      "model": "logistic",
+      "period": "2025-10",
+      "stage": "development",
+      "warnings": [
+        "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge"
+      ]
+    },
+    {
+      "config_id": "fc7b2833208d747b",
+      "feature_view": "G1_G3",
+      "model": "logistic",
+      "period": "2025-07",
+      "stage": "development",
+      "warnings": [
+        "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge"
+      ]
+    }
+  ],
+  "fits_with_warnings": 8,
+  "frozen_fit_hashes": {
+    "baseline/independent": {
+      "model_fit_id": "8ae66d9833ef8bd2159c16add0a9be0d7c00ba361f0dcf598f6ad6b3c453849c",
+      "model_hash": "324a115ebaf2755c4912e74f6ef79bed",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "fd9bb795f3331b5c07f4e60eda2f6524"
+    },
+    "logistic/G1": {
+      "model_fit_id": "7d8f0557a8ce5ad462b638d47fb7fa104d47f1df3cbc086dd65b061895bf1f9f",
+      "model_hash": "d072ec68995aa2bfda1a41873779bc10",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "17d4500177f902551fe64151b31a0d12"
+    },
+    "logistic/G1_G2": {
+      "model_fit_id": "afca5cf7066a6f76656f9db88fb422bb70e168301b5c4758ebdc8b6005be3025",
+      "model_hash": "133cc66852b5aefc05982929512ad399",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "091aa944b177049e64ac5aa2043bb108"
+    },
+    "logistic/G1_G2_G3": {
+      "model_fit_id": "5225c48f47e35235696d89d0e38bb66a549ab9e54369e227df83dc322a7185af",
+      "model_hash": "30faa056ba29fac2882b2405a5a60550",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07"
+    },
+    "logistic/G1_G3": {
+      "model_fit_id": "8bff9b4957d6a99e564bd8b66269267635ba1db8c8390009ada96e051476fd56",
+      "model_hash": "51918005b89f9ae2dab6f68d6caa5753",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "f6b81f008880e4400cc4b28ed8beb959"
+    },
+    "random_forest/G1": {
+      "model_fit_id": "22648c0cc3a865273c828be7831b2734280afca4691c516a413580f16e1ba53e",
+      "model_hash": "c4bd3249b0e02943a3d30cc7d25f3be0",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "17d4500177f902551fe64151b31a0d12"
+    },
+    "random_forest/G1_G2": {
+      "model_fit_id": "6f7159409cf252f744e7fe4519ca7abc1ab20044e7f7282a008673b157be9213",
+      "model_hash": "0a9f68aae6363b2bfaf39343801eb542",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "091aa944b177049e64ac5aa2043bb108"
+    },
+    "random_forest/G1_G2_G3": {
+      "model_fit_id": "7b6496c5590d195e44ca639b283f1226c406137a784a60d0dd3ca54ac1d77b51",
+      "model_hash": "49f6a48af98e7868277e90934c2c1d23",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07"
+    },
+    "random_forest/G1_G3": {
+      "model_fit_id": "4f98fbd464297230a0f3f55e6b2154f795c3bec7303c0bc9e5af80e582809c4b",
+      "model_hash": "a812cc3d145e83cf3de4bb89475889bd",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "f6b81f008880e4400cc4b28ed8beb959"
+    },
+    "xgboost/G1": {
+      "model_fit_id": "fa932b43c6cc6e709d682090493b8dffc0026df5da9359a6079ae7a6158904da",
+      "model_hash": "f5052171edf5397cd730c54b885e2d42",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "17d4500177f902551fe64151b31a0d12"
+    },
+    "xgboost/G1_G2": {
+      "model_fit_id": "9243a003d0e74a9aef395ad6c09f30866c3e93f68f62311a9c962a6f877e0a1e",
+      "model_hash": "e4974ed1860ae6a8caa4b2f9ad99b5f8",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "091aa944b177049e64ac5aa2043bb108"
+    },
+    "xgboost/G1_G2_G3": {
+      "model_fit_id": "6723a71d506c5de065c33987a92fd17714e1d1139bd3439ebb2e3c867fa2219d",
+      "model_hash": "bef2d057b284d6038542d082329a63c7",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07"
+    },
+    "xgboost/G1_G3": {
+      "model_fit_id": "816635bd0ecb7dab6cadf2a3662c235de6fe8fd2b74aa5152523167feb168d1a",
+      "model_hash": "0cf45f1c8966e1a37125ab39a33f42d3",
+      "train_ids_hash": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+      "transformer_hash": "f6b81f008880e4400cc4b28ed8beb959"
+    }
+  },
+  "independent_repeat_verification": {
+    "additional_verification_fits": 4,
+    "compared_fits": 4,
+    "compared_prediction_rows": 2191344,
+    "complete": true,
+    "passed": true,
+    "platform": "Linux",
+    "scope": "Same-platform independent repeats: one full-population April/G1 fit per family, all four compared; not a rerun of every candidate/view/fold"
+  },
+  "input_schema_hashes": {
+    "data/phase3_inputs/features/audit/feature_schema.json": "cca1f2d9dc518b08be0fc93f4ff3b836a8632ce6c0e259587b78b0493d2c904b",
+    "data/phase3_inputs/features/audit/source_contract.json": "4ed7dc681b657963e3d648eeb00aeed71232a2d8433c04daaccb0066d8a89d08",
+    "data/phase3_inputs/processed/audit/schema.json": "e3ffb36cfdcab35b6f4d6ee939a4a4607f6a06e53796aac55bf6eb51a159128b"
+  },
+  "preprocessing_hashes": {
+    "development/G1/2025-04": "a4c0bdb4394cfbc729054d85547028ee",
+    "development/G1/2025-05": "09eb6266845ecca96cd33d6fc37488d7",
+    "development/G1/2025-06": "ed3eacb9d17f7158688298d6625a5dad",
+    "development/G1/2025-07": "2cf13db35b2c1597808aa040ec282fda",
+    "development/G1/2025-08": "73dde753570fe08579aa38e087e32d5d",
+    "development/G1/2025-09": "aaa51a036e9c656a2ab9f1c09659db8c",
+    "development/G1/2025-10": "272068e9a86b6a999e445dc7cbf47c62",
+    "development/G1_G2/2025-04": "9184b49e560fffaf9065985deb038745",
+    "development/G1_G2/2025-05": "62f17797e6af613e6d9a0d31dca22720",
+    "development/G1_G2/2025-06": "89663372f525750d2103600f0f6d1203",
+    "development/G1_G2/2025-07": "ad27b366eae316ac1c1e82c3c475bcf0",
+    "development/G1_G2/2025-08": "83f2aced2b5863fea9576b0b10a2a712",
+    "development/G1_G2/2025-09": "b26fc48b2d622856f1bd7682ebd40618",
+    "development/G1_G2/2025-10": "1a6acbfd55cf28328f29cf1b97705e10",
+    "development/G1_G2_G3/2025-04": "26fe19a748aba6b78e4e399f1c2a0cb7",
+    "development/G1_G2_G3/2025-05": "deb2d438cf8a873adaec7f25e008ad7f",
+    "development/G1_G2_G3/2025-06": "695c9e62c986a492ddbb0dde9189039f",
+    "development/G1_G2_G3/2025-07": "0753a20f1e8ea78f4d41c239320e0a66",
+    "development/G1_G2_G3/2025-08": "b770874d8e37a82c41ec7150c232641f",
+    "development/G1_G2_G3/2025-09": "ca19775b156c442f9cc12a6cb076f070",
+    "development/G1_G2_G3/2025-10": "abd240a054fff78a0936ff07da15effd",
+    "development/G1_G3/2025-04": "9158ed2935f996deb746181a4a6b2eba",
+    "development/G1_G3/2025-05": "1ac61266e43059712bd92b5fa89e4d6c",
+    "development/G1_G3/2025-06": "8bd955fae008e82c34ae9bf6168b1862",
+    "development/G1_G3/2025-07": "694453f136247caeb2e3873071d26806",
+    "development/G1_G3/2025-08": "5a2c5714e8e0ae258a94814aefdd68fe",
+    "development/G1_G3/2025-09": "bcee175287da323189855cea461f9f60",
+    "development/G1_G3/2025-10": "4dd3be4bc7ac4ddc09381dc8026e1741",
+    "frozen_final_fit/G1/August-October fit": "17d4500177f902551fe64151b31a0d12",
+    "frozen_final_fit/G1_G2/August-October fit": "091aa944b177049e64ac5aa2043bb108",
+    "frozen_final_fit/G1_G2_G3/August-October fit": "b697597cc6c0110c8e8d86e6f7db7a07",
+    "frozen_final_fit/G1_G3/August-October fit": "f6b81f008880e4400cc4b28ed8beb959"
+  },
+  "resource_interpretation": "Fit seconds summed once per unique fit; shared preprocessing and duplicated monthly final-fit resources are not summed. RSS is the sampled cumulative process peak, not exclusive memory per fit. Fit seconds are not billed CPU seconds or end-to-end elapsed time. The four independent verification fits are excluded from the scientific-fit totals.",
+  "run_id": "phase3-709172c896241ac3a355",
+  "scope": "Official unique development candidate/baseline fits and final fits only; excludes selected replays and independent reference fits",
+  "total_unique_fit_seconds": 129240.43617601355,
+  "warning_counts": {
+    "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge": 8
+  }
+}

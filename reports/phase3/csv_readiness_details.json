@@ -1,0 +1,4804 @@
+[
+  {
+    "feature_view": "independent",
+    "metrics": {
+      "accuracy": 0.8785,
+      "argmax_proportions": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "auc": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "brier": 0.2238633888888889,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": 0.920833333333333,
+          "n": 2000,
+          "observed_rate": 0.8785,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.0565,
+          "n": 2000,
+          "observed_rate": 0.0645,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.022666666666666672,
+          "n": 2000,
+          "observed_rate": 0.057,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          1757,
+          0,
+          0
+        ],
+        [
+          129,
+          0,
+          0
+        ],
+        [
+          114,
+          0,
+          0
+        ]
+      ],
+      "f1": [
+        0.9353207346286931,
+        0.0,
+        0.0
+      ],
+      "log_loss": 0.47364806736713805,
+      "macro_auc": 0.5,
+      "macro_f1": 0.31177357820956436,
+      "mean_probabilities": [
+        0.9208333333333454,
+        0.056499999999999787,
+        0.022666666666666096
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.8785,
+        0.0,
+        0.0
+      ],
+      "recall": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "severe_precision": 0.0,
+      "severe_recall": 0.0,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.8216792653713069
+    },
+    "model": "baseline",
+    "params": {},
+    "test_shape": [
+      2000,
+      0
+    ],
+    "train_shape": [
+      6000,
+      0
+    ],
+    "unknown_categories": {},
+    "warnings": []
+  },
+  {
+    "feature_view": "G1",
+    "metrics": {
+      "accuracy": 0.3995,
+      "argmax_proportions": [
+        0.412,
+        0.337,
+        0.251
+      ],
+      "auc": [
+        0.5454935109649586,
+        0.47361813729755253,
+        0.5085533292403862
+      ],
+      "brier": 0.6773555169602546,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": 0.07296445816978682,
+          "n": 13,
+          "observed_rate": 0.7692307692307693,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": 0.16270266291384183,
+          "n": 239,
+          "observed_rate": 0.8451882845188284,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": 0.2512584722765918,
+          "n": 444,
+          "observed_rate": 0.8603603603603603,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": 0.3495906991359308,
+          "n": 515,
+          "observed_rate": 0.8932038834951457,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": 0.4488942547701716,
+          "n": 433,
+          "observed_rate": 0.8960739030023095,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": 0.5451690551076663,
+          "n": 251,
+          "observed_rate": 0.8764940239043825,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": 0.6419619029821434,
+          "n": 86,
+          "observed_rate": 0.9069767441860465,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": 0.732274034475088,
+          "n": 18,
+          "observed_rate": 0.9444444444444444,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.807737880311037,
+          "n": 1,
+          "observed_rate": 0.0,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.08060042343451022,
+          "n": 44,
+          "observed_rate": 0.09090909090909091,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.15960889191703292,
+          "n": 264,
+          "observed_rate": 0.06818181818181818,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": 0.2516798171917234,
+          "n": 550,
+          "observed_rate": 0.06545454545454546,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": 0.3488401523759073,
+          "n": 493,
+          "observed_rate": 0.06693711967545639,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": 0.4429436022884617,
+          "n": 333,
+          "observed_rate": 0.06006006006006006,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": 0.5410468727505108,
+          "n": 199,
+          "observed_rate": 0.07537688442211055,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": 0.6383397950368809,
+          "n": 97,
+          "observed_rate": 0.030927835051546393,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": 0.7332944135025038,
+          "n": 20,
+          "observed_rate": 0.0,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.06721120495369196,
+          "n": 209,
+          "observed_rate": 0.009569377990430622,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": 0.15344646791961958,
+          "n": 410,
+          "observed_rate": 0.08048780487804878,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": 0.24861201929961213,
+          "n": 526,
+          "observed_rate": 0.057034220532319393,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": 0.34685736620873375,
+          "n": 412,
+          "observed_rate": 0.06310679611650485,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": 0.44585374097480784,
+          "n": 237,
+          "observed_rate": 0.05907172995780591,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": 0.5478800459111378,
+          "n": 125,
+          "observed_rate": 0.04,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": 0.6440400033305731,
+          "n": 57,
+          "observed_rate": 0.05263157894736842,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": 0.7367028086145607,
+          "n": 14,
+          "observed_rate": 0.0,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": 0.851104568238755,
+          "n": 10,
+          "observed_rate": 0.1,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          728,
+          592,
+          437
+        ],
+        [
+          51,
+          42,
+          36
+        ],
+        [
+          45,
+          40,
+          29
+        ]
+      ],
+      "f1": [
+        0.5641224331654398,
+        0.10460772104607721,
+        0.09415584415584416
+      ],
+      "log_loss": 1.1016499731542513,
+      "macro_auc": 0.5092216591676325,
+      "macro_f1": 0.25429533278912037,
+      "mean_probabilities": [
+        0.36591924272163107,
+        0.34391932815101145,
+        0.2901614291273574
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.883495145631068,
+        0.06231454005934718,
+        0.05776892430278884
+      ],
+      "recall": [
+        0.41434262948207173,
+        0.32558139534883723,
+        0.2543859649122807
+      ],
+      "severe_precision": 0.05776892430278884,
+      "severe_recall": 0.2543859649122807,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.507695638660194
+    },
+    "model": "logistic",
+    "params": {
+      "C": 0.1,
+      "class_weight": "balanced",
+      "max_iter": 400,
+      "penalty": "l2",
+      "solver": "saga",
+      "tol": 0.001
+    },
+    "test_shape": [
+      2000,
+      485
+    ],
+    "train_shape": [
+      6000,
+      485
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4
+    },
+    "warnings": []
+  },
+  {
+    "feature_view": "G1_G2",
+    "metrics": {
+      "accuracy": 0.291,
+      "argmax_proportions": [
+        0.2705,
+        0.22,
+        0.5095
+      ],
+      "auc": [
+        0.5740822717361008,
+        0.4858281646841427,
+        0.5760683522167029
+      ],
+      "brier": 0.9010065603429114,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": 0.04460923938254229,
+          "n": 453,
+          "observed_rate": 0.8366445916114791,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": 0.15098377125605061,
+          "n": 364,
+          "observed_rate": 0.8681318681318682,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": 0.2514540796111276,
+          "n": 336,
+          "observed_rate": 0.8898809523809523,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": 0.3464928993531613,
+          "n": 269,
+          "observed_rate": 0.8847583643122676,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": 0.4494187756548286,
+          "n": 281,
+          "observed_rate": 0.9039145907473309,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": 0.5421026070923256,
+          "n": 177,
+          "observed_rate": 0.9152542372881356,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": 0.6445626978583794,
+          "n": 82,
+          "observed_rate": 0.8902439024390244,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": 0.748568365587653,
+          "n": 31,
+          "observed_rate": 0.9354838709677419,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8435907818200475,
+          "n": 7,
+          "observed_rate": 1.0,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.06078805813525111,
+          "n": 362,
+          "observed_rate": 0.07458563535911603,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.1480056096410097,
+          "n": 497,
+          "observed_rate": 0.052313883299798795,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": 0.24578767405299842,
+          "n": 393,
+          "observed_rate": 0.06615776081424936,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": 0.34729105461943144,
+          "n": 289,
+          "observed_rate": 0.07612456747404844,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": 0.4454438932605776,
+          "n": 212,
+          "observed_rate": 0.07075471698113207,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": 0.5445549309787978,
+          "n": 134,
+          "observed_rate": 0.08208955223880597,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": 0.6382870141938097,
+          "n": 74,
+          "observed_rate": 0.02702702702702703,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": 0.7512030283448634,
+          "n": 29,
+          "observed_rate": 0.0,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": 0.8300499053983638,
+          "n": 10,
+          "observed_rate": 0.0,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.06303072721188564,
+          "n": 150,
+          "observed_rate": 0.013333333333333334,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": 0.1503065596311628,
+          "n": 239,
+          "observed_rate": 0.03765690376569038,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": 0.2526089545219465,
+          "n": 288,
+          "observed_rate": 0.05555555555555555,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": 0.3502945471487192,
+          "n": 294,
+          "observed_rate": 0.05782312925170068,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": 0.44646390095799987,
+          "n": 232,
+          "observed_rate": 0.07327586206896551,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": 0.5452797724138876,
+          "n": 194,
+          "observed_rate": 0.04639175257731959,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": 0.6443188774626547,
+          "n": 165,
+          "observed_rate": 0.06060606060606061,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": 0.7466532407960175,
+          "n": 154,
+          "observed_rate": 0.09090909090909091,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": 0.8506284449505961,
+          "n": 157,
+          "observed_rate": 0.05732484076433121,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": 0.9477209979524847,
+          "n": 127,
+          "observed_rate": 0.08661417322834646,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          489,
+          384,
+          884
+        ],
+        [
+          31,
+          28,
+          70
+        ],
+        [
+          21,
+          28,
+          65
+        ]
+      ],
+      "f1": [
+        0.4255874673629243,
+        0.0984182776801406,
+        0.1147396293027361
+      ],
+      "log_loss": 1.6487396357387696,
+      "macro_auc": 0.5453262628789821,
+      "macro_f1": 0.21291512478193364,
+      "mean_probabilities": [
+        0.27853248614876314,
+        0.26862441388655744,
+        0.4528430999646784
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.9038817005545287,
+        0.06363636363636363,
+        0.06378802747791953
+      ],
+      "recall": [
+        0.27831531018782013,
+        0.21705426356589147,
+        0.5701754385964912
+      ],
+      "severe_precision": 0.06378802747791953,
+      "severe_recall": 0.5701754385964912,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.38676672785895405
+    },
+    "model": "logistic",
+    "params": {
+      "C": 0.1,
+      "class_weight": "balanced",
+      "max_iter": 400,
+      "penalty": "l2",
+      "solver": "saga",
+      "tol": 0.001
+    },
+    "test_shape": [
+      2000,
+      740
+    ],
+    "train_shape": [
+      6000,
+      740
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4,
+      "g2_prior_origin": 7
+    },
+    "warnings": [
+      "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge"
+    ]
+  },
+  {
+    "feature_view": "G1_G3",
+    "metrics": {
+      "accuracy": 0.3985,
+      "argmax_proportions": [
+        0.402,
+        0.2565,
+        0.3415
+      ],
+      "auc": [
+        0.571770531044546,
+        0.4615821245530517,
+        0.5467247120983796
+      ],
+      "brier": 0.6731267613653832,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": 0.07680852731825155,
+          "n": 16,
+          "observed_rate": 0.75,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": 0.16168187837129513,
+          "n": 192,
+          "observed_rate": 0.8333333333333334,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": 0.253751943007193,
+          "n": 467,
+          "observed_rate": 0.854389721627409,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": 0.3509198685838425,
+          "n": 504,
+          "observed_rate": 0.873015873015873,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": 0.4482680825063361,
+          "n": 395,
+          "observed_rate": 0.9063291139240506,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": 0.5471386096829963,
+          "n": 245,
+          "observed_rate": 0.9306122448979591,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": 0.6404700828328518,
+          "n": 137,
+          "observed_rate": 0.8759124087591241,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": 0.7408210436427035,
+          "n": 41,
+          "observed_rate": 0.9024390243902439,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8236466535075903,
+          "n": 3,
+          "observed_rate": 1.0,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.07426241711037503,
+          "n": 119,
+          "observed_rate": 0.07563025210084033,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.1573320919142375,
+          "n": 463,
+          "observed_rate": 0.06695464362850972,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": 0.24791244339413754,
+          "n": 529,
+          "observed_rate": 0.0661625708884688,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": 0.3467217064435301,
+          "n": 355,
+          "observed_rate": 0.08450704225352113,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": 0.44525133338626494,
+          "n": 251,
+          "observed_rate": 0.06374501992031872,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": 0.5460323818753279,
+          "n": 164,
+          "observed_rate": 0.03048780487804878,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": 0.6458281286648098,
+          "n": 101,
+          "observed_rate": 0.0297029702970297,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": 0.727759781047172,
+          "n": 18,
+          "observed_rate": 0.0,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.037778114719806924,
+          "n": 383,
+          "observed_rate": 0.020887728459530026,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": 0.15498804065989036,
+          "n": 227,
+          "observed_rate": 0.05726872246696035,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": 0.2527914912805335,
+          "n": 358,
+          "observed_rate": 0.08659217877094973,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": 0.3494992968563629,
+          "n": 392,
+          "observed_rate": 0.05612244897959184,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": 0.44639625301393326,
+          "n": 261,
+          "observed_rate": 0.06896551724137931,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": 0.5432185728436667,
+          "n": 193,
+          "observed_rate": 0.07253886010362694,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": 0.6441529835095503,
+          "n": 128,
+          "observed_rate": 0.046875,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": 0.7386154804654652,
+          "n": 45,
+          "observed_rate": 0.022222222222222223,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": 0.8329891147406077,
+          "n": 12,
+          "observed_rate": 0.0,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": 0.9187929116863993,
+          "n": 1,
+          "observed_rate": 1.0,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          725,
+          448,
+          584
+        ],
+        [
+          44,
+          29,
+          56
+        ],
+        [
+          35,
+          36,
+          43
+        ]
+      ],
+      "f1": [
+        0.5661850839515814,
+        0.09034267912772585,
+        0.10790464240903387
+      ],
+      "log_loss": 1.0738453385198512,
+      "macro_auc": 0.5266924558986591,
+      "macro_f1": 0.25481080182944704,
+      "mean_probabilities": [
+        0.37967074214765356,
+        0.3077747934484397,
+        0.31255446440390655
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.9017412935323383,
+        0.056530214424951264,
+        0.0629575402635432
+      ],
+      "recall": [
+        0.4126351735913489,
+        0.2248062015503876,
+        0.37719298245614036
+      ],
+      "severe_precision": 0.0629575402635432,
+      "severe_recall": 0.37719298245614036,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.5093712636725175
+    },
+    "model": "logistic",
+    "params": {
+      "C": 0.1,
+      "class_weight": "balanced",
+      "max_iter": 400,
+      "penalty": "l2",
+      "solver": "saga",
+      "tol": 0.001
+    },
+    "test_shape": [
+      2000,
+      491
+    ],
+    "train_shape": [
+      6000,
+      491
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4
+    },
+    "warnings": []
+  },
+  {
+    "feature_view": "G1_G2_G3",
+    "metrics": {
+      "accuracy": 0.342,
+      "argmax_proportions": [
+        0.3275,
+        0.179,
+        0.4935
+      ],
+      "auc": [
+        0.5929532897217714,
+        0.4587688878392768,
+        0.6053933880299901
+      ],
+      "brier": 0.8640671771550694,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": 0.039178362078955274,
+          "n": 396,
+          "observed_rate": 0.8358585858585859,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": 0.14982223665221858,
+          "n": 342,
+          "observed_rate": 0.8567251461988304,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": 0.2516008426353076,
+          "n": 298,
+          "observed_rate": 0.8624161073825504,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": 0.3488529145524169,
+          "n": 265,
+          "observed_rate": 0.8905660377358491,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": 0.4456812699083692,
+          "n": 236,
+          "observed_rate": 0.885593220338983,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": 0.5459750026198068,
+          "n": 221,
+          "observed_rate": 0.9230769230769231,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": 0.6439603084253189,
+          "n": 127,
+          "observed_rate": 0.9448818897637795,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": 0.7346039913447786,
+          "n": 74,
+          "observed_rate": 0.9324324324324325,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8330171203236778,
+          "n": 33,
+          "observed_rate": 0.9090909090909091,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": 0.9376323502084699,
+          "n": 8,
+          "observed_rate": 1.0,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.055060360027850065,
+          "n": 478,
+          "observed_rate": 0.07740585774058577,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.14809369365965624,
+          "n": 493,
+          "observed_rate": 0.05070993914807302,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": 0.24735411864248796,
+          "n": 374,
+          "observed_rate": 0.07754010695187166,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": 0.3465976799665878,
+          "n": 257,
+          "observed_rate": 0.07782101167315175,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": 0.4437081547126466,
+          "n": 169,
+          "observed_rate": 0.05917159763313609,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": 0.5487687524662452,
+          "n": 112,
+          "observed_rate": 0.044642857142857144,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": 0.6423664759964783,
+          "n": 57,
+          "observed_rate": 0.03508771929824561,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": 0.7466627844449999,
+          "n": 42,
+          "observed_rate": 0.023809523809523808,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": 0.8249846887555101,
+          "n": 17,
+          "observed_rate": 0.0,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": 0.9103868143318119,
+          "n": 1,
+          "observed_rate": 0.0,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.0376397275650271,
+          "n": 317,
+          "observed_rate": 0.00946372239747634,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": 0.15294727420088608,
+          "n": 235,
+          "observed_rate": 0.059574468085106386,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": 0.24792002176435107,
+          "n": 239,
+          "observed_rate": 0.03765690376569038,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": 0.350761830223156,
+          "n": 218,
+          "observed_rate": 0.07339449541284404,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": 0.45267701938239024,
+          "n": 201,
+          "observed_rate": 0.07960199004975124,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": 0.5471232005117136,
+          "n": 171,
+          "observed_rate": 0.05847953216374269,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": 0.645407604927553,
+          "n": 147,
+          "observed_rate": 0.061224489795918366,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": 0.7521572589020386,
+          "n": 142,
+          "observed_rate": 0.09154929577464789,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": 0.8522349067136875,
+          "n": 153,
+          "observed_rate": 0.05228758169934641,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": 0.9511928449747854,
+          "n": 177,
+          "observed_rate": 0.0903954802259887,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          598,
+          325,
+          834
+        ],
+        [
+          32,
+          15,
+          82
+        ],
+        [
+          25,
+          18,
+          71
+        ]
+      ],
+      "f1": [
+        0.49585406301824214,
+        0.061601642710472276,
+        0.12897366030881016
+      ],
+      "log_loss": 1.5709881876348857,
+      "macro_auc": 0.5523718551970127,
+      "macro_f1": 0.22880978867917487,
+      "mean_probabilities": [
+        0.31557622167963456,
+        0.25013685910777406,
+        0.4342869192125917
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.9129770992366413,
+        0.04189944134078212,
+        0.07193515704154002
+      ],
+      "recall": [
+        0.34035287421741606,
+        0.11627906976744186,
+        0.6228070175438597
+      ],
+      "severe_precision": 0.07193515704154002,
+      "severe_recall": 0.6228070175438597,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.4469325989539533
+    },
+    "model": "logistic",
+    "params": {
+      "C": 0.1,
+      "class_weight": "balanced",
+      "max_iter": 400,
+      "penalty": "l2",
+      "solver": "saga",
+      "tol": 0.001
+    },
+    "test_shape": [
+      2000,
+      746
+    ],
+    "train_shape": [
+      6000,
+      746
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4,
+      "g2_prior_origin": 7
+    },
+    "warnings": [
+      "ConvergenceWarning: The max_iter was reached which means the coef_ did not converge"
+    ]
+  },
+  {
+    "feature_view": "G1",
+    "metrics": {
+      "accuracy": 0.8785,
+      "argmax_proportions": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "auc": [
+        0.5484060231736194,
+        0.5386374653524418,
+        0.5363295566594111
+      ],
+      "brier": 0.223409099433509,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8862015160234125,
+          "n": 161,
+          "observed_rate": 0.8012422360248447,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": 0.9236652090427987,
+          "n": 1839,
+          "observed_rate": 0.8852637302882002,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.05690066521738327,
+          "n": 1983,
+          "observed_rate": 0.06454866364094806,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.11692974409438564,
+          "n": 17,
+          "observed_rate": 0.058823529411764705,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.021939705857424174,
+          "n": 2000,
+          "observed_rate": 0.057,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          1757,
+          0,
+          0
+        ],
+        [
+          129,
+          0,
+          0
+        ],
+        [
+          114,
+          0,
+          0
+        ]
+      ],
+      "f1": [
+        0.9353207346286931,
+        0.0,
+        0.0
+      ],
+      "log_loss": 0.47423667290709254,
+      "macro_auc": 0.5411243483951574,
+      "macro_f1": 0.31177357820956436,
+      "mean_probabilities": [
+        0.9206493817547391,
+        0.057410912387837784,
+        0.021939705857424205
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.8785,
+        0.0,
+        0.0
+      ],
+      "recall": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "severe_precision": 0.0,
+      "severe_recall": 0.0,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.8216792653713069
+    },
+    "model": "random_forest",
+    "params": {
+      "bootstrap": true,
+      "max_depth": 12,
+      "max_features": "sqrt",
+      "min_samples_leaf": 10,
+      "n_estimators": 100
+    },
+    "test_shape": [
+      2000,
+      485
+    ],
+    "train_shape": [
+      6000,
+      485
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4
+    },
+    "warnings": []
+  },
+  {
+    "feature_view": "G1_G2",
+    "metrics": {
+      "accuracy": 0.8785,
+      "argmax_proportions": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "auc": [
+        0.6056690346198979,
+        0.5897107628056132,
+        0.5816822012613719
+      ],
+      "brier": 0.21858662691723416,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": 0.7550762590702382,
+          "n": 10,
+          "observed_rate": 0.5,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8709438087484683,
+          "n": 1158,
+          "observed_rate": 0.8592400690846287,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": 0.9267067379012185,
+          "n": 832,
+          "observed_rate": 0.9098557692307693,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.06999588911726978,
+          "n": 1871,
+          "observed_rate": 0.05451630144307857,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.11517241411028227,
+          "n": 127,
+          "observed_rate": 0.1968503937007874,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": 0.21017077989407917,
+          "n": 2,
+          "observed_rate": 1.0,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.033433377127275864,
+          "n": 2000,
+          "observed_rate": 0.057,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          1757,
+          0,
+          0
+        ],
+        [
+          129,
+          0,
+          0
+        ],
+        [
+          114,
+          0,
+          0
+        ]
+      ],
+      "f1": [
+        0.9353207346286931,
+        0.0,
+        0.0
+      ],
+      "log_loss": 0.4545024032918427,
+      "macro_auc": 0.5923539995622943,
+      "macro_f1": 0.31177357820956436,
+      "mean_probabilities": [
+        0.8935618495276221,
+        0.07300477334510286,
+        0.03343337712727587
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.8785,
+        0.0,
+        0.0
+      ],
+      "recall": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "severe_precision": 0.0,
+      "severe_recall": 0.0,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.8216792653713069
+    },
+    "model": "random_forest",
+    "params": {
+      "bootstrap": true,
+      "max_depth": 12,
+      "max_features": "sqrt",
+      "min_samples_leaf": 10,
+      "n_estimators": 100
+    },
+    "test_shape": [
+      2000,
+      740
+    ],
+    "train_shape": [
+      6000,
+      740
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4,
+      "g2_prior_origin": 7
+    },
+    "warnings": []
+  },
+  {
+    "feature_view": "G1_G3",
+    "metrics": {
+      "accuracy": 0.8785,
+      "argmax_proportions": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "auc": [
+        0.5606732388494231,
+        0.5244096967587701,
+        0.5756544064296478
+      ],
+      "brier": 0.22351683294715452,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8880601816393252,
+          "n": 133,
+          "observed_rate": 0.7894736842105263,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": 0.9256767544827794,
+          "n": 1867,
+          "observed_rate": 0.884841992501339,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.05327099970391944,
+          "n": 1988,
+          "observed_rate": 0.06438631790744467,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.11049969267517253,
+          "n": 12,
+          "observed_rate": 0.08333333333333333,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.023210375749563254,
+          "n": 2000,
+          "observed_rate": 0.057,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          1757,
+          0,
+          0
+        ],
+        [
+          129,
+          0,
+          0
+        ],
+        [
+          114,
+          0,
+          0
+        ]
+      ],
+      "f1": [
+        0.9353207346286931,
+        0.0,
+        0.0
+      ],
+      "log_loss": 0.4717363035281879,
+      "macro_auc": 0.5535791140126137,
+      "macro_f1": 0.31177357820956436,
+      "mean_probabilities": [
+        0.9231752523886888,
+        0.053614371861747,
+        0.023210375749563254
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.8785,
+        0.0,
+        0.0
+      ],
+      "recall": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "severe_precision": 0.0,
+      "severe_recall": 0.0,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.8216792653713069
+    },
+    "model": "random_forest",
+    "params": {
+      "bootstrap": true,
+      "max_depth": 12,
+      "max_features": "sqrt",
+      "min_samples_leaf": 10,
+      "n_estimators": 100
+    },
+    "test_shape": [
+      2000,
+      491
+    ],
+    "train_shape": [
+      6000,
+      491
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4
+    },
+    "warnings": []
+  },
+  {
+    "feature_view": "G1_G2_G3",
+    "metrics": {
+      "accuracy": 0.8785,
+      "argmax_proportions": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "auc": [
+        0.5826523418378221,
+        0.5606710336055419,
+        0.6002539487637439
+      ],
+      "brier": 0.22069406193234412,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": 0.7875466028518359,
+          "n": 4,
+          "observed_rate": 0.25,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8843114287031582,
+          "n": 336,
+          "observed_rate": 0.8125,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": 0.9211493006327275,
+          "n": 1660,
+          "observed_rate": 0.8933734939759036,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.05651179686789776,
+          "n": 1975,
+          "observed_rate": 0.060759493670886074,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.12078449269606295,
+          "n": 25,
+          "observed_rate": 0.36,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.027991461681252112,
+          "n": 2000,
+          "observed_rate": 0.057,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          1757,
+          0,
+          0
+        ],
+        [
+          129,
+          0,
+          0
+        ],
+        [
+          114,
+          0,
+          0
+        ]
+      ],
+      "f1": [
+        0.9353207346286931,
+        0.0,
+        0.0
+      ],
+      "log_loss": 0.4592983222205403,
+      "macro_auc": 0.5811924414023694,
+      "macro_f1": 0.31177357820956436,
+      "mean_probabilities": [
+        0.914693332752999,
+        0.05731520556574982,
+        0.027991461681252078
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.8785,
+        0.0,
+        0.0
+      ],
+      "recall": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "severe_precision": 0.0,
+      "severe_recall": 0.0,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.8216792653713069
+    },
+    "model": "random_forest",
+    "params": {
+      "bootstrap": true,
+      "max_depth": 12,
+      "max_features": "sqrt",
+      "min_samples_leaf": 10,
+      "n_estimators": 100
+    },
+    "test_shape": [
+      2000,
+      746
+    ],
+    "train_shape": [
+      6000,
+      746
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4,
+      "g2_prior_origin": 7
+    },
+    "warnings": []
+  },
+  {
+    "feature_view": "G1",
+    "metrics": {
+      "accuracy": 0.8785,
+      "argmax_proportions": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "auc": [
+        0.5413853111949615,
+        0.5235934852232567,
+        0.5350505106881732
+      ],
+      "brier": 0.22548461759025165,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": 0.5945633153451045,
+          "n": 1,
+          "observed_rate": 1.0,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": 0.657962018258951,
+          "n": 8,
+          "observed_rate": 0.75,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": 0.7699682613071461,
+          "n": 32,
+          "observed_rate": 0.75,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8727056046057602,
+          "n": 291,
+          "observed_rate": 0.8625429553264605,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": 0.939689375278217,
+          "n": 1668,
+          "observed_rate": 0.8842925659472423,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.04616329936312421,
+          "n": 1885,
+          "observed_rate": 0.06312997347480107,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.1320987059810969,
+          "n": 99,
+          "observed_rate": 0.08080808080808081,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": 0.23499883009605035,
+          "n": 12,
+          "observed_rate": 0.08333333333333333,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": 0.3416042741486611,
+          "n": 4,
+          "observed_rate": 0.25,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.02088747821664613,
+          "n": 1983,
+          "observed_rate": 0.05698436712052446,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": 0.13255799933327533,
+          "n": 15,
+          "observed_rate": 0.0,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": 0.22665686471951393,
+          "n": 2,
+          "observed_rate": 0.5,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          1757,
+          0,
+          0
+        ],
+        [
+          129,
+          0,
+          0
+        ],
+        [
+          114,
+          0,
+          0
+        ]
+      ],
+      "f1": [
+        0.9353207346286931,
+        0.0,
+        0.0
+      ],
+      "log_loss": 0.4910109588820588,
+      "macro_auc": 0.533343102368797,
+      "macro_f1": 0.31177357820956436,
+      "mean_probabilities": [
+        0.9259282263637916,
+        0.05214099712468246,
+        0.021930776511523715
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.8785,
+        0.0,
+        0.0
+      ],
+      "recall": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "severe_precision": 0.0,
+      "severe_recall": 0.0,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.8216792653713069
+    },
+    "model": "xgboost",
+    "params": {
+      "colsample_bytree": 0.8,
+      "eval_metric": "mlogloss",
+      "learning_rate": 0.05,
+      "max_depth": 4,
+      "n_estimators": 200,
+      "num_class": 3,
+      "objective": "multi:softprob",
+      "subsample": 0.8,
+      "tree_method": "hist"
+    },
+    "test_shape": [
+      2000,
+      485
+    ],
+    "train_shape": [
+      6000,
+      485
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4
+    },
+    "warnings": []
+  },
+  {
+    "feature_view": "G1_G2",
+    "metrics": {
+      "accuracy": 0.881,
+      "argmax_proportions": [
+        0.9935,
+        0.006,
+        0.0005
+      ],
+      "auc": [
+        0.5841841335422566,
+        0.5751971130142236,
+        0.5769939163922531
+      ],
+      "brier": 0.21292548407369863,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": 0.08396823586410457,
+          "n": 3,
+          "observed_rate": 0.3333333333333333,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": 0.14096353528012232,
+          "n": 1,
+          "observed_rate": 0.0,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": 0.2277668302910063,
+          "n": 4,
+          "observed_rate": 0.0,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": 0.35693832220173843,
+          "n": 4,
+          "observed_rate": 0.5,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": 0.4630607060353218,
+          "n": 5,
+          "observed_rate": 0.0,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": 0.5448308004463249,
+          "n": 10,
+          "observed_rate": 0.3,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": 0.6525388159890425,
+          "n": 20,
+          "observed_rate": 0.45,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": 0.7646425115873517,
+          "n": 40,
+          "observed_rate": 0.775,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8682152475884297,
+          "n": 357,
+          "observed_rate": 0.8795518207282913,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": 0.9396394218299575,
+          "n": 1556,
+          "observed_rate": 0.8978149100257069,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.04604051057511895,
+          "n": 1799,
+          "observed_rate": 0.054474708171206226,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.13302563059767356,
+          "n": 150,
+          "observed_rate": 0.08666666666666667,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": 0.24305393667412994,
+          "n": 20,
+          "observed_rate": 0.15,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": 0.3398362481248859,
+          "n": 16,
+          "observed_rate": 0.375,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": 0.44558998678789613,
+          "n": 5,
+          "observed_rate": 0.6,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": 0.5741227518052553,
+          "n": 3,
+          "observed_rate": 0.3333333333333333,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": 0.6689936850563333,
+          "n": 3,
+          "observed_rate": 0.6666666666666666,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": 0.7388941889689571,
+          "n": 2,
+          "observed_rate": 1.0,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": 0.8505041156152411,
+          "n": 2,
+          "observed_rate": 0.5,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.023142701748421427,
+          "n": 1967,
+          "observed_rate": 0.05287239450940519,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": 0.13984082593634972,
+          "n": 24,
+          "observed_rate": 0.20833333333333334,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": 0.2390763946495178,
+          "n": 5,
+          "observed_rate": 0.4,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": 0.34936234856692394,
+          "n": 3,
+          "observed_rate": 0.6666666666666666,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": 0.4998182207291788,
+          "n": 1,
+          "observed_rate": 1.0,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          1754,
+          3,
+          0
+        ],
+        [
+          122,
+          7,
+          0
+        ],
+        [
+          111,
+          2,
+          1
+        ]
+      ],
+      "f1": [
+        0.936965811965812,
+        0.09929078014184398,
+        0.017391304347826087
+      ],
+      "log_loss": 0.4617803635158014,
+      "macro_auc": 0.5787917209829111,
+      "macro_f1": 0.3512159654851606,
+      "mean_probabilities": [
+        0.9130817804636215,
+        0.061107638835731705,
+        0.02581058070064744
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.8827377956718672,
+        0.5833333333333334,
+        1.0
+      ],
+      "recall": [
+        0.9982925441092771,
+        0.05426356589147287,
+        0.008771929824561403
+      ],
+      "severe_precision": 1.0,
+      "severe_recall": 0.008771929824561403,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.8305200254789408
+    },
+    "model": "xgboost",
+    "params": {
+      "colsample_bytree": 0.8,
+      "eval_metric": "mlogloss",
+      "learning_rate": 0.05,
+      "max_depth": 4,
+      "n_estimators": 200,
+      "num_class": 3,
+      "objective": "multi:softprob",
+      "subsample": 0.8,
+      "tree_method": "hist"
+    },
+    "test_shape": [
+      2000,
+      740
+    ],
+    "train_shape": [
+      6000,
+      740
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4,
+      "g2_prior_origin": 7
+    },
+    "warnings": []
+  },
+  {
+    "feature_view": "G1_G3",
+    "metrics": {
+      "accuracy": 0.8785,
+      "argmax_proportions": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "auc": [
+        0.5451620912001611,
+        0.5079238810237032,
+        0.5907634276571598
+      ],
+      "brier": 0.2261587774868902,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": 0.5070096178798434,
+          "n": 1,
+          "observed_rate": 1.0,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": 0.6898657165900133,
+          "n": 2,
+          "observed_rate": 1.0,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": 0.7581362044125627,
+          "n": 18,
+          "observed_rate": 0.7777777777777778,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8740889913345464,
+          "n": 238,
+          "observed_rate": 0.8529411764705882,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": 0.9449077996933453,
+          "n": 1741,
+          "observed_rate": 0.8828259620907525,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.039235931936405365,
+          "n": 1909,
+          "observed_rate": 0.061812467260345734,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.12759625748021441,
+          "n": 79,
+          "observed_rate": 0.12658227848101267,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": 0.23664853093110325,
+          "n": 11,
+          "observed_rate": 0.09090909090909091,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": 0.3181097162051541,
+          "n": 1,
+          "observed_rate": 0.0,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.02123000206852253,
+          "n": 1990,
+          "observed_rate": 0.05678391959798995,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": 0.1198701985435729,
+          "n": 10,
+          "observed_rate": 0.1,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          1757,
+          0,
+          0
+        ],
+        [
+          129,
+          0,
+          0
+        ],
+        [
+          114,
+          0,
+          0
+        ]
+      ],
+      "f1": [
+        0.9353207346286931,
+        0.0,
+        0.0
+      ],
+      "log_loss": 0.4899811807662633,
+      "macro_auc": 0.5479497999603414,
+      "macro_f1": 0.31177357820956436,
+      "mean_probabilities": [
+        0.934325425967114,
+        0.043951370981990985,
+        0.021723203050897786
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.8785,
+        0.0,
+        0.0
+      ],
+      "recall": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "severe_precision": 0.0,
+      "severe_recall": 0.0,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.8216792653713069
+    },
+    "model": "xgboost",
+    "params": {
+      "colsample_bytree": 0.8,
+      "eval_metric": "mlogloss",
+      "learning_rate": 0.05,
+      "max_depth": 4,
+      "n_estimators": 200,
+      "num_class": 3,
+      "objective": "multi:softprob",
+      "subsample": 0.8,
+      "tree_method": "hist"
+    },
+    "test_shape": [
+      2000,
+      491
+    ],
+    "train_shape": [
+      6000,
+      491
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4
+    },
+    "warnings": []
+  },
+  {
+    "feature_view": "G1_G2_G3",
+    "metrics": {
+      "accuracy": 0.882,
+      "argmax_proportions": [
+        0.994,
+        0.0055,
+        0.0005
+      ],
+      "auc": [
+        0.6001110197657342,
+        0.5828247548257989,
+        0.6119281501739503
+      ],
+      "brier": 0.214567183776056,
+      "calibration": [
+        {
+          "bin_id": 0,
+          "class_id": 0,
+          "left": 0.0,
+          "mean_probability": 0.07936010001182854,
+          "n": 1,
+          "observed_rate": 0.0,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 0,
+          "left": 0.1,
+          "mean_probability": 0.1253364039951459,
+          "n": 3,
+          "observed_rate": 0.3333333333333333,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 0,
+          "left": 0.2,
+          "mean_probability": 0.25015225552311815,
+          "n": 3,
+          "observed_rate": 0.0,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 0,
+          "left": 0.3,
+          "mean_probability": 0.3925391260144505,
+          "n": 1,
+          "observed_rate": 0.0,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 0,
+          "left": 0.4,
+          "mean_probability": 0.4248906301399429,
+          "n": 4,
+          "observed_rate": 0.25,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 0,
+          "left": 0.5,
+          "mean_probability": 0.5473979267693719,
+          "n": 4,
+          "observed_rate": 0.25,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 0,
+          "left": 0.6,
+          "mean_probability": 0.6573320244165104,
+          "n": 21,
+          "observed_rate": 0.47619047619047616,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 0,
+          "left": 0.7,
+          "mean_probability": 0.7615297855547116,
+          "n": 32,
+          "observed_rate": 0.65625,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 0,
+          "left": 0.8,
+          "mean_probability": 0.8709217359440949,
+          "n": 296,
+          "observed_rate": 0.8682432432432432,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 0,
+          "left": 0.9,
+          "mean_probability": 0.9459640569616621,
+          "n": 1635,
+          "observed_rate": 0.8966360856269113,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 1,
+          "left": 0.0,
+          "mean_probability": 0.04157386771372497,
+          "n": 1839,
+          "observed_rate": 0.053833605220228384,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 1,
+          "left": 0.1,
+          "mean_probability": 0.12968957570979842,
+          "n": 118,
+          "observed_rate": 0.13559322033898305,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 1,
+          "left": 0.2,
+          "mean_probability": 0.2493978825117996,
+          "n": 24,
+          "observed_rate": 0.08333333333333333,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 1,
+          "left": 0.3,
+          "mean_probability": 0.3501538643246999,
+          "n": 8,
+          "observed_rate": 0.5,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 1,
+          "left": 0.4,
+          "mean_probability": 0.4763526522579805,
+          "n": 4,
+          "observed_rate": 1.0,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 1,
+          "left": 0.5,
+          "mean_probability": 0.5550628823421835,
+          "n": 2,
+          "observed_rate": 0.0,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 1,
+          "left": 0.6,
+          "mean_probability": 0.6447908234239308,
+          "n": 1,
+          "observed_rate": 1.0,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 1,
+          "left": 0.7,
+          "mean_probability": 0.7449340452861037,
+          "n": 2,
+          "observed_rate": 1.0,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 1,
+          "left": 0.8,
+          "mean_probability": 0.8651759083678986,
+          "n": 2,
+          "observed_rate": 0.5,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 1,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        },
+        {
+          "bin_id": 0,
+          "class_id": 2,
+          "left": 0.0,
+          "mean_probability": 0.020344686864627447,
+          "n": 1975,
+          "observed_rate": 0.054177215189873416,
+          "right": 0.1
+        },
+        {
+          "bin_id": 1,
+          "class_id": 2,
+          "left": 0.1,
+          "mean_probability": 0.13974380688453064,
+          "n": 19,
+          "observed_rate": 0.21052631578947367,
+          "right": 0.2
+        },
+        {
+          "bin_id": 2,
+          "class_id": 2,
+          "left": 0.2,
+          "mean_probability": 0.21998116485319696,
+          "n": 4,
+          "observed_rate": 0.5,
+          "right": 0.3
+        },
+        {
+          "bin_id": 3,
+          "class_id": 2,
+          "left": 0.3,
+          "mean_probability": 0.3044860363006592,
+          "n": 1,
+          "observed_rate": 0.0,
+          "right": 0.4
+        },
+        {
+          "bin_id": 4,
+          "class_id": 2,
+          "left": 0.4,
+          "mean_probability": 0.4501485027306451,
+          "n": 1,
+          "observed_rate": 1.0,
+          "right": 0.5
+        },
+        {
+          "bin_id": 5,
+          "class_id": 2,
+          "left": 0.5,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.6
+        },
+        {
+          "bin_id": 6,
+          "class_id": 2,
+          "left": 0.6,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.7
+        },
+        {
+          "bin_id": 7,
+          "class_id": 2,
+          "left": 0.7,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.8
+        },
+        {
+          "bin_id": 8,
+          "class_id": 2,
+          "left": 0.8,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 0.9
+        },
+        {
+          "bin_id": 9,
+          "class_id": 2,
+          "left": 0.9,
+          "mean_probability": null,
+          "n": 0,
+          "observed_rate": null,
+          "right": 1.0
+        }
+      ],
+      "confusion_matrix": [
+        [
+          1755,
+          2,
+          0
+        ],
+        [
+          121,
+          8,
+          0
+        ],
+        [
+          112,
+          1,
+          1
+        ]
+      ],
+      "f1": [
+        0.9372496662216289,
+        0.11428571428571428,
+        0.017391304347826087
+      ],
+      "log_loss": 0.4654427848193273,
+      "macro_auc": 0.5982879749218278,
+      "macro_f1": 0.356308894951723,
+      "mean_probabilities": [
+        0.9240522560272414,
+        0.05371251992931276,
+        0.022235224043444683
+      ],
+      "n": 2000,
+      "observed_proportions": [
+        0.8785,
+        0.0645,
+        0.057
+      ],
+      "precision": [
+        0.8827967806841046,
+        0.7272727272727273,
+        1.0
+      ],
+      "recall": [
+        0.9988616960728515,
+        0.06201550387596899,
+        0.008771929824561403
+      ],
+      "severe_precision": 1.0,
+      "severe_recall": 0.008771929824561403,
+      "support": [
+        1757,
+        129,
+        114
+      ],
+      "uncertainty": "Counts only; flights are correlated, no IID confidence interval claimed",
+      "weighted_f1": 0.8317365646949556
+    },
+    "model": "xgboost",
+    "params": {
+      "colsample_bytree": 0.8,
+      "eval_metric": "mlogloss",
+      "learning_rate": 0.05,
+      "max_depth": 4,
+      "n_estimators": 200,
+      "num_class": 3,
+      "objective": "multi:softprob",
+      "subsample": 0.8,
+      "tree_method": "hist"
+    },
+    "test_shape": [
+      2000,
+      746
+    ],
+    "train_shape": [
+      6000,
+      746
+    ],
+    "unknown_categories": {
+      "g1_carrier": 0,
+      "g1_day_of_week": 2000,
+      "g1_dest": 8,
+      "g1_month": 2000,
+      "g1_origin": 4,
+      "g2_prior_origin": 7
+    },
+    "warnings": []
+  }
+]

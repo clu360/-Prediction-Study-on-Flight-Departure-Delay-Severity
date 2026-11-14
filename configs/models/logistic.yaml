@@ -1,0 +1,5 @@
+name: logistic
+fixed: {solver: saga, penalty: l2, max_iter: 400, tol: 0.001}
+grid:
+  C: [0.1, 1.0, 10.0]
+  class_weight: [null, balanced]
