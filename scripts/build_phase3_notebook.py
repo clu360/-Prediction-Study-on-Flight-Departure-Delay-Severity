@@ -213,7 +213,7 @@ else:
     code("""compute=[dict(model=r['model'],view=r['feature_view'],period=r['scored_month'],**r.get('resources',{})) for r in details]
 display(pl.DataFrame(compute,infer_schema_length=None)) if compute else display(Markdown('Experiment resource measurements unavailable.'))
 execution=load_json('execution_summary.json',{})
-if execution:
+if execution and execution.get('run_id') == manifest.get('run_id'):
     display(Markdown('**Unique fitted units:** ' + json.dumps(execution.get('fit_counts',{}))))
     display(pl.DataFrame(execution.get('compute',[]),infer_schema_length=None))
     display(Markdown(execution.get('resource_interpretation','')))
@@ -224,7 +224,10 @@ else:
 display(Markdown('**Incomplete items / limits:** ' + json.dumps(manifest.get('limits',[]))))
 display(Markdown('**Input validation:** ' + json.dumps(manifest.get('upstream_validation',{}))))
 verification=load_json('result_verification.json',{})
-display(Markdown('**Independent saved-results verification:** ' + json.dumps({k:verification.get(k) for k in ['passed','models_verified','prediction_rows','checks']})))
+if verification and verification.get('run_id') == manifest.get('run_id'):
+    display(Markdown('**Independent saved-results verification:** ' + json.dumps({k:verification.get(k) for k in ['passed','models_verified','prediction_rows','checks']})))
+else:
+    display(Markdown('Independent saved-results verification is not yet available for the current run.'))
 reproducibility=load_json('reproducibility_check.json',{})
 if reproducibility:
     label='Current run' if reproducibility.get('corrected_run') == manifest.get('run_id') else 'Historical implementation check for '+str(reproducibility.get('corrected_run'))
