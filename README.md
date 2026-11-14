@@ -121,6 +121,11 @@ An existing completed source cache can be reused in a fresh output folder with `
 
 ## Phase III: classical models and strict frozen holdout
 
+The official PACE study is complete: **380 scientific fits**, 13 frozen final models and independently verified predictions for 1,052,024 held-out flights per model. XGBoost G1_G2 achieved pooled macro-F1 **0.6475**, severe recall **37.9%** and severe precision **88.3%**. All 13 prespecified configurations are reported. Eight development logistic fits reached the iteration cap; no final fit warned. Strict same-platform repeats passed; the separate Windows/PACE diagnostic found XGBoost numerical differences. See the [analysis notebook](notebooks/03_classical_models_analysis.ipynb), [aggregate metrics](reports/phase3/metrics_summary.csv) and [validation and limitations](reports/phase3/PHASE3_VALIDATION.md).
+
+The delivered study uses `configs/phase3_pace.yaml` and the private `data/model_outputs/phase3_pace` store. The default configuration below starts or resumes a separate local run. To render the delivered results without private data, run `python scripts/execute_phase3_notebook.py --check-name official_phase3_final`. Regenerating reports from the official private checkpoints requires `phase3-report --config configs/phase3_pace.yaml`, then `scripts/summarize_phase3_execution.py --config configs/phase3_pace.yaml` before notebook execution.
+
+
 From the repository, with the repaired environment active and `PYTHONPYCACHEPREFIX` set as above:
 
 ```powershell
@@ -168,6 +173,6 @@ python -m ipykernel install --prefix .venv --name flight-delay-phase3 --display-
 python scripts/execute_phase3_notebook.py
 ```
 
-The source notebook is `notebooks/03_classical_models_analysis.ipynb`. It reads persisted aggregates, fits nothing, and marks unavailable analyses clearly. The execution helper displays all aggregate-table rows and complete parameter dictionaries. Executed notebook copies remain private. Rebuild its source with `python scripts/build_phase3_notebook.py`. See [Phase III methodology](docs/phase3_methodology.md) for selection, causal input policy, numerical probability normalization, uncertainty and resource limitations, and [validation](reports/phase3/PHASE3_VALIDATION.md) for completed and incomplete runs.
+The source notebook is `notebooks/03_classical_models_analysis.ipynb`. It reads persisted aggregates, fits nothing, and marks unavailable analyses clearly. The execution helper displays all aggregate-table rows and complete parameter dictionaries and enables automatic figure layout. Executed notebook copies remain private. Rebuild its source with `python scripts/build_phase3_notebook.py`. See [Phase III methodology](docs/phase3_methodology.md) for selection, causal input policy, numerical probability normalization, uncertainty and resource limitations, and [validation](reports/phase3/PHASE3_VALIDATION.md) for completed and incomplete runs.
 
 The complete single-file exports requested for handoff are `data/features/exports/full_features.csv` and `full_features.parquet`: all samples, one ID column and exactly twenty feature columns. Labels and metadata remain separate. Export verification checks every column against the validated partitioned table, preserves Parquet dtypes, independently reads every Parquet batch with Arrow, and writes SHA-256 checksums.

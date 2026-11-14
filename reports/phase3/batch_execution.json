@@ -1,0 +1,169 @@
+{
+  "backend": "PACE Slurm",
+  "concurrency": 16,
+  "cpus_per_task": 4,
+  "memory_per_task_gib": 16,
+  "config": "configs/phase3_pace.yaml",
+  "stages": [
+    {
+      "stage": "environment",
+      "job_id": "15598169",
+      "parent": null,
+      "array": null,
+      "walltime": "01:00:00",
+      "script": "00_environment.sbatch"
+    },
+    {
+      "stage": "audit_plan_B",
+      "job_id": "15599439",
+      "parent": "environment",
+      "array": null,
+      "walltime": "02:00:00",
+      "script": "01_audit_plan_B_node_local.sbatch",
+      "previous_job_ids": [
+        "15598170"
+      ],
+      "recovery": "Exact node-local audit staging after shared-filesystem timeout",
+      "patch_commit": "1ff6bfe",
+      "audit_wrapper_sha256": "017f8a4405064ff2f92cf040d87d71ea10b1d3d24aa7c681b15c2008a602395a"
+    },
+    {
+      "stage": "screen_B",
+      "job_id": "15598171",
+      "parent": "audit_plan_B",
+      "array": "0-11%12",
+      "walltime": "08:00:00",
+      "script": "02_screen_B.sbatch"
+    },
+    {
+      "stage": "merge_B_plan_C",
+      "job_id": "15600192",
+      "parent": "screen_B",
+      "array": null,
+      "walltime": "01:00:00",
+      "script": "merge_B_plan_C_local.sbatch",
+      "previous_job_ids": [
+        "15598172"
+      ],
+      "input_storage": "exact node-local source/input copies; original shared output store"
+    },
+    {
+      "stage": "finalists_C",
+      "job_id": "15600199",
+      "parent": "merge_B_plan_C",
+      "array": "0-15%16",
+      "walltime": "08:00:00",
+      "script": "finalists_C_local.sbatch",
+      "previous_job_ids": [
+        "15598173"
+      ],
+      "input_storage": "exact node-local source/input copies; original shared output store",
+      "initial_array": "0-15%15",
+      "concurrency_change_reason": "Both verification jobs completed; reserved four-CPU slot released while retaining the 64-CPU total cap."
+    },
+    {
+      "stage": "select",
+      "job_id": "15598174",
+      "parent": "finalists_C",
+      "array": null,
+      "walltime": "01:00:00",
+      "script": "05_select.sbatch"
+    },
+    {
+      "stage": "frozen_final_verify",
+      "job_id": "15600523",
+      "parent": "select",
+      "array": null,
+      "walltime": "08:00:00",
+      "script": "frozen_final_verify_reporting.sbatch",
+      "additional_dependencies": [
+        "seeded_repeat",
+        "cross_platform_diagnostic",
+        "release_checks"
+      ],
+      "previous_job_ids": [
+        "15598175"
+      ],
+      "reporting_patch_commit": "0da0471"
+    },
+    {
+      "stage": "cross_platform_diagnostic",
+      "job_id": "15603358",
+      "parent": "merge_B_plan_C",
+      "array": null,
+      "walltime": "00:30:00",
+      "script": "cross_platform_diagnostic.sbatch",
+      "scope": "Full 53-fit Windows/PACE diagnostic; numeric tolerance failures are reported explicitly, while structural errors fail the job",
+      "memory_per_task_gib": 8,
+      "previous_job_ids": [
+        "15599813"
+      ],
+      "additional_dependencies": [
+        "seeded_repeat"
+      ]
+    },
+    {
+      "stage": "staging_linux_tests",
+      "job_id": "15600027",
+      "parent": null,
+      "array": null,
+      "script": "staging_linux_tests.sbatch",
+      "walltime": "00:10:00",
+      "tests_passed": 3,
+      "memory_per_task_gib": 8
+    },
+    {
+      "stage": "release_checks",
+      "job_id": "15600917",
+      "parent": null,
+      "array": null,
+      "walltime": "00:30:00",
+      "script": "release_checks.sbatch",
+      "memory_per_task_gib": 8,
+      "scope": "Latest complete Linux automated suite and dependency check; no real-data fitting",
+      "initial_parent": "select",
+      "dependency_change_reason": "Independent synthetic Linux tests and pip check released while the non-fitting selector runs; final scoring still requires both stages to succeed."
+    },
+    {
+      "stage": "seeded_repeat",
+      "job_id": "15604175",
+      "parent": null,
+      "array": null,
+      "walltime": "02:00:00",
+      "script": "seeded_repeat_local_scopes.sbatch",
+      "memory_per_task_gib": 16,
+      "reference_task": "15598171_0",
+      "additional_verification_fits": 4,
+      "scope": "Strict 1e-7 same-platform independent full-population repeat, one per family; pinned PACE environment and four threads, no single-node constraint",
+      "hardware_scope": "PACE Linux environment; node not constrained. Removed queued same-node restriction to avoid unnecessary scheduling delay.",
+      "previous_job_ids": [
+        "15603357"
+      ],
+      "recovery": "Keep temporary hardlink facades on node-local filesystem; durable output store unchanged"
+    }
+  ],
+  "worker_code_sha256": "e071fbfc0cbbc0dcdf62de1a5f21ea1400c66acadfc220f3ae36002c932ca4cb",
+  "scope": "Independent development fold/view jobs; original tuner selects; original frozen final runner fits each chosen model once",
+  "operational_patch_commits": [
+    "1ff6bfe",
+    "5bb4508",
+    "0da0471",
+    "4b88815",
+    "ef81272",
+    "1663eb0",
+    "e2a7da796ebd4e8bfa3fcf4de549856eebba5a12",
+    "451ee4158814a34b560b2c1ff8550dd2e17e614a"
+  ],
+  "staging_code_sha256": {
+    "validate_phase3_pace.py": "23fb078846811792d7ac7d4b81a425cfd5569936d555eae554242be8cd39266e",
+    "run_phase3_pace_staged.py": "e32c4c6a6fa4d4e247d0ef4d289136b342e175cbdb66d91d34d26d028af96923"
+  },
+  "concurrency_note": "Stage C began with 15 workers while verification could overlap, then increased to 16 only after both verification jobs completed. Peak allocation remains within 64 CPUs.",
+  "reporting_code_sha256": "76243f4ae34816ccc5c1e1de4fcf2c212cec61a8c80cded157a29e8d1914e02a",
+  "analysis_notebook_sha256": "db1ac6a5d6ed749032d1ab8285d1af1224aa452c9f43a6caea56bb24c68dce6f",
+  "repeat_code_sha256": "c031ef73087b6a1bbfccb0022223a1a972245ba0319fa2512be8b8a4f7aee76e",
+  "verification_code_sha256": "f7b0add005985f2166b399ee250f188fce13d06de0a86bd09be7cc812bc07e0c",
+  "verification_test_sha256": "06efdc516530ae44435383c49b3cd6228244f8d1a97e05ad117294ca2a6b059d",
+  "notebook_execution_code_sha256": "6112a9a6a4c80db67c29d07261197709cc42a67ab6f26d6d4e1d8c5665c919da",
+  "notebook_display_scope": "All aggregate-table rows and complete parameter strings; unchanged executable notebook cells and scientific source"
+}

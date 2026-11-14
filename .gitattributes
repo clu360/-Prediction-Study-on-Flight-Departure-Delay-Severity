@@ -8,3 +8,7 @@
 *.csv text eol=lf
 # The supplied Markdown specification uses intentional two-space hard breaks.
 docs/phase1_specification.md whitespace=-blank-at-eol
+# Aggregate provenance records include SHA-256 byte hashes. Preserve their
+# exact exported bytes on Windows and Linux instead of normalizing newlines.
+reports/phase3/*.json -text whitespace=cr-at-eol
+reports/phase3/*.csv -text whitespace=cr-at-eol

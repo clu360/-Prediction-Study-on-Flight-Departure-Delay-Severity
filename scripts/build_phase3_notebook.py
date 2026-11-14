@@ -41,10 +41,38 @@ update from earlier observed test-month departures; learned state never updates.
 Pooled metrics are recomputed from all held-out predictions. Classes: 0 minimal
 (<15 min), 1 moderate (15–<60), 2 severe (>=60).
 
-Recreate inputs with `phase3-report --config configs/phase3.yaml`; rebuild this
-notebook with `python scripts/build_phase3_notebook.py`. Install the `notebook`
-extra. Missing experiments produce explicit unavailable messages, never fabricated
-scores. Synthetic smoke outputs are kept private and are not used here.
+Recreate the panels from the committed aggregates with `python scripts/execute_phase3_notebook.py --check-name official_phase3_final`. Rebuilding aggregates requires the original private checkpoints: run `phase3-report --config configs/phase3_pace.yaml`, then `python scripts/summarize_phase3_execution.py --config configs/phase3_pace.yaml`. Rebuild this source with `python scripts/build_phase3_notebook.py`. Install the `notebook` extra. Missing experiments are marked unavailable. Synthetic smoke scores remain private and do not enter the study.
+
+## Interpretation of the verified classical-model study
+
+These findings describe run `phase3-709172c896241ac3a355`. All 13 configurations were frozen using April-October development scores before final evaluation. The 367 development fits and 13 fresh August-October fits completed; each final model and transformer stayed identical for November and December. Independent checks covered all 13,676,312 saved final prediction rows and replayed 26,624 rows from reloaded models. These holdout comparisons describe the prespecified models and do not change the selected configurations or decision rule.
+
+The two-month population contains **1,052,024 flights**: 519,971 in November and 532,053 in December. Minimal, moderate and severe supports are 830,013, 154,436 and 67,575. The prior baseline attains 78.9% accuracy but macro-F1 0.2940 and zero severe recall. The G1 and G1_G3 forests also predict the minimal class for every held-out row under argmax, illustrating why accuracy alone is insufficient.
+
+XGBoost with incoming-aircraft information produces the largest observed pooled macro-F1 among the prespecified configurations. The complete 13-model/view tables and three separate evaluation periods remain below.
+
+| XGBoost view | November macro-F1 | December macro-F1 | Pooled macro-F1 | Pooled severe recall | Pooled severe precision | Pooled log loss |
+|---|---:|---:|---:|---:|---:|---:|
+| G1_G2 | 0.6407 | 0.6511 | 0.6475 | 0.3792 | 0.8831 | 0.4409 |
+| G1_G2_G3 | 0.6400 | 0.6510 | 0.6471 | 0.3829 | 0.8773 | 0.4398 |
+
+For XGBoost, adding G2 to G1 raises pooled macro-F1 from 0.2975 to 0.6475. Adding G3 to G1_G2 changes macro-F1 by -0.00036, improves log loss slightly, and raises severe recall from 37.9% to 38.3%. G3 has no consistent macro-F1 gain across views and airports in this study. All four XGBoost views selected the same hyperparameters; other families have separately tuned settings. Small observed differences carry no statistical-significance claim, because correlated flights were not given IID confidence intervals.
+
+The G1_G2 XGBoost model identifies 37.9% of severe delays with 88.3% precision. Its mean severe probability is 5.643%, the observed severe share is 6.423%, and the severe argmax share is 2.758%. These three quantities describe different properties. Logistic G1_G2_G3 attains higher severe recall (45.9%) with lower precision (33.3%) and macro-F1 (0.4997). No threshold or calibration model was fitted after examining holdout outcomes.
+
+The five airports are evaluation slices; training uses the complete eligible network. For pooled XGBoost G1_G2:
+
+| Target origin | Flights | Macro-F1 | Severe recall |
+|---|---:|---:|---:|
+| ATL | 46,653 | 0.5927 | 0.2980 |
+| DFW | 45,044 | 0.5686 | 0.2723 |
+| DEN | 47,463 | 0.6481 | 0.3945 |
+| ORD | 47,798 | 0.6089 | 0.3730 |
+| LAX | 28,484 | 0.6102 | 0.3178 |
+
+Airport one-hot columns absorb substantial summed XGBoost gain. Category count, correlated predictors and encoding affect these associative importances; the prespecified feature-group performance ablations provide complementary evidence. Importance values are not causal effects.
+
+Across the 380 scientific fits, 8 development logistic G1_G3 fits reached the fixed 400-iteration cap; no final fit recorded a warning. Summed unique fit elapsed time is 35.90 hours across parallel tasks, with a maximum sampled process RSS of 4.88 GiB. These fit hours exclude preprocessing, inference and independent repeats and are not billed CPU hours or end-to-end elapsed time. Four independent full-population PACE repeats passed at 1e-7; the separate 53-fit Windows/PACE diagnostic records 16 XGBoost mismatches, with maximum probability difference 0.17829. Official results use the verified PACE environment. Linkage selection, retrospective tail assignments, left-censored January histories and the single-year cohort limit operational generalization.
 """)
     code("""from pathlib import Path
 import json

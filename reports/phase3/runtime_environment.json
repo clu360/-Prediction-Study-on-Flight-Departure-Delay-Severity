@@ -1,0 +1,27 @@
+{
+  "allocated_cpu_affinity": 4,
+  "architecture": "x86_64",
+  "captured_utc": "2026-11-14T07:54:49Z",
+  "dependencies": {
+    "joblib": "1.5.2",
+    "numpy": "2.2.6",
+    "polars": "1.35.2",
+    "pyarrow": "22.0.0",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.16.3",
+    "threadpoolctl": "3.6.0",
+    "xgboost": "3.1.2"
+  },
+  "estimator_threads": 4,
+  "execution_backend": "Slurm",
+  "hardware_scope": "Verification job; batch_execution.json records global array resources",
+  "max_process_rss_gib": 8,
+  "node_logical_cpu_cores": 24,
+  "node_physical_cpu_cores": 24,
+  "operating_system": "Linux",
+  "os_release": "5.14.0-687.64.1.el9_8.x86_64",
+  "per_process_outer_parallelism": 1,
+  "python_version": "3.12.5",
+  "run_id": "phase3-709172c896241ac3a355",
+  "slurm_job_id": "15600523"
+}

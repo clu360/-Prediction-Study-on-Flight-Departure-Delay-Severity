@@ -1,0 +1,63 @@
+# Phase III validation
+
+**Status: full experiments and independent result verification complete.** Official run `phase3-709172c896241ac3a355` completed all **380 scientific fits**: 367 development fits (271 baseline/screening and 96 finalist fits) and 13 fresh frozen final fits. Selection produced 13 configurations and 91 selected development records before opening the holdouts. All models scored both November and December without refitting: 26 monthly and 13 pooled results. Full verification covered **13,676,312 saved prediction rows**, and reloaded-model replay checked **26,624 rows**. The aggregate-only notebook executed all 20 cells with 44 figures. No official model run remains incomplete; failed and superseded operational attempts are retained separately and excluded.
+
+XGBoost G1_G2 has the largest observed pooled macro-F1, **0.6475**, with severe recall **0.3792**, severe precision **0.8831** and log loss **0.4409**. The pooled population is 1,052,024 flights. These are descriptive comparisons of prespecified configurations, not a new holdout-based selection. See the [analysis notebook](../../notebooks/03_classical_models_analysis.ipynb) and [metrics](metrics_summary.csv).
+
+## Protocol and inputs
+
+The study retains the validated **6,461,609-flight** cohort, signed departure-delay labels (class 0: delay <15 minutes; class 1: 15 <= delay <60; class 2: delay >=60), 20 source features and four ordered views (9/14/15/20). Development uses seven three-month/next-month folds, April through October. Screening uses April/July/October; two finalists per family/view complete the other four months. Selection uses equal-month macro-F1 and the declared tolerance/tie breakers. The 13 primary models fit freshly on August through October and remain frozen for both November and December; the December rolling training fold is never used for the primary result.
+
+Original Phase I/II source, cohort, linkages and feature values are preserved. All retained original storage/logical hashes matched during working-copy recovery, including the original monthly source checksums. The fresh PACE Phase I/II gate passed all 19 Phase II checks for 6,461,609 rows in 332.20 seconds, including 15.01 seconds of exact node-local staging. Its input digest is `39b736c868ad5f78feceb1472ed9a43b24f8a74e727d784fd8e1ba3da0b9af60`, identical to the validated local data. All 43 protected scientific source/configuration byte fingerprints remain unchanged.
+
+## Completed checks
+
+The [methodology checklist](METHODOLOGY_CHECKS.md) maps all 14 acceptance requirements to inspected named tests and their separate real-data evidence. Runtime evidence below is from the full official run; synthetic tests establish implementation behavior separately.
+
+| Check | Evidence/status |
+|---|---|
+| Pinned modeling/notebook dependencies | Local and PACE installations passed `pip check`; XGBoost 3.1.2 is pinned |
+| Complete local automated suite | 111 passed, one Windows symlink-privilege skip in 91.07 seconds on commit `e2a7da7` |
+| Latest storage, repeat and reporting focused checks | 10 passed, one Windows symlink-privilege skip |
+| Linux checks | Updated complete suite: 112 passed in 178.11 seconds; `pip check` passed. Release job `15600917` completed with exit code zero |
+| Ruff | Passed for changed Phase III source/scripts/tests |
+| Real-data upstream gate | Passed, including all 19 Phase II checks and exact population/hash checks |
+| Synthetic end-to-end selection/frozen scoring/resume | Passed; synthetic outputs are excluded from study performance |
+| Real CSV readiness diagnostic | Real feature/cohort CSV alignment passed for all 6,461,609 IDs; the explicitly labeled 6,000-train/2,000-test diagnostic produced all 13 model/view outputs |
+| Aggregate-only notebook rendering | Official aggregates executed successfully: 20 cells, 44 figures (39 diagnostic panels, three holdout comparisons, one development trend and one readiness diagnostic), all 13 parameter rows and complete dictionaries visible. The source is cleared and its executable fingerprint unchanged |
+| Strict independent PACE seeded repeats | Passed: four fresh full-population April/G1 family fits, including the exact diagnosed XGBoost case; all 2,191,344 prediction vectors matched at atol=1e-7, rtol=0 |
+| Full scientific study | All 367 development and 13 frozen final fits completed; 380 unique scientific fits |
+| Full saved-result verification | Passed for all 13,676,312 rows: original ID/label alignment, simplex/class order/argmax, monthly/pooled/five-airport metrics, fitted-state hashes, and every consolidated value versus its monthly original |
+| Official analysis notebook execution | Passed on official aggregates, with no fitting or private inputs; 20 cells and 44 figures |
+
+Tests cover exact three-class labels and probability order, train-only preprocessing, predictor allowlists, exact chronological populations, forbidden holdout reads, fresh estimators, frozen final state, deterministic ranking, artifact corruption/recovery, complete monthly/pooled populations, airport grouping and aggregate/public separation. The storage tests simulate node-local/shared filesystem boundaries; scope facades must stay beside their inputs. Reporting rejects missing, stale or diagnostic-only evidence in place of a current strict independent repeat.
+
+## Execution and recovery
+
+The user authorized paid PACE execution. The scientific implementation is based on commit `d7171fb`; later operational/reporting patches are recorded with helper hashes in `batch_execution.json`. The actual scheduler partition is `cpu-small`, QoS `inferno`. Each task reserves four CPUs and 16 GiB, retaining the original four-thread limit and 8 GiB sampled process-memory guard. Stage C initially permitted 15 workers while one verification job could run; it increased to 16 only after both verification jobs completed. Peak allocation remains within 64 CPUs. No official population or grid was reduced.
+
+The completed workflow is screening array `15598171`, merge/shortlist `15600192`, finalist array `15600199`, selection `15598174`, strict independent repeat `15604175`, cross-platform diagnostic `15603358`, updated release checks `15600917`, and final scoring/verification/reporting/notebook `15600523`. Final scoring ran after selection and verification dependencies succeeded; final job `15600523` completed with exit code zero. Final queue/checkpoint snapshots and complete logs remain private under ignored data.
+
+Two operational failures are retained explicitly. The first shared-filesystem audit (`15598170`) exceeded its 900-second guard; its node-local replacement passed. Independent-repeat attempt `15603357` later failed when the original fold loader tried to hard-link node-local inputs into shared output storage. Only its baseline repeat completed; no learned-model repeat or study result was replaced. Operational patch `1663eb0` keeps temporary input scopes local and durable results shared. The protected loader and batch-worker source bytes remain unchanged. The replacement repeat and the subsequent staged workers use this fix, which passed the simulated-boundary regression checks on Linux.
+
+The local fallback was stopped before any holdout scoring after the PACE gate passed. Its 53 completed development fits are retained only as a comparison reference; they do not enter the official selection/performance store. The earlier interrupted local attempt is also excluded. A historical Windows/Windows check matched 17 repeated fits (9,379,794 prediction vectors, maximum difference 3.33e-16).
+
+## Reproducibility scope and limitations
+
+An early Windows/PACE probe matched a baseline, logistic model and forest on 1,643,508 full-population April prediction vectors, maximum difference 3.33e-16. An additional XGBoost configuration exceeded 1e-7 despite matching inputs, preprocessing hashes, parameters and package versions: maximum probability difference 0.17829, mean absolute difference 0.004817, and 21 changed argmax labels among 547,836 rows. This is recorded as a cross-platform limitation; numeric tolerance was not relaxed and no official candidate was changed. The full 53-fit comparison completed across 29,568,252 prediction vectors: 37 baseline/logistic/forest fits met 1e-7, while all 16 XGBoost fits exceeded it. The maximum difference was 0.1782899823. Numeric failures are recorded explicitly in `cross_platform_reproducibility.json`. It is separate from the strict within-PACE repeat gate.
+
+The strict repeat uses four additional fresh verification fits, one per family, stored outside the scientific-fit stores. It does not retrain every candidate/view/fold and never affects selection. All four passed at 1e-7 (maximum absolute difference 2.22e-16); the completed comparison covers 2,191,344 prediction vectors and is stored in the official PACE reports and retained privately locally. The final manifest and notebook distinguish this scope from the cross-platform diagnostic. The failed repeat's completed baseline is retained as incomplete operational history, not an official result.
+
+Eight development logistic G1_G3 fits reached the fixed 400-iteration cap; every warning and configuration is retained in `execution_summary.json`. No final fit emitted a warning. The cap and parameters were not changed after evaluation. The sum of unique scientific fit elapsed times is 35.90 hours; this is neither billed CPU time nor end-to-end wall time. Maximum recorded sampled process RSS was 4.88 GiB under the 8 GiB guard. Shared preprocessing times and duplicated monthly final-fit resources must not be summed as separate fits. Native operations have cooperative wall/memory checks rather than hard preemption. Scheduler accounting and measured fit seconds have different scopes.
+
+Other limitations remain: correlated flights preclude an IID confidence claim; source month is an unseen one-hot category in following-month scoring; January histories are left-censored; linkage selection, retrospective tail assignments and rotation contradictions limit operational interpretation; feature importance and separately tuned ablations describe associations. Calibration fitting, bootstrap intervals, permutation importance and other-year generalization are not enabled or claimed. Earlier observed test-month outcomes may enter causal G3 inputs without updating learned state.
+
+## Final artifacts and verification scope
+
+The complete exports include 367 candidate records, 13 selected configurations, 91 selected development records, 26 monthly and 13 pooled final records, and origin-airport, calibration and feature-importance aggregates. All final models trained on August-October only. November contains 519,971 flights and December 532,053; pooled supports are 830,013 minimal, 154,436 moderate and 67,575 severe delays. Pooled metrics were recomputed from concatenated predictions, not averaged monthly scores.
+
+`result_verification.json` records the independent full-population check and reload replay of the first 1,024 sorted original IDs per month/model at atol=1e-8, rtol=1e-7. Model and transformer hashes were identical across both holdouts. The selected configuration file is byte-identical to its pre-holdout development snapshot; its selection hash is `4d240ce2a786a8ac31b642bc62e97e7c795ca2ae11af42bf94810222fcb3d768`. The strict repeat gate covers four additional family fits, not all 380 scientific fits. The Windows/PACE XGBoost diagnostic remains explicitly unsuccessful and is not relabeled as a passed repeat.
+
+The verified private snapshot was downloaded with SHA-256 `a1c5c3b4e65da6dd2b0aba98656367da38e0c2a59182ce92b2a685a5931eb654`. All 1,042 extracted files also matched their archive-member content hashes. Windows extraction encountered a directory-attribute path error after writing the files; complete member-by-member hash verification established that no file was missing or damaged. Models, predictions, operational logs and executed notebook copies remain ignored. Source notebook outputs remain cleared; its executable-code hash is `d247421b69668b61723faa7cb1353e634827837b4699130ed82b28ae235a3235`. Post-run changes to notebook prose and figure layout do not alter that code.
+
+No MLP, final course project report or Git push is included. The original Phase I/II inputs and scientific pipelines remain unchanged.

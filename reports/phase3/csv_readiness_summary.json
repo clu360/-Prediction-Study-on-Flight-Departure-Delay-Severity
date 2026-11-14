@@ -1,0 +1,92 @@
+{
+  "csv_verification": {
+    "class_counts": [
+      {
+        "len": 5199881,
+        "target_class": 0
+      },
+      {
+        "len": 883015,
+        "target_class": 1
+      },
+      {
+        "len": 378713,
+        "target_class": 2
+      }
+    ],
+    "cohort_export_metadata_verified": true,
+    "feature_export_checksum_verified": true,
+    "full_id_alignment": true,
+    "hashes": {
+      "cohort": "1924524786d57fc2e61a44dd8783c894a3661a11b7bb49dcf6d871cf1db1dd05",
+      "features": "542670df1e33776a8e21c51a549ea41f60e89333bbf8e6cc5170ed631cca5f98"
+    },
+    "month_counts": [
+      {
+        "len": 482934,
+        "source_month": 1
+      },
+      {
+        "len": 466318,
+        "source_month": 2
+      },
+      {
+        "len": 558899,
+        "source_month": 3
+      },
+      {
+        "len": 547836,
+        "source_month": 4
+      },
+      {
+        "len": 564296,
+        "source_month": 5
+      },
+      {
+        "len": 559011,
+        "source_month": 6
+      },
+      {
+        "len": 566757,
+        "source_month": 7
+      },
+      {
+        "len": 558470,
+        "source_month": 8
+      },
+      {
+        "len": 532178,
+        "source_month": 9
+      },
+      {
+        "len": 572886,
+        "source_month": 10
+      },
+      {
+        "len": 519971,
+        "source_month": 11
+      },
+      {
+        "len": 532053,
+        "source_month": 12
+      }
+    ],
+    "rows": 6461609,
+    "signed_label_thresholds": true,
+    "source_predictors": 20,
+    "unique_ids": true
+  },
+  "diagnostic_run_id": "b4671a18ca771639",
+  "evaluation_stage": "csv_readiness_smoke",
+  "limitation": "Full original Phase I/II audit and fold-manifest verification remain separate requirements for official experiments",
+  "model_view_combinations": 13,
+  "original_fold_manifest_verified": false,
+  "prediction_rows": 26000,
+  "rows_per_month": 2000,
+  "scope": "Readiness diagnostic only: not hyperparameter tuning, official backtest, or final evaluation",
+  "split": "Earliest scheduled targets per local month; Jan-Mar train / April score",
+  "status": "csv_models_verified",
+  "study_results": false,
+  "test_rows": 2000,
+  "train_rows": 6000
+}

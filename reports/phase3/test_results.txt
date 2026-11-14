@@ -1,0 +1,11 @@
+Final scientific release validation (PACE Linux, job 15600917)
+112 passed in 178.11s
+pip check: no broken requirements
+
+Local Windows complete suite (commit e2a7da7)
+111 passed, 1 skipped in 91.07s
+Skip: directory symlink requires Windows privileges.
+
+These suites precede final presentation-only notebook/README edits.
+Final aggregate-only notebook: 20 cells, 44 figures, no errors.
+See notebook_validation.json and PHASE3_VALIDATION.md for final artifact checks.

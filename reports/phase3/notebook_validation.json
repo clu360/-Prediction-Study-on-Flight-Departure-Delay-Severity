@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "run_id": "phase3-709172c896241ac3a355",
+  "scope": "Aggregate-only execution of final editorial source; no private inputs or fitting",
+  "cells": 20,
+  "png_figures": 44,
+  "visible_selected_parameter_rows": 13,
+  "errors": 0,
+  "source_outputs_cleared": true,
+  "analysis_code_sha256": "d247421b69668b61723faa7cb1353e634827837b4699130ed82b28ae235a3235",
+  "final_source_sha256": "8842c93178f463b869499c1ef647d9f5001de0e65c9307f6b35bb755d98b56d0",
+  "executed_notebook_sha256": "514b37725cb10763c54fc43d774938ce5ec29e201c89a813970ba01bb2bff580",
+  "original_cluster_executed_sha256": "87ef3324422ec2c4649364125c7fd7f48eb521c4033b6367fa66ba34ed797caa",
+  "aggregate_input_sha256": {
+    "batch_execution.json": "42ae183c624e47bc61529cedd9af02663515f54dcc3d5ba3c8aef6f20f102c96",
+    "candidate_scores.json": "35e5e5575aa928bbe0c23c15aa083b779e6fdb712fe6daac25e571435bd25e19",
+    "cross_platform_reproducibility.json": "1994913f831e78923716074b65768c6462a66fe245875eae6dd7888791ececb2",
+    "csv_readiness_details.json": "4551975eb18a8de5f8a13ae7adaa5782bd878b7256e7ccf862dde7722e070821",
+    "csv_readiness_metrics.csv": "8b89636e3fbb1cfe904ea4cd555c57c831a54515fe393cdd59f4258561c55564",
+    "csv_readiness_summary.json": "e1c8c465e1f0df87b0df5d9c6e032574fe2eea850af49426ea96b9cf94e898de",
+    "execution_summary.json": "c93e5d43662625a3b6361dc378e2de614bd9612f88a97c6def53b37d1bfcb378",
+    "experiment_manifest.json": "44cb141390889ca9423e0271e0b220192b9a700933029a16194eb4801a3ee9a7",
+    "feature_importance.json": "3541d4e42a72811edfcd0e4f2f8f1fb1d94953951af8f2c364b5229a2d6b427f",
+    "metric_details.json": "fb11201ff454fba70c7d6377690281b9b58120ee337ffd055135e20274354bf4",
+    "metrics_summary.csv": "6decef7674502cf69a60b749998fe160c69bc30b06aeca115f296532ae0b7d6b",
+    "reproducibility_check.json": "0902f966a1d97b40016dff8089eb396e8cb86c2d7389e04cbf16c66fee7c7117",
+    "result_verification.json": "2e97e4479b9101a8a79f2877eaa699e8acb0e0c5e60ae19f2c754fa192345098",
+    "runtime_environment.json": "252781c70458d579a820782cdfc2575bc66af2c9701be22af8aecf7fa008c826",
+    "selected_configs.json": "f2159385f6eb0d556f224ab8569cca737ab14744232f061f83c6b1ec4692346c"
+  },
+  "presentation_changes": "Final quantitative Markdown, complete aggregate tables and automatic figure layout; executable notebook cells unchanged"
+}

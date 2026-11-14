@@ -44,6 +44,9 @@ def main():
         directory = output / name
         directory.mkdir(parents=True, exist_ok=True)
         os.environ[variable] = str(directory)
+    (Path(os.environ["MPLCONFIGDIR"]) / "matplotlibrc").write_text(
+        "figure.autolayout: True\n", encoding="utf-8"
+    )
     if os.name == "nt":
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     NotebookClient(
