@@ -2,6 +2,8 @@
 
 The adopted [implementation plan](phase3_specification.md) authorizes classical models only. Phase I preprocessing and all Phase II feature modules remain unchanged. This phase adds experiments around the same source IDs, features and folds; it does not reconstruct aircraft links or histories.
 
+The [classical-model analysis notebook](../notebooks/03_classical_models_analysis.ipynb) is the analysis handoff. Its saved Markdown includes the forecast-time/feature contract, chronological folds, preprocessing, candidate selection, frozen-holdout rules, verification scope, limitations, all 13 selected settings and all monthly/pooled holdout comparisons. These saved tables are rebuilt directly from persisted aggregates by `scripts/build_phase3_notebook.py`; they are readable without a running kernel. The executable cells recreate the remaining tables and figures without fitting. The [artifact guide](../reports/phase3/README.md) distinguishes public evidence, private checkpoints, rendered notebook copies and retained historical diagnostics.
+
 ## Protocol
 
 Three distinct operations are recorded: within-window estimator fitting, across-window hyperparameter selection, and the final frozen forecast. The target retains signed departure-delay thresholds 15 and 60 minutes, with class order [0,1,2]. Exactly four source-column allowlists retain 9, 14, 15 and 20 predictors.

@@ -1,7 +1,122 @@
 """Recreate the lightweight aggregate-only analysis notebook; never train models."""
 
 from pathlib import Path
+import csv
 import json
+
+
+def saved_result_tables(root):
+    """Keep the complete aggregate comparison readable without running a kernel."""
+    reports = root / "reports/phase3"
+    required = [reports / "metrics_summary.csv", reports / "selected_configs.json"]
+    if not all(path.exists() for path in required):
+        return (
+            "\n## Saved result tables\n\nOfficial aggregate inputs are unavailable.\n"
+        )
+    selected = json.loads(required[1].read_text(encoding="utf-8"))
+    if not selected.get("complete"):
+        return (
+            "\n## Saved result tables\n\nOfficial parameter selection is incomplete.\n"
+        )
+    with required[0].open(encoding="utf-8", newline="") as stream:
+        rows = [
+            row
+            for row in csv.DictReader(stream)
+            if row["airport"] == "overall"
+            and row["evaluation_stage"] == "frozen_holdout"
+        ]
+    if not rows:
+        return "\n## Saved result tables\n\nOfficial holdout results are unavailable.\n"
+    assert len(rows) == 39
+    assert {row["run_id"] for row in rows} == {selected["run_id"]}
+    sections = [
+        "\n## Saved results for every prespecified model\n\n"
+        "These tables are generated from the persisted aggregate reports when "
+        "the notebook source is built. They remain visible without executing "
+        "cells. The analysis cells below recreate the tables and figures from "
+        "the same reports; no model is retrained. Scores are rounded to four "
+        "decimal places here; CSV/JSON reports retain full exported precision.\n"
+    ]
+    for period, label in [
+        ("2025-11_12_pooled", "Pooled November and December"),
+        ("2025-11", "November"),
+        ("2025-12", "December"),
+    ]:
+        current = sorted(
+            (row for row in rows if row["scored_month"] == period),
+            key=lambda row: (row["model"], row["feature_view"]),
+        )
+        assert len(current) == 13
+        sections.append(
+            f"\n### {label}\n\n"
+            "| Model | View | Flights | Accuracy | Macro-F1 | Severe recall | Severe precision | Log loss | Brier |\n"
+            "|---|---|---:|---:|---:|---:|---:|---:|---:|\n"
+        )
+        for row in current:
+            values = [row["model"], row["feature_view"], f"{int(row['n']):,}"]
+            values.extend(
+                f"{float(row[key]):.4f}"
+                for key in [
+                    "accuracy",
+                    "macro_f1",
+                    "severe_recall",
+                    "severe_precision",
+                    "log_loss",
+                    "brier",
+                ]
+            )
+            sections.append("| " + " | ".join(values) + " |\n")
+    sections.append(
+        "\n### Frozen settings selected using development months only\n\n"
+        "The baseline uses training-class proportions. Other rows show the "
+        "full selected parameter dictionary. Fixed factory settings include "
+        "seed 6740 and at most four estimator/BLAS threads. Development means "
+        "give each of the seven months equal weight and retain selection optimism.\n\n"
+        "| Model | View | Development mean macro-F1 | Month standard deviation | Selected parameters |\n"
+        "|---|---|---:|---:|---|\n"
+    )
+    for choice in sorted(
+        selected["selected"].values(),
+        key=lambda row: (row["model"], row["feature_view"]),
+    ):
+        sections.append(
+            f"| {choice['model']} | {choice['feature_view']} | "
+            f"{choice['mean_macro_f1']:.4f} | {choice['macro_f1_std']:.4f} | "
+            f"`{json.dumps(choice['params'], sort_keys=True)}` |\n"
+        )
+    coverage_path = reports / "feature_label_coverage.json"
+    if coverage_path.exists():
+        coverage = json.loads(coverage_path.read_text(encoding="utf-8"))
+        assert coverage["passed"] and coverage["run_id"] == selected["run_id"]
+        sections.append(
+            "\n### Full feature-label coverage audit\n\n"
+            f"All **{coverage['rows']:,} feature rows** have exactly one matching "
+            "valid label. Labels are intentionally stored in the separate "
+            "targets/cohort tables, not among the twenty predictors. The audit "
+            "checked the complete CSV feature export, Parquet feature export "
+            "and Phase III working feature partitions against the original "
+            "cohort and stored targets. No missing, extra or duplicate IDs, "
+            "missing labels, month disagreements, class disagreements or signed "
+            "departure-delay disagreements were found. Every label satisfies "
+            "the signed 15/60-minute thresholds; all three classes and twelve "
+            "months are present. Original export checksums still match.\n\n"
+            "| Class | Departure delay | Full-cohort support |\n"
+            "|---|---|---:|\n"
+        )
+        descriptions = {0: "<15 minutes", 1: "15 to <60 minutes", 2: ">=60 minutes"}
+        for row in coverage["class_counts"]:
+            sections.append(
+                f"| {row['target_class']} | {descriptions[row['target_class']]} | "
+                f"{row['len']:,} |\n"
+            )
+        sections.append(
+            "\nThese are full-year cohort counts, distinct from the smaller "
+            "November/December supports above. The check reads existing files "
+            "without fitting models or adding labels to predictors. Detailed "
+            "aggregate evidence is saved in "
+            "[feature_label_coverage.json](../reports/phase3/feature_label_coverage.json).\n"
+        )
+    return "".join(sections)
 
 
 def build():
@@ -43,6 +158,45 @@ Pooled metrics are recomputed from all held-out predictions. Classes: 0 minimal
 
 Recreate the panels from the committed aggregates with `python scripts/execute_phase3_notebook.py --check-name official_phase3_final`. Rebuilding aggregates requires the original private checkpoints: run `phase3-report --config configs/phase3_pace.yaml`, then `python scripts/summarize_phase3_execution.py --config configs/phase3_pace.yaml`. Rebuild this source with `python scripts/build_phase3_notebook.py`. Install the `notebook` extra. Missing experiments are marked unavailable. Synthetic smoke scores remain private and do not enter the study.
 
+## Methodology
+
+The eligible cohort contains 6,461,609 flights from the validated 2025 BTS inputs. Phase I aircraft links, target membership and Phase II engineered features are reused unchanged. Prediction time is the preceding aircraft leg's actual wheels-off time plus one minute, before the target's scheduled departure. The prior flight's departure delay is available; prior arrival outcomes, target outcomes, delay causes, tail IDs and record IDs are excluded from predictors. Cancelled/diverted flights remain available when constructing the upstream aircraft chain, while eligible prediction targets follow the validated Phase I exclusions.
+
+### Features and causal availability
+
+| Group | Source features | Information available at prediction time |
+|---|---:|---|
+| G1 | 9 | Carrier, origin, destination, cyclic departure hour, weekday, month, scheduled elapsed minutes and distance |
+| G2 | 5 | Prior origin, signed prior departure delay, prior scheduled elapsed minutes, scheduled turnaround and minutes until target scheduled departure |
+| G3 | 6 | Airport moderate/severe rates and mean departure delay over 28 days, airport scheduled volume over 7 days, and airline-at-airport severe rate and observation count over 28 days |
+
+The four views are G1 (9 columns), G1_G2 (14), G1_G3 (15), and G1_G2_G3 (20). History windows include their left boundary and exclude prediction time: [t-28 days,t) or [t-7 days,t). A target's own outcome is excluded. Rates use the Phase II smoothing/fallback rules (alpha=20); no histories or links are rebuilt here. The full formulas and source schema are in [the feature dictionary](../docs/phase2_feature_dictionary.md).
+
+### Chronological fitting and parameter selection
+
+| Training months in 2025 | Scored month | Use |
+|---|---|---|
+| January-March | April | Development; screening |
+| February-April | May | Development; finalists |
+| March-May | June | Development; finalists |
+| April-June | July | Development; screening |
+| May-July | August | Development; finalists |
+| June-August | September | Development; finalists |
+| July-September | October | Development; screening |
+| August-October | November and December | One fresh frozen fit; both final holdouts |
+
+There is no random train/test split. Every window fits numeric medians/scaling and categorical vocabularies on its training rows only, then freezes them. Unknown categories map to all-zero one-hot blocks; the following month's month category is necessarily unseen. Matrices are sparse CSR float32. IDs and labels are checked one-to-one, and all compared models score identical populations.
+
+The models are the class-prior baseline, L2 logistic regression with SAGA, bootstrap random forest, and CPU-histogram XGBoost 3.1.2 with three-class soft probabilities. Logistic/forest/XGBoost grids contain 6/8/8 candidates per view. The three screening months require 264 learned fits plus seven baseline fits; two finalists per family/view add 96 fits across the remaining four months. Selected backtests reuse verified candidate predictions. Thus development has 367 fits; the 13 fresh final fits bring the scientific total to 380. Four additional independent seeded family repeats are verification only.
+
+Rank candidates by equal-month mean macro-F1. Within the declared 1e-6 tolerance, use lower mean log loss, lower population standard deviation of monthly macro-F1, lower median fit time, then lexical parameter JSON. Finalists use all seven development months. Freeze the 13 configurations and selection checksum before accessing either holdout. August-October is the only final training population; December does not refit on September-November. Earlier observed holdout outcomes may enter causal G3 inputs, but never update weights, preprocessing, thresholds or calibration.
+
+### Evaluation and independent checks
+
+Probabilities are ordered [minimal, moderate, severe], finite, within [0,1], and sum to one within 1e-6 before numerical normalization of roundoff. Predictions use argmax. Metrics include accuracy, macro/weighted F1, per-class precision/recall/F1, log loss, multiclass Brier (mean summed squared error over three classes), one-vs-rest AUC, confusion matrices and ten equal-width reliability bins with counts. Undefined AUC is explicitly null. Pooled metrics use concatenated held-out predictions. ATL, DFW, DEN, ORD and LAX are target-origin evaluation slices of network-wide training.
+
+Verification rereads every stored prediction, checks original IDs/labels, class order/simplex/argmax and consolidated-file equality, then recomputes monthly, pooled and airport metrics. Each saved model/transformer is reloaded for a deterministic 1,024-row replay per month; state hashes must stay unchanged. The release suite passed 112 tests on Linux (111 plus one symlink-privilege skip on Windows). Four independent PACE family repeats matched within 1e-7; this does not establish that all 380 fits were repeated. The separate Windows/PACE diagnostic records XGBoost numerical differences explicitly. See [the acceptance checklist](../reports/phase3/METHODOLOGY_CHECKS.md) for all 14 requirements and [validation](../reports/phase3/PHASE3_VALIDATION.md) for limitations and recovery history.
+
 ## Interpretation of the verified classical-model study
 
 These findings describe run `phase3-709172c896241ac3a355`. All 13 configurations were frozen using April-October development scores before final evaluation. The 367 development fits and 13 fresh August-October fits completed; each final model and transformer stayed identical for November and December. Independent checks covered all 13,676,312 saved final prediction rows and replayed 26,624 rows from reloaded models. These holdout comparisons describe the prespecified models and do not change the selected configurations or decision rule.
@@ -74,6 +228,11 @@ Airport one-hot columns absorb substantial summed XGBoost gain. Category count, 
 
 Across the 380 scientific fits, 8 development logistic G1_G3 fits reached the fixed 400-iteration cap; no final fit recorded a warning. Summed unique fit elapsed time is 35.90 hours across parallel tasks, with a maximum sampled process RSS of 4.88 GiB. These fit hours exclude preprocessing, inference and independent repeats and are not billed CPU hours or end-to-end elapsed time. Four independent full-population PACE repeats passed at 1e-7; the separate 53-fit Windows/PACE diagnostic records 16 XGBoost mismatches, with maximum probability difference 0.17829. Official results use the verified PACE environment. Linkage selection, retrospective tail assignments, left-censored January histories and the single-year cohort limit operational generalization.
 """)
+    cells[-1]["source"].extend(
+        saved_result_tables(Path(__file__).resolve().parents[1]).splitlines(
+            keepends=True
+        )
+    )
     code("""from pathlib import Path
 import json
 import polars as pl

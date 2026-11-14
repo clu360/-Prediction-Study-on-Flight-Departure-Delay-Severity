@@ -1,0 +1,276 @@
+{
+  "passed": true,
+  "run_id": "phase3-709172c896241ac3a355",
+  "scope": "Full-population read-only feature/label audit; no model fitting or data mutation",
+  "label_storage": "Labels remain in the separate targets table; feature-only exports contain ID plus exactly 20 predictors",
+  "label_sources": {
+    "targets": {
+      "rows": 6461609,
+      "unique_ids": 6461609,
+      "null_ids": 0,
+      "duplicate_id_rows": 0,
+      "invalid_or_missing_labels": 0
+    },
+    "cohort": {
+      "rows": 6461609,
+      "unique_ids": 6461609,
+      "null_ids": 0,
+      "duplicate_id_rows": 0,
+      "invalid_or_missing_labels": 0
+    }
+  },
+  "feature_sources": [
+    {
+      "rows": 6461609,
+      "unique_ids": 6461609,
+      "null_ids": 0,
+      "duplicate_id_rows": 0,
+      "source": "CSV export",
+      "path": "data/features/exports/full_features.csv",
+      "predictor_columns": 20,
+      "features_without_labels": 0,
+      "labels_without_features": 0,
+      "month_disagreements": 0,
+      "missing_joined_labels": 0
+    },
+    {
+      "rows": 6461609,
+      "unique_ids": 6461609,
+      "null_ids": 0,
+      "duplicate_id_rows": 0,
+      "source": "Parquet export",
+      "path": "data/features/exports/full_features.parquet",
+      "predictor_columns": 20,
+      "features_without_labels": 0,
+      "labels_without_features": 0,
+      "month_disagreements": 0,
+      "missing_joined_labels": 0
+    },
+    {
+      "rows": 6461609,
+      "unique_ids": 6461609,
+      "null_ids": 0,
+      "duplicate_id_rows": 0,
+      "source": "Phase III working partitions",
+      "path": "data/phase3_inputs/features/full_features",
+      "predictor_columns": 20,
+      "features_without_labels": 0,
+      "labels_without_features": 0,
+      "month_disagreements": 0,
+      "missing_joined_labels": 0
+    }
+  ],
+  "target_cohort_agreement": {
+    "matched_rows": 6461609,
+    "targets_without_cohort": 0,
+    "cohort_without_targets": 0,
+    "class_disagreements": 0,
+    "signed_delay_disagreements": 0
+  },
+  "source_sha256": {
+    "full_features.csv": "542670df1e33776a8e21c51a549ea41f60e89333bbf8e6cc5170ed631cca5f98",
+    "full_features.parquet": "dcba1f79f4039e96e6350c3b302722ab6bb12a0ab398c9ceb0b00711c43f5379",
+    "modeling_cohort.csv": "1924524786d57fc2e61a44dd8783c894a3661a11b7bb49dcf6d871cf1db1dd05"
+  },
+  "class_counts": [
+    {
+      "target_class": 0,
+      "len": 5199881
+    },
+    {
+      "target_class": 1,
+      "len": 883015
+    },
+    {
+      "target_class": 2,
+      "len": 378713
+    }
+  ],
+  "monthly_class_counts": [
+    {
+      "source_month": 1,
+      "target_class": 0,
+      "len": 404083
+    },
+    {
+      "source_month": 1,
+      "target_class": 1,
+      "len": 57104
+    },
+    {
+      "source_month": 1,
+      "target_class": 2,
+      "len": 21747
+    },
+    {
+      "source_month": 2,
+      "target_class": 0,
+      "len": 384618
+    },
+    {
+      "source_month": 2,
+      "target_class": 1,
+      "len": 57624
+    },
+    {
+      "source_month": 2,
+      "target_class": 2,
+      "len": 24076
+    },
+    {
+      "source_month": 3,
+      "target_class": 0,
+      "len": 463952
+    },
+    {
+      "source_month": 3,
+      "target_class": 1,
+      "len": 66986
+    },
+    {
+      "source_month": 3,
+      "target_class": 2,
+      "len": 27961
+    },
+    {
+      "source_month": 4,
+      "target_class": 0,
+      "len": 456025
+    },
+    {
+      "source_month": 4,
+      "target_class": 1,
+      "len": 65603
+    },
+    {
+      "source_month": 4,
+      "target_class": 2,
+      "len": 26208
+    },
+    {
+      "source_month": 5,
+      "target_class": 0,
+      "len": 448671
+    },
+    {
+      "source_month": 5,
+      "target_class": 1,
+      "len": 79705
+    },
+    {
+      "source_month": 5,
+      "target_class": 2,
+      "len": 35920
+    },
+    {
+      "source_month": 6,
+      "target_class": 0,
+      "len": 420399
+    },
+    {
+      "source_month": 6,
+      "target_class": 1,
+      "len": 93147
+    },
+    {
+      "source_month": 6,
+      "target_class": 2,
+      "len": 45465
+    },
+    {
+      "source_month": 7,
+      "target_class": 0,
+      "len": 421294
+    },
+    {
+      "source_month": 7,
+      "target_class": 1,
+      "len": 96162
+    },
+    {
+      "source_month": 7,
+      "target_class": 2,
+      "len": 49301
+    },
+    {
+      "source_month": 8,
+      "target_class": 0,
+      "len": 446853
+    },
+    {
+      "source_month": 8,
+      "target_class": 1,
+      "len": 78347
+    },
+    {
+      "source_month": 8,
+      "target_class": 2,
+      "len": 33270
+    },
+    {
+      "source_month": 9,
+      "target_class": 0,
+      "len": 453275
+    },
+    {
+      "source_month": 9,
+      "target_class": 1,
+      "len": 57659
+    },
+    {
+      "source_month": 9,
+      "target_class": 2,
+      "len": 21244
+    },
+    {
+      "source_month": 10,
+      "target_class": 0,
+      "len": 470698
+    },
+    {
+      "source_month": 10,
+      "target_class": 1,
+      "len": 76242
+    },
+    {
+      "source_month": 10,
+      "target_class": 2,
+      "len": 25946
+    },
+    {
+      "source_month": 11,
+      "target_class": 0,
+      "len": 426928
+    },
+    {
+      "source_month": 11,
+      "target_class": 1,
+      "len": 63801
+    },
+    {
+      "source_month": 11,
+      "target_class": 2,
+      "len": 29242
+    },
+    {
+      "source_month": 12,
+      "target_class": 0,
+      "len": 403085
+    },
+    {
+      "source_month": 12,
+      "target_class": 1,
+      "len": 90635
+    },
+    {
+      "source_month": 12,
+      "target_class": 2,
+      "len": 38333
+    }
+  ],
+  "rows": 6461609,
+  "signed_thresholds_verified": true,
+  "all_three_classes_present": true,
+  "all_twelve_months_present": true,
+  "elapsed_seconds": 36.64100000006147
+}

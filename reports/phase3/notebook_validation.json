@@ -8,8 +8,8 @@
   "errors": 0,
   "source_outputs_cleared": true,
   "analysis_code_sha256": "d247421b69668b61723faa7cb1353e634827837b4699130ed82b28ae235a3235",
-  "final_source_sha256": "8842c93178f463b869499c1ef647d9f5001de0e65c9307f6b35bb755d98b56d0",
-  "executed_notebook_sha256": "514b37725cb10763c54fc43d774938ce5ec29e201c89a813970ba01bb2bff580",
+  "final_source_sha256": "7b4a5d7e73424b3857dcb641861089c487fce26fe99fb1fdece5dc9b434032cd",
+  "executed_notebook_sha256": "8cfc6682c2be1693f19acf21c0fc0d934159988a9e2e8aca001c14689b1d1f6f",
   "original_cluster_executed_sha256": "87ef3324422ec2c4649364125c7fd7f48eb521c4033b6367fa66ba34ed797caa",
   "aggregate_input_sha256": {
     "batch_execution.json": "42ae183c624e47bc61529cedd9af02663515f54dcc3d5ba3c8aef6f20f102c96",
@@ -26,7 +26,14 @@
     "reproducibility_check.json": "0902f966a1d97b40016dff8089eb396e8cb86c2d7389e04cbf16c66fee7c7117",
     "result_verification.json": "2e97e4479b9101a8a79f2877eaa699e8acb0e0c5e60ae19f2c754fa192345098",
     "runtime_environment.json": "252781c70458d579a820782cdfc2575bc66af2c9701be22af8aecf7fa008c826",
-    "selected_configs.json": "f2159385f6eb0d556f224ab8569cca737ab14744232f061f83c6b1ec4692346c"
+    "selected_configs.json": "f2159385f6eb0d556f224ab8569cca737ab14744232f061f83c6b1ec4692346c",
+    "feature_label_coverage.json": "9b47ae2f4dfe312c392b67ebce5ffd09e0a429930da18105826da53c844ce9d2"
   },
-  "presentation_changes": "Final quantitative Markdown, complete aggregate tables and automatic figure layout; executable notebook cells unchanged"
+  "presentation_changes": "Self-contained methodology and complete saved aggregate holdout/settings tables; executable cells unchanged; no model retraining",
+  "saved_markdown_holdout_rows": 39,
+  "saved_markdown_selected_parameter_rows": 13,
+  "saved_methodology": true,
+  "source_builder_byte_reproducible": true,
+  "saved_feature_label_coverage": true,
+  "feature_label_rows": 6461609
 }
