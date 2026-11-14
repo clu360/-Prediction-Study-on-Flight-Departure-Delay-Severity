@@ -8,8 +8,8 @@
   "errors": 0,
   "source_outputs_cleared": true,
   "analysis_code_sha256": "d247421b69668b61723faa7cb1353e634827837b4699130ed82b28ae235a3235",
-  "final_source_sha256": "7b4a5d7e73424b3857dcb641861089c487fce26fe99fb1fdece5dc9b434032cd",
-  "executed_notebook_sha256": "8cfc6682c2be1693f19acf21c0fc0d934159988a9e2e8aca001c14689b1d1f6f",
+  "final_source_sha256": "4923bdb91b05aff577fa31ac3f9456285bc58b11abc63372ceaa2800f83867aa",
+  "executed_notebook_sha256": "95ad8477c6ea911fd427bb00c6cde6545c4eec7b8568e060140afc60f6b64b9f",
   "original_cluster_executed_sha256": "87ef3324422ec2c4649364125c7fd7f48eb521c4033b6367fa66ba34ed797caa",
   "aggregate_input_sha256": {
     "batch_execution.json": "42ae183c624e47bc61529cedd9af02663515f54dcc3d5ba3c8aef6f20f102c96",
@@ -29,11 +29,14 @@
     "selected_configs.json": "f2159385f6eb0d556f224ab8569cca737ab14744232f061f83c6b1ec4692346c",
     "feature_label_coverage.json": "9b47ae2f4dfe312c392b67ebce5ffd09e0a429930da18105826da53c844ce9d2"
   },
-  "presentation_changes": "Self-contained methodology and complete saved aggregate holdout/settings tables; executable cells unchanged; no model retraining",
+  "presentation_changes": "Saved class precision/recall/F1/support for every holdout model and period, plus focused Random Forest G1_G2 predicted counts; methodology and existing tables retained; executable analysis unchanged",
   "saved_markdown_holdout_rows": 39,
   "saved_markdown_selected_parameter_rows": 13,
   "saved_methodology": true,
   "source_builder_byte_reproducible": true,
   "saved_feature_label_coverage": true,
-  "feature_label_rows": 6461609
+  "feature_label_rows": 6461609,
+  "saved_class_metric_rows": 117,
+  "saved_random_forest_G1_G2_class_rows": 9,
+  "per_class_metrics_checked_against_confusion_matrices": true
 }

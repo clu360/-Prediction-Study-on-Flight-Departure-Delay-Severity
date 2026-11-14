@@ -1,6 +1,6 @@
 # Phase III artifact guide
 
-Start with [the classical-model analysis notebook](../../notebooks/03_classical_models_analysis.ipynb). It contains the methodology, interpretation, saved tables for all 13 configurations in each holdout period, and selected parameter settings. Its analysis cells regenerate figures from these aggregate reports without training. The saved Markdown tables remain readable without running a kernel.
+Start with [the classical-model analysis notebook](../../notebooks/03_classical_models_analysis.ipynb). It contains the methodology, interpretation, saved tables for all 13 configurations in each holdout period, and selected parameter settings. Per-class tables include minimal/moderate/severe precision, recall, F1 and support for every configuration and period, plus a focused Random Forest G1_G2 table with predicted counts. Its analysis cells regenerate figures from these aggregate reports without training. The saved Markdown tables remain readable without running a kernel.
 
 | Files | Purpose |
 |---|---|

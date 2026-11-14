@@ -5,6 +5,81 @@ import csv
 import json
 
 
+def saved_class_tables(reports, run_id):
+    """Render persisted per-class metrics without changing executable analysis."""
+    path = reports / "metric_details.json"
+    if not path.exists():
+        return "\n## Per-class holdout results\n\nClass metrics are unavailable.\n"
+    rows = [
+        row
+        for row in json.loads(path.read_text(encoding="utf-8"))
+        if row["evaluation_stage"] == "frozen_holdout"
+    ]
+    assert len(rows) == 39 and {row["run_id"] for row in rows} == {run_id}
+    classes = ["Minimal (minor)", "Moderate", "Severe"]
+    periods = [
+        ("2025-11_12_pooled", "Pooled November and December"),
+        ("2025-11", "November"),
+        ("2025-12", "December"),
+    ]
+    sections = [
+        "\n## Precision and recall for minimal, moderate and severe delays\n\n"
+        "Minimal (also called minor here) means signed departure delay <15 "
+        "minutes, including early/on-time departures; moderate is 15 to <60 "
+        "minutes; severe is >=60 minutes. **Precision** is the fraction of "
+        "predictions for a class that are correct. **Recall** is the fraction "
+        "of actual members of that class identified. **Support** counts actual "
+        "members; **predicted count** counts argmax assignments to that class. "
+        "Precision and recall are percentages; F1 is on a 0-1 scale. A class "
+        "with no predicted members has precision/F1 recorded as zero under "
+        "the declared zero-division convention.\n\n"
+        "### Random Forest G1_G2: all three classes\n\n"
+        "This focused table separates the November recall discussed above "
+        "from the pooled result and makes over/under-assignment visible. "
+        "A low class recall indicates missed cases; it does not by itself "
+        "establish probability miscalibration.\n\n"
+        "| Period | Class | Precision (%) | Recall (%) | F1 | Support | Predicted count |\n"
+        "|---|---|---:|---:|---:|---:|---:|\n"
+    ]
+    for period, label in periods:
+        row = next(
+            row
+            for row in rows
+            if row["model"] == "random_forest"
+            and row["feature_view"] == "G1_G2"
+            and row["scored_month"] == period
+        )
+        metrics = row["metrics"]
+        for class_id, name in enumerate(classes):
+            predicted = sum(line[class_id] for line in metrics["confusion_matrix"])
+            sections.append(
+                f"| {label} | {name} | {100 * metrics['precision'][class_id]:.2f} | "
+                f"{100 * metrics['recall'][class_id]:.2f} | "
+                f"{metrics['f1'][class_id]:.4f} | "
+                f"{metrics['support'][class_id]:,} | {predicted:,} |\n"
+            )
+    for period, label in periods:
+        sections.append(
+            f"\n### All models by class: {label}\n\n"
+            "| Model | View | Class | Precision (%) | Recall (%) | F1 | Support |\n"
+            "|---|---|---|---:|---:|---:|---:|\n"
+        )
+        for row in sorted(
+            (row for row in rows if row["scored_month"] == period),
+            key=lambda row: (row["model"], row["feature_view"]),
+        ):
+            metrics = row["metrics"]
+            for class_id, name in enumerate(classes):
+                sections.append(
+                    f"| {row['model']} | {row['feature_view']} | {name} | "
+                    f"{100 * metrics['precision'][class_id]:.2f} | "
+                    f"{100 * metrics['recall'][class_id]:.2f} | "
+                    f"{metrics['f1'][class_id]:.4f} | "
+                    f"{metrics['support'][class_id]:,} |\n"
+                )
+    return "".join(sections)
+
+
 def saved_result_tables(root):
     """Keep the complete aggregate comparison readable without running a kernel."""
     reports = root / "reports/phase3"
@@ -66,6 +141,7 @@ def saved_result_tables(root):
                 ]
             )
             sections.append("| " + " | ".join(values) + " |\n")
+    sections.append(saved_class_tables(reports, selected["run_id"]))
     sections.append(
         "\n### Frozen settings selected using development months only\n\n"
         "The baseline uses training-class proportions. Other rows show the "
