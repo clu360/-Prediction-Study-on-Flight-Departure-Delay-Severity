@@ -21,7 +21,7 @@ from flight_delay.experiments.runner import (
 from flight_delay.experiments.tuning import config_id
 
 
-def repeat(cfg, *, xgboost_config_id=None, gate=None):
+def repeat(cfg, *, xgboost_config_id=None, gate=None, input_scope_root=None):
     gate = gate or verified_gate(cfg, "development")
     reference = batch.coordinator(cfg, gate)
     batch.unlocked(cfg, reference)
@@ -92,7 +92,9 @@ def repeat(cfg, *, xgboost_config_id=None, gate=None):
         if missing:
             started = time.monotonic()
             with budget.measure():
-                bundle = development_fold(cfg, "2025-04", "G1", replica.root)
+                bundle = development_fold(
+                    cfg, "2025-04", "G1", input_scope_root or replica.root
+                )
             preprocessing = time.monotonic() - started
             origins = origins_for(cfg, bundle.test_ids, 4)
             for model, params in missing:
@@ -148,7 +150,11 @@ def run_staged(cfg, xgboost_config_id):
         target.parent.mkdir(parents=True, exist_ok=True)
         target.symlink_to(shared, target_is_directory=True)
         assert local_cfg.path("output_dir") == shared
-        result = repeat(local_cfg, xgboost_config_id=xgboost_config_id)
+        result = repeat(
+            local_cfg,
+            xgboost_config_id=xgboost_config_id,
+            input_scope_root=local_cfg.root / "fold_workspace",
+        )
     write_json(cfg.path("reports_dir") / "reproducibility_check.json", result)
     print(
         {

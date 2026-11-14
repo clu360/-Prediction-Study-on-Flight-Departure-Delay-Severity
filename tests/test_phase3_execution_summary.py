@@ -5,6 +5,7 @@ import importlib.util
 from pathlib import Path
 
 import pytest
+from flight_delay.experiments.results import write_json
 
 spec = importlib.util.spec_from_file_location(
     "execution_summary",
@@ -12,6 +13,32 @@ spec = importlib.util.spec_from_file_location(
 )
 summary = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(summary)
+
+
+@pytest.mark.parametrize("problem", ["missing", "stale", "diagnostic"])
+def test_final_reporting_requires_current_strict_repeat_evidence(tmp_path, problem):
+    if problem != "missing":
+        write_json(
+            tmp_path / "reproducibility_check.json",
+            dict(
+                passed=True,
+                complete=True,
+                strict_assertion=problem != "diagnostic",
+                independent_repeat=True,
+                same_platform=True,
+                corrected_run="other" if problem == "stale" else "current",
+                input_digest="input",
+                compared_fits=4,
+                absolute_tolerance=1e-7,
+                relative_tolerance=0,
+                comparisons=[
+                    dict(model=model, within_declared_tolerance=True)
+                    for model in ["baseline", "logistic", "random_forest", "xgboost"]
+                ],
+            ),
+        )
+    with pytest.raises(ValueError, match="strict independent repeat"):
+        summary.repeat_evidence(tmp_path, "current", "input")
 
 
 def record(model="logistic", candidate="a", warnings=None, transformer="train-only"):

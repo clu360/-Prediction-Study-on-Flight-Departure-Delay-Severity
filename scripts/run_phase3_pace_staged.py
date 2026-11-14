@@ -29,6 +29,17 @@ def run(cfg, command, stage, task_id=None, attempt=None):
         )
         batch = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(batch)
+        original_loader = batch.development_fold
+
+        def local_scope_loader(config, fold, view, private_root):
+            # The unchanged loader hard-links its read-only month facade.
+            # Keep that temporary facade beside the staged inputs so the
+            # links stay on one filesystem; only durable results are shared.
+            return original_loader(
+                config, fold, view, local_cfg.root / "fold_workspace"
+            )
+
+        batch.development_fold = local_scope_loader
         print(
             f"Exact local staging completed in {time.monotonic() - started:.2f}s; "
             "verifying the full development gate before execution",

@@ -4,6 +4,8 @@ from pathlib import Path
 from types import SimpleNamespace
 import hashlib
 import importlib.util
+import os
+import errno
 
 import numpy as np
 import polars as pl
@@ -104,20 +106,34 @@ def test_same_platform_repeat_fits_all_four_families_independently_and_resumes(
     module.batch.worker(cfg, "B", 0, "official-fixture", gate=gate)
     calls = []
     original = runner.fit_estimator
+    original_link = os.link
+    scope_root = cfg.root / "node_local_scope"
+
+    def same_filesystem_only(source, target, **kwargs):
+        if any(
+            Path(source).is_relative_to(cfg.path(key))
+            for key in ["features_dir", "processed_dir"]
+        ) and not Path(target).is_relative_to(scope_root):
+            raise OSError(
+                errno.EXDEV, "Simulated node-local/shared filesystem boundary"
+            )
+        return original_link(source, target, **kwargs)
+
+    monkeypatch.setattr(os, "link", same_filesystem_only)
 
     def fit(*args, **kwargs):
         calls.append(args[1])
         return original(*args, **kwargs)
 
     monkeypatch.setattr(runner, "fit_estimator", fit)
-    result = module.repeat(cfg, gate=gate)
+    result = module.repeat(cfg, gate=gate, input_scope_root=scope_root)
     assert calls == ["baseline", "logistic", "random_forest", "xgboost"]
     assert result["passed"] and result["complete"] and result["compared_fits"] == 4
     assert result["independent_repeat"] and not result["used_for_selection"]
     assert result["additional_verification_fits"] == 4
     assert result["previous_run"] != result["corrected_run"]
     calls.clear()
-    module.repeat(cfg, gate=gate)
+    module.repeat(cfg, gate=gate, input_scope_root=scope_root)
     assert not calls, "Resumption refitted an already independently completed repeat"
     reference = module.batch.coordinator(cfg, gate)
     assert len(list((reference.root / "development/units").glob("*.json"))) == 7

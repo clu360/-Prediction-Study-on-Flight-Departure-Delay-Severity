@@ -93,6 +93,41 @@ def summarize_records(development, final_fits):
     )
 
 
+def repeat_evidence(reports, run_id, input_digest):
+    path = reports / "reproducibility_check.json"
+    if not path.exists():
+        raise ValueError("Current strict independent repeat evidence is required")
+    result = read_json(path)
+    if not (
+        result.get("passed")
+        and result.get("complete")
+        and result.get("strict_assertion")
+        and result.get("independent_repeat")
+        and result.get("same_platform")
+        and result.get("corrected_run") == run_id
+        and result.get("input_digest") == input_digest
+        and result.get("compared_fits") == 4
+        and result.get("absolute_tolerance") == 1e-7
+        and result.get("relative_tolerance") == 0
+        and {row["model"] for row in result.get("comparisons", [])}
+        == {"baseline", "logistic", "random_forest", "xgboost"}
+        and all(row.get("within_declared_tolerance") for row in result["comparisons"])
+    ):
+        raise ValueError("Current strict independent repeat evidence is required")
+    return {
+        key: result[key]
+        for key in [
+            "passed",
+            "complete",
+            "compared_fits",
+            "compared_prediction_rows",
+            "additional_verification_fits",
+            "scope",
+            "platform",
+        ]
+    }
+
+
 def publish(cfg):
     reports = cfg.path("reports_dir")
     manifest = read_json(reports / "experiment_manifest.json")
@@ -115,6 +150,9 @@ def publish(cfg):
         )
     if code_fingerprints(cfg.root) != store.context["code"]:
         raise ValueError("Scientific source changed before final execution reporting")
+    seeded_repeat = repeat_evidence(
+        reports, store.run_id, store.context["input_digest"]
+    )
     selection = read_json(reports / "selected_configs.json")
     unsigned = {
         key: value for key, value in selection.items() if key != "selection_hash"
@@ -163,6 +201,13 @@ def publish(cfg):
                 raise ValueError("Validated input schema changed before reporting")
             schemas[relative] = expected
     summary["input_schema_hashes"] = schemas
+    summary["independent_repeat_verification"] = seeded_repeat
+    summary["additional_verification_fits"] = seeded_repeat[
+        "additional_verification_fits"
+    ]
+    summary["resource_interpretation"] += (
+        " The four independent verification fits are excluded from the scientific-fit totals."
+    )
     write_json(reports / "execution_summary.json", summary)
     manifest.update(
         warnings=list(summary["warning_counts"]),
@@ -181,6 +226,37 @@ def publish(cfg):
         ),
         execution_summary_sha256=file_hash(reports / "execution_summary.json"),
         reporting_code_sha256=file_hash(Path(__file__)),
+        independent_repeat_verification=seeded_repeat,
+    )
+    cross_path = reports / "cross_platform_reproducibility.json"
+    if cross_path.exists():
+        cross = read_json(cross_path)
+        if cross.get("corrected_run") == store.run_id:
+            manifest["cross_platform_reproducibility"] = {
+                key: cross.get(key)
+                for key in [
+                    "passed",
+                    "complete",
+                    "compared_fits",
+                    "fits_exceeding_tolerance",
+                    "scope",
+                ]
+            }
+            if not cross["passed"]:
+                affected = sorted(
+                    {
+                        row["model"]
+                        for row in cross["comparisons"]
+                        if not row["within_declared_tolerance"]
+                    }
+                )
+                manifest["limits"].append(
+                    "Windows/PACE predictions exceeded the unchanged 1e-7 tolerance for "
+                    + ", ".join(affected)
+                    + "; official results use PACE, with strict same-platform repeat verification."
+                )
+    manifest["limits"].append(
+        "Independent seeded repeats cover four canonical full-population fits; every candidate/view/fold was not retrained twice."
     )
     write_json(reports / "experiment_manifest.json", manifest)
     print(

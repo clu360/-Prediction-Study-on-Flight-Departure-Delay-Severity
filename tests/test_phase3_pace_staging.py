@@ -7,6 +7,8 @@ from contextlib import contextmanager
 from dataclasses import replace
 import shutil
 import tempfile
+import os
+import errno
 
 import pytest
 
@@ -84,6 +86,20 @@ def test_staged_batches_share_checkpoints_and_global_holdout_lock(
 
     cfg, gate = phase3_fixture
     scripts = Path(__file__).resolve().parents[1] / "scripts"
+    staged_roots = []
+    original_link = os.link
+
+    def same_filesystem_only(source, target, **kwargs):
+        for root in staged_roots:
+            if Path(source).is_relative_to(root) and not Path(target).is_relative_to(
+                root
+            ):
+                raise OSError(
+                    errno.EXDEV, "Simulated node-local/shared filesystem boundary"
+                )
+        return original_link(source, target, **kwargs)
+
+    monkeypatch.setattr(os, "link", same_filesystem_only)
     monkeypatch.syspath_prepend(str(scripts))
     spec = importlib.util.spec_from_file_location(
         "pace_staged", scripts / "run_phase3_pace_staged.py"
@@ -102,6 +118,7 @@ def test_staged_batches_share_checkpoints_and_global_holdout_lock(
     def staged(original, archive_root):
         with tempfile.TemporaryDirectory(dir=tmp_path) as name:
             local_cfg = replace(original, root=Path(name))
+            staged_roots.append(local_cfg.root)
             for key in ["processed_dir", "features_dir"]:
                 shutil.copytree(original.path(key), local_cfg.path(key))
             target = local_cfg.root / "scripts/run_phase3_batch.py"
