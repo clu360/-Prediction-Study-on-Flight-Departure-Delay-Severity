@@ -123,7 +123,9 @@ def test_notebook_analysis_only_and_no_private_outputs():
             "data/model_outputs/phase3/private.joblib",
             "data/model_outputs/phase3/predictions.parquet",
             ".env",
-            ".venv",
+            # A file under the ignored directory works even on a fresh checkout
+            # where CI installs dependencies globally and .venv does not exist.
+            ".venv/pyvenv.cfg",
         ],
         cwd=root,
         capture_output=True,
