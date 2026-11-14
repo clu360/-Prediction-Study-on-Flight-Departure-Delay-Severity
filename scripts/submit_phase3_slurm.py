@@ -60,8 +60,10 @@ def submit(root, config, account, partition, qos, concurrency, dry_run=False):
             "audit_plan_B",
             "environment",
             None,
-            "01:00:00",
-            common + runtime + f"{cli} phase3-validate --config {config_arg}\n"
+            "02:00:00",
+            common
+            + runtime
+            + f"{python} -u scripts/validate_phase3_pace.py --config {config_arg}\n"
             f"{batch} prepare --config {config_arg} --stage B\n",
         ),
         (

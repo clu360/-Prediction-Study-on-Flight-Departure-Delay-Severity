@@ -1,4 +1,4 @@
-# PACE batch execution; scientific grids and all training/holdout rules are unchanged.
+# PACE: unchanged science; audit bound allows filesystem variability.
 version: phase3-frozen-v1-pace-e071fbfc0cbb
 year: 2025
 processed_dir: data/phase3_inputs/processed
@@ -67,7 +67,7 @@ outer_parallelism: 1
 threads: 4
 max_wall_seconds: 14400
 max_rss_gib: 8
-input_read_timeout_seconds: 900
+input_read_timeout_seconds: 3600
 metadata_read_timeout_seconds: 15
 candidate_budget_reason: null
 smoke_rows_per_month: 90
