@@ -28,8 +28,19 @@ for key,command in [
  result[key]=p.stdout.splitlines()
  result[key+'_returncode']=p.returncode
 plan=output/'batch/B_tasks.json'
+gates=sorted((output/'validation').glob('*.json'),key=lambda p:p.stat().st_mtime,reverse=True)
+gate=json.loads(gates[0].read_text()) if gates else None
+if gate:
+ result['upstream_validation']={k:gate.get(k) for k in ['passed','cohort_count','input_digest','errors','node_local_staging_seconds','total_validation_seconds']}
+run_id=None
 if plan.exists():
  run_id=json.loads(plan.read_text())['run_id']
+elif gate:
+ for p in output.glob('phase3-*/context.json'):
+  if json.loads(p.read_text()).get('config_hash')==gate['config_hash']:
+   run_id=p.parent.name
+   break
+if run_id:
  names={p.name for p in (output/run_id/'development/units').glob('*.json')}
  for p in (output/'batch_workers').glob('*/task-*/attempt-*/'+run_id+'/development/units/*.json'):names.add(p.name)
  result['run_id']=run_id
@@ -91,6 +102,8 @@ if __name__ == "__main__":
     result = check(args.connection, args.identity)
     for line in result["queue"]:
         print(line)
+    if result.get("upstream_validation"):
+        print("Upstream validation:", json.dumps(result["upstream_validation"]))
     print("Completed fit checkpoints:", result.get("completed_fit_checkpoints", 0))
     if args.logs:
         print(json.dumps(result["recent_log_tails"], indent=2))
