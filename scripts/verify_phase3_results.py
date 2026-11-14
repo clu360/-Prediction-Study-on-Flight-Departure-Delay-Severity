@@ -16,7 +16,7 @@ from threadpoolctl import threadpool_limits
 from flight_delay.features.views import ALL
 from flight_delay.models.registry import ordered_probabilities
 from flight_delay.models.state import state_hash
-from flight_delay.experiments.config import Phase3Config
+from flight_delay.experiments.config import Phase3Config, file_hash
 from flight_delay.experiments.evaluation import evaluate, airport_metrics
 from flight_delay.experiments.inputs import (
     verified_gate,
@@ -45,6 +45,52 @@ def equivalent(expected, actual):
     if isinstance(expected, (int, float)) and not isinstance(expected, bool):
         return bool(np.isclose(expected, actual, atol=1e-10, rtol=1e-10))
     return expected == actual
+
+
+def check_combined_predictions(root, expected_sources, expected_rows):
+    """Compare every value with the monthly originals using bounded Arrow batches."""
+    import pyarrow.parquet as pq
+
+    sources = sorted(expected_sources)
+    if sources != sorted((root / "final/predictions").glob("*.parquet")):
+        raise ValueError("Combined prediction sources are missing or unexpected")
+    path = root / "final/predictions.parquet"
+    combined = pq.ParquetFile(path)
+    if combined.metadata.num_rows != expected_rows:
+        raise ValueError("Combined prediction row count differs from monthly outputs")
+    batches = iter(combined.iter_batches(batch_size=50000))
+    current, offset, checked = None, 0, 0
+    for source in sources:
+        monthly = pq.ParquetFile(source)
+        if not monthly.schema_arrow.equals(combined.schema_arrow, check_metadata=True):
+            raise ValueError("Combined prediction schema differs from monthly outputs")
+        for expected in monthly.iter_batches(batch_size=50000):
+            consumed = 0
+            while consumed < expected.num_rows:
+                if current is None or offset == current.num_rows:
+                    current = next(batches, None)
+                    offset = 0
+                    if current is None:
+                        raise ValueError(
+                            "Combined predictions ended before monthly outputs"
+                        )
+                size = min(expected.num_rows - consumed, current.num_rows - offset)
+                if not expected.slice(consumed, size).equals(
+                    current.slice(offset, size)
+                ):
+                    raise ValueError(
+                        "Combined prediction values differ from monthly outputs"
+                    )
+                consumed += size
+                offset += size
+                checked += size
+    if (
+        checked != expected_rows
+        or (current is not None and offset != current.num_rows)
+        or next(batches, None) is not None
+    ):
+        raise ValueError("Combined predictions contain extra or missing rows")
+    return dict(rows=checked, monthly_files=len(sources), sha256=file_hash(path))
 
 
 def check_reloaded_predictions(cfg, state, frame, month, sample_cache):
@@ -98,6 +144,7 @@ def verify(cfg):
     reference = {}
     total_rows = 0
     verified = []
+    prediction_sources = []
     sample_cache = {}
     for item in selection["selected"].values():
         name, view = item["model"], item["feature_view"]
@@ -125,6 +172,23 @@ def verify(cfg):
             frame = pl.read_parquet(
                 store.root / f"final/predictions/{name}_{view}_{period}.parquet"
             )
+            prediction_sources.append(
+                store.root / f"final/predictions/{name}_{view}_{period}.parquet"
+            )
+            for column, value in dict(
+                run_id=store.run_id,
+                model=name,
+                feature_view=view,
+                evaluation_stage="frozen_holdout",
+                scored_month=period,
+                model_fit_id=fit["model_fit_id"],
+            ).items():
+                if frame[column].null_count() or frame[column].unique().to_list() != [
+                    value
+                ]:
+                    raise ValueError(
+                        "Saved prediction identity differs from its fitted unit"
+                    )
             expected_ids = memberships(cfg.path("processed_dir"), period, "test").sort(
                 "target_record_id"
             )
@@ -217,6 +281,7 @@ def verify(cfg):
         )
         del frames, origins, pooled, probabilities, state
         gc.collect()
+    combined = check_combined_predictions(store.root, prediction_sources, total_rows)
     result = dict(
         passed=True,
         run_id=store.run_id,
@@ -236,7 +301,10 @@ def verify(cfg):
             "pooled_metrics",
             "origin_airport_metrics",
             "causal_history_cutoffs",
+            "prediction_row_identity",
+            "complete_combined_prediction_values",
         ],
+        combined_predictions=combined,
         models=verified,
         reloaded_prediction_tolerance=dict(atol=1e-8, rtol=1e-7),
         reloaded_prediction_sampling="first 1024 sorted manifest IDs per holdout month",
