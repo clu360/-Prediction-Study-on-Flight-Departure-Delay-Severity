@@ -15,6 +15,7 @@ from threadpoolctl import threadpool_limits
 
 from flight_delay.features.views import ALL
 from flight_delay.models.registry import ordered_probabilities
+from flight_delay.models.baseline import CDF_RULE, sampled_classes
 from flight_delay.models.state import state_hash
 from flight_delay.experiments.config import Phase3Config, file_hash
 from flight_delay.experiments.evaluation import evaluate, airport_metrics
@@ -45,6 +46,24 @@ def equivalent(expected, actual):
     if isinstance(expected, (int, float)) and not isinstance(expected, bool):
         return bool(np.isclose(expected, actual, atol=1e-10, rtol=1e-10))
     return expected == actual
+
+
+def classification_arguments(record, frame):
+    """Honor signed prediction policy; historical records default to argmax."""
+    rule = record.get("prediction_rule", "argmax")
+    if rule not in ["argmax", CDF_RULE] or (
+        rule == CDF_RULE and record["model"] != "baseline"
+    ):
+        raise ValueError("Unknown or invalid prediction rule")
+    p = frame.select(PROB_COLUMNS).to_numpy()
+    expected = (
+        sampled_classes(p, frame["target_record_id"].to_numpy())
+        if rule == CDF_RULE
+        else p.argmax(axis=1)
+    )
+    if not np.array_equal(expected, frame["y_pred"].to_numpy()):
+        raise ValueError("Saved predicted classes violate the signed prediction rule")
+    return {"predicted": expected} if rule == CDF_RULE else {}
 
 
 def check_combined_predictions(root, expected_sources, expected_rows):
@@ -210,20 +229,20 @@ def verify(cfg):
             if checked.filter(pl.col("y_true") != pl.col("target_class")).height:
                 raise ValueError("Saved labels differ from validated targets")
             probabilities = frame.select(PROB_COLUMNS).to_numpy()
-            if not np.array_equal(
-                probabilities.argmax(axis=1), frame["y_pred"].to_numpy()
-            ):
-                raise ValueError("Saved argmax classes are wrong")
+            classification = classification_arguments(record, frame)
             replayed += check_reloaded_predictions(
                 cfg, state, frame, month, sample_cache
             )
             values = origins_for(cfg, frame["target_record_id"].to_numpy(), month)
-            metrics = evaluate(frame["y_true"].to_numpy(), probabilities)
+            metrics = evaluate(
+                frame["y_true"].to_numpy(), probabilities, **classification
+            )
             airports = airport_metrics(
                 frame["y_true"].to_numpy(),
                 probabilities,
                 values,
                 cfg["evaluation_airports"],
+                **classification,
             )
             if not equivalent(record["metrics"], metrics) or not equivalent(
                 record["airport_metrics"], airports
@@ -252,8 +271,10 @@ def verify(cfg):
             raise ValueError("Duplicate pooled holdout IDs")
         record = store.load(f"final/pooled/{name}_{view}")
         probabilities = pooled.select(PROB_COLUMNS).to_numpy()
+        classification = classification_arguments(record, pooled)
         if not equivalent(
-            record["metrics"], evaluate(pooled["y_true"].to_numpy(), probabilities)
+            record["metrics"],
+            evaluate(pooled["y_true"].to_numpy(), probabilities, **classification),
         ):
             raise ValueError("Pooled metrics were not recomputed from all predictions")
         if not equivalent(
@@ -263,6 +284,7 @@ def verify(cfg):
                 probabilities,
                 np.concatenate(origins),
                 cfg["evaluation_airports"],
+                **classification,
             ),
         ):
             raise ValueError("Pooled airport metrics differ")
@@ -294,7 +316,7 @@ def verify(cfg):
             "original_manifest_IDs",
             "one_to_one_target_labels",
             "class_order_and_simplex",
-            "saved_argmax",
+            "saved_prediction_rule_argmax_or_seeded_baseline_cdf",
             "frozen_fit_checksums",
             "reloaded_frozen_prediction_replay",
             "monthly_metrics",

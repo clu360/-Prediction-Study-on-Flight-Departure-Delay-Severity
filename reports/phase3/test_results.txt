@@ -9,3 +9,9 @@ Skip: directory symlink requires Windows privileges.
 These suites precede final presentation-only notebook/README edits.
 Final aggregate-only notebook: 20 cells, 44 figures, no errors.
 See notebook_validation.json and PHASE3_VALIDATION.md for final artifact checks.
+
+CDF baseline amendment validation (current Windows code)
+115 passed, 1 skipped in 95.51s
+Skip: directory symlink requires Windows privileges.
+Includes seeded CDF boundaries, missing-class intervals, order/batch invariance, frozen state, label-independent draws, class frequencies and probability-score separation.
+Real-data baseline revision: 4,953,458 scored rows independently replayed; 1,052,024 holdout flights; all learned-model metrics unchanged.

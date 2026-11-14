@@ -1,5 +1,7 @@
 # Codex Implementation Plan: Phase III Classical Machine Learning
 
+> Baseline-only amendment requested by the user on November 14, 2026: retain training-only historical probabilities, but sample the baseline class using a seeded uniform draw and inverse CDF. The original signed argmax-baseline study is retained; current comparison reporting uses the explicit post-holdout CDF revision. Learned-model fitting/selection and final-holdout rules remain unchanged. See `phase3_methodology.md` for provenance and replay details.
+
 Project: ISyE 6740 | Prediction Study on Flight Departure Delay Severity
 
 Repository: https://github.com/clu360/-Prediction-Study-on-Flight-Departure-Delay-Severity
@@ -114,13 +116,13 @@ Dependencies: keep project Python >=3.11 and existing pinned SciPy/NumPy/scikit-
 
 ### 3.1 Models / registry
 
-- baseline.py: train-window empirical **three-class priors**, equivalent to sklearn DummyClassifier(strategy="prior"); always emit probabilities in [0,1,2] order. Apply additive smoothing only if separately specified and consistently reported. Default is unsmoothed training priors. This is feature-independent and requires **one** fitted baseline per development fold, not four redundant fits. For final, fit August–October priors once and use them for both months.
+- baseline.py: train-window empirical **three-class priors**, with inverse-CDF class sampling: draw seeded U~Uniform[0,1), predict 0 if U<p0, 1 if p0<=U<p0+p1, otherwise 2; always emit the historical probabilities in [0,1,2] order. Apply additive smoothing only if separately specified and consistently reported. Default is unsmoothed training priors. This is feature-independent and requires **one** fitted baseline per development fold, not four redundant fits. For final, fit August–October priors once and use them for both months.
 - logistic.py: sklearn LogisticRegression as three-class softmax classification; use an appropriate solver compatible with sparse input (default saga), fixed random_state, and inspect convergence warnings explicitly. Use train-fold-only imputation/scaling. Default penalty L2; do not use undocumented class balancing.
 - random_forest.py: sklearn RandomForestClassifier, bounded depth/leaves and max_features, deterministic random_state; handle sparse CSR without unnecessary materialization. Limit parallel workers.
 - xgboost.py: XGBClassifier(objective="multi:softprob", num_class=3, tree_method="hist", eval_metric="mlogloss"), fixed random_state and thread count; validate predict_proba shape and class mapping. Do not use test-month early stopping.
 - registry.py: a typed name→factory mapping. Each factory takes a validated YAML config, creates an **unfitted** estimator, and exposes a uniform fit/predict_proba contract. Validate accepted hyperparameter keys with descriptive errors. Never rely on numeric ordering returned implicitly by a model if a training fold lacks a class; assert/handle classes explicitly.
 
-Every estimator must produce a calibrated-or-uncalibrated probability *vector* (not just a hard label); output prediction is argmax over ordered probabilities. Do not calibrate on Nov/Dec. Any optional calibration must use only development-train-contained historical data and be clearly reported as another fitted step.
+Every estimator must produce a calibrated-or-uncalibrated probability *vector* (not just a hard label); learned-model output prediction is argmax over ordered probabilities; baseline output is its seeded historical-prior CDF sample. Probability scoring uses probability vectors; classification scoring uses the actual predicted class. Do not calibrate on Nov/Dec. Any optional calibration must use only development-train-contained historical data and be clearly reported as another fitted step.
 
 ### 3.2 Experiment modules / responsibilities
 
@@ -177,7 +179,7 @@ Every model/view/month must produce:
 - Cohort size and class 0/1/2 supports; class probabilities in columns p_minimal, p_moderate, p_severe with sum approximately 1 (tolerance 1e-6), all finite and in [0,1].
 - Accuracy; macro-F1 (**selection metric**), weighted-F1; per-class precision, recall and F1, including **class-2/severe recall** and precision.
 - Multiclass log loss (labels explicitly [0,1,2]); multiclass Brier score as mean of sum of squared errors across the three class probability components (state this normalization); per-class one-vs-rest ROC AUC and macro AUC when each class is present.
-- Confusion matrix with exact class ordering [0,1,2]; observed class proportions vs mean predicted probabilities; predicted argmax class proportions (these are different objects); calibration/reliability curves using prespecified bins (e.g. ten equal-width bins, with counts).
+- Confusion matrix with exact class ordering [0,1,2]; observed class proportions vs mean predicted probabilities; predicted class proportions (CDF-sampled baseline, argmax learned models; retain probability-argmax shares separately); calibration/reliability curves using prespecified bins (e.g. ten equal-width bins, with counts).
 - Training time, preprocessing time, inference time, peak RSS estimate, estimator convergence/warnings; number of rows and columns, matrix memory and unknown-category diagnostics.
 
 Metrics on a month with a missing class must be explicitly NA for undefined AUC and consistent zero_division=0 policy for per-class precision/recall. Never hide severe-class performance inside overall accuracy. Compute pooled holdout scores from concatenated November+December predictions, and report both months separately.
@@ -232,7 +234,7 @@ Implement unit, integration and synthetic boundary tests. The following tests sh
 6. Tuner imports or loads **no November/December target rows**. Use synthetic sentinel values or monkeypatch open/read functions to prove holdout-only labels cannot affect selected config or summaries.
 7. Final training IDs exactly August–October; no November or December label/row in the estimator fit or transformer.fit. Same final fitted model object/fit checksum and transformer checksum used for *both* months. Assert final Dec does not call the standard 2025-12 build_fold path.
 8. Prediction-time causal G3 audit is preserved; history outcome observation times strictly precede each target's prediction time, regardless of the target month. Document observed earlier test-month outcomes are permitted features, never training labels.
-9. Every probability finite, within [0,1], sums to 1 (1e-6), with shape (n,3); argmax corresponds to saved y_pred; cross-check evaluation functions against tiny hand-calculated cases.
+9. Every probability finite, within [0,1], sums to 1 (1e-6), with shape (n,3); the declared rule corresponds to saved y_pred (argmax for learned models, reproducible CDF sample for baseline); cross-check evaluation functions against tiny hand-calculated cases.
 10. Unknown categorical levels and missing numeric data in validation/holdout do not refit vocabulary/imputer/scaler; no data-dependent preprocessing state changes after training.
 11. Development metric selection/ties deterministic under fixed seed; changing November/December y must not change selected configs; duplicated/stale checkpoint cannot be silently reused.
 12. Exact November, December and combined held-out counts; pooled scores recomputed from row-level predictions; correct airport origin grouping and sufficient sample support.
