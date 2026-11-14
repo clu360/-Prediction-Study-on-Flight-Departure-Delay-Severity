@@ -3,6 +3,10 @@
 import importlib.util
 from pathlib import Path
 import tarfile
+from contextlib import contextmanager
+from dataclasses import replace
+import shutil
+import tempfile
 
 import pytest
 
@@ -69,3 +73,57 @@ def test_exact_staging_preserves_audit_outcome(
     with pytest.raises(ValueError, match="transfer checksum"):
         staging.validate_staged(cfg, archives, temporary_parent=tmp_path)
     assert len(visited) == 1
+
+
+def test_staged_batches_share_checkpoints_and_global_holdout_lock(
+    phase3_fixture, tmp_path, monkeypatch
+):
+    from flight_delay.experiments import inputs
+    from flight_delay.experiments.runner import context
+    from flight_delay.experiments.results import ResultStore
+
+    cfg, gate = phase3_fixture
+    scripts = Path(__file__).resolve().parents[1] / "scripts"
+    monkeypatch.syspath_prepend(str(scripts))
+    spec = importlib.util.spec_from_file_location(
+        "pace_staged", scripts / "run_phase3_pace_staged.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    # Some Windows hosts lack symlink privileges; production Linux executes this test.
+    probe = tmp_path / "symlink_probe"
+    try:
+        probe.symlink_to(scripts, target_is_directory=True)
+    except OSError:
+        pytest.skip("Host does not permit directory symlinks")
+    probe.unlink()
+
+    @contextmanager
+    def staged(original, archive_root):
+        with tempfile.TemporaryDirectory(dir=tmp_path) as name:
+            local_cfg = replace(original, root=Path(name))
+            for key in ["processed_dir", "features_dir"]:
+                shutil.copytree(original.path(key), local_cfg.path(key))
+            target = local_cfg.root / "scripts/run_phase3_batch.py"
+            target.parent.mkdir()
+            shutil.copyfile(scripts / target.name, target)
+            yield local_cfg
+
+    def verified(local_cfg, stage):
+        assert stage == "development" and local_cfg.root != cfg.root
+        assert local_cfg.path("output_dir") == cfg.path("output_dir")
+        assert local_cfg.path("features_dir") != cfg.path("features_dir")
+        return gate
+
+    monkeypatch.setattr(module, "staged_repository", staged)
+    monkeypatch.setattr(inputs, "verified_gate", verified)
+    plan = module.run(cfg, "prepare", "B")
+    store = ResultStore(cfg.path("output_dir"), context(cfg, gate), True)
+    assert plan["run_id"] == store.run_id
+    assert len(list((store.root / "development/units").glob("*.json"))) == 7
+    worker = module.run(cfg, "worker", "B", 0, "staged-test")
+    assert worker.root.is_relative_to(cfg.path("output_dir"))
+    assert len(list((worker.root / "development/units").glob("*.json"))) == 3
+    (cfg.path("output_dir") / "PRIMARY_HOLDOUT_LOCK.json").write_text("{}")
+    with pytest.raises(ValueError, match="Holdout execution has begun"):
+        module.run(cfg, "worker", "B", 0, "locked-test")

@@ -41,6 +41,7 @@ def submit(root, config, account, partition, qos, concurrency, dry_run=False):
     )
     runtime = 'export PYTHONPYCACHEPREFIX="$phase3_root/.venv/pycache" PYTHONIOENCODING=utf-8\n'
     batch = f"{python} -u scripts/run_phase3_batch.py"
+    staged_batch = f"{python} -u scripts/run_phase3_pace_staged.py"
     cli = f"{python} -u -m flight_delay.cli"
     stages = [
         (
@@ -64,7 +65,7 @@ def submit(root, config, account, partition, qos, concurrency, dry_run=False):
             common
             + runtime
             + f"{python} -u scripts/validate_phase3_pace.py --config {config_arg}\n"
-            f"{batch} prepare --config {config_arg} --stage B\n",
+            f"{staged_batch} prepare --config {config_arg} --stage B\n",
         ),
         (
             "screen_B",
@@ -73,15 +74,15 @@ def submit(root, config, account, partition, qos, concurrency, dry_run=False):
             "08:00:00",
             common
             + runtime
-            + f'{batch} worker --config {config_arg} --stage B --task-id "$SLURM_ARRAY_TASK_ID"\n',
+            + f'{staged_batch} worker --config {config_arg} --stage B --task-id "$SLURM_ARRAY_TASK_ID"\n',
         ),
         (
             "merge_B_plan_C",
             "screen_B",
             None,
             "01:00:00",
-            common + runtime + f"{batch} merge --config {config_arg} --stage B\n"
-            f"{batch} prepare --config {config_arg} --stage C\n",
+            common + runtime + f"{staged_batch} merge --config {config_arg} --stage B\n"
+            f"{staged_batch} prepare --config {config_arg} --stage C\n",
         ),
         (
             "finalists_C",
@@ -90,7 +91,7 @@ def submit(root, config, account, partition, qos, concurrency, dry_run=False):
             "08:00:00",
             common
             + runtime
-            + f'{batch} worker --config {config_arg} --stage C --task-id "$SLURM_ARRAY_TASK_ID"\n',
+            + f'{staged_batch} worker --config {config_arg} --stage C --task-id "$SLURM_ARRAY_TASK_ID"\n',
         ),
         (
             "select",

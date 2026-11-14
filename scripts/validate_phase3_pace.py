@@ -1,6 +1,7 @@
 """Run unchanged upstream audits on exact node-local copies, then publish their gate."""
 
 from dataclasses import replace
+from contextlib import contextmanager
 from pathlib import Path
 import argparse
 import shutil
@@ -14,9 +15,10 @@ from flight_delay.experiments.results import read_json, write_json
 from flight_delay.experiments.runner import report
 
 
-def validate_staged(cfg, archive_root, temporary_parent=Path("/tmp")):
+@contextmanager
+def staged_repository(cfg, archive_root, temporary_parent=Path("/tmp")):
+    """Yield an exact disposable source/input copy; output sharing is caller-owned."""
     archive_root, temporary_parent = archive_root.resolve(), temporary_parent.resolve()
-    start = time.monotonic()
     for kind in ["source", "inputs"]:
         metadata = read_json(archive_root / f"{kind}_archive.json")
         if file_hash(archive_root / f"{kind}.tar") != metadata["archive_sha256"]:
@@ -49,6 +51,12 @@ def validate_staged(cfg, archive_root, temporary_parent=Path("/tmp")):
             raise ValueError(
                 "Node-local staging changed source/configuration provenance"
             )
+        yield local_cfg
+
+
+def validate_staged(cfg, archive_root, temporary_parent=Path("/tmp")):
+    start = time.monotonic()
+    with staged_repository(cfg, archive_root, temporary_parent) as local_cfg:
         print(
             "Node-local input staging complete; running unchanged full upstream audits",
             flush=True,
