@@ -45,6 +45,8 @@ if run_id:
  for p in (output/'batch_workers').glob('*/task-*/attempt-*/'+run_id+'/development/units/*.json'):names.add(p.name)
  result['run_id']=run_id
  result['completed_fit_checkpoints']=len(names)
+ for field,relative in [('final_fit_checkpoints','final/fits'),('final_month_checkpoints','final/months'),('final_pooled_checkpoints','final/pooled')]:
+  result[field]=len(list((output/run_id/relative).glob('*.json')))
 logs=sorted((output/'slurm').glob('*.log'),key=lambda p:p.stat().st_mtime,reverse=True)[:4]
 result['recent_log_tails']={p.name:p.read_text(encoding='utf-8',errors='replace').splitlines()[-12:] for p in logs}
 print(json.dumps(result))
@@ -105,5 +107,8 @@ if __name__ == "__main__":
     if result.get("upstream_validation"):
         print("Upstream validation:", json.dumps(result["upstream_validation"]))
     print("Completed fit checkpoints:", result.get("completed_fit_checkpoints", 0))
+    print("Final fit checkpoints:", result.get("final_fit_checkpoints", 0))
+    print("Final scored-month checkpoints:", result.get("final_month_checkpoints", 0))
+    print("Final pooled checkpoints:", result.get("final_pooled_checkpoints", 0))
     if args.logs:
         print(json.dumps(result["recent_log_tails"], indent=2))
