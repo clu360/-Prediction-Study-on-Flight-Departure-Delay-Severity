@@ -4,9 +4,9 @@
 
 **Base:** `feat/phase3-classical-models` at `bf4e9dc`
 **Branch:** `feat/phase4-weather-mlp`
-**Last recorded remote milestone:** `ee2a2a56dde373a473d426545768544e8fbec796`
-**Last UTC update:** 2026-11-20 20:41:07
-**Primary scientific status:** All real-data prediction and aggregate gates passed. Clean-checkout notebook audit in progress.
+**Last recorded remote milestone:** `f7d52708b91edf3e1d347a986d268d2d72d542c7`
+**Last UTC update:** 2026-11-20 20:48:24
+**Primary scientific status:** COMPLETE. Real-data experiments, audits, aggregate publication and clean notebook execution passed.
 **Final protocol:** August–October 2025 fit, frozen November–December 2025 scoring; new weather/weighted comparisons post-hoc
 **Sources:** Phase IV specification, locked Phase II/III manifests and dataset fingerprints
 
@@ -21,14 +21,14 @@
 | B1: Base MLP development tuning | VERIFIED | 26 candidate-fold outcomes; winning candidate 6 | `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c` | `mlp_tuning_summary.csv` and `mlp_selection.json` |
 | B2: MLP A/B (no weather) | VERIFIED | Both arms completed for all three seeds | See signed fit ledger | Matched frozen holdout |
 | B3: MLP C/D (with weather) | VERIFIED | Six fits and both months per fit passed | `experiment_manifest.json` | Three seeds per arm |
-| C: Verified metrics, notebook and RQ summary | RUNNING | All held-out metrics, replays and RQ evidence verified | `experiment_manifest.json` | Clean-checkout notebook execution underway |
+| C: Verified metrics, notebook and RQ summary | VERIFIED | All aggregates and clean notebook execution passed | `notebook_validation.json` | Both full diagnostic refits reproduced exact predictions |
 
 ## B. Locked methodology and provenance
 
 - Input data cohort count / ID hash: 6,461,609 checked IDs per canonical table. Twelve monthly ID digests and the upstream byte fingerprint are in `upstream_verification.json`.
-- Source, configuration and weather response hashes: NOT_VERIFIED
-- XGBoost locked parameters evidence: `reports/phase3/experiment_manifest.json` (verify file SHA)
-- MLP candidate list, chosen configuration and epoch-selection protocol: NOT_SELECTED
+- Source, configuration and weather response hashes: verified in `upstream_verification.json`, `weather_source_verification.json`, `weather_g4_verification.json`, and `experiment_manifest.json`.
+- XGBoost locked parameters evidence: `reports/phase3/experiment_manifest.json`, SHA-256 `a51bedcd9893f242fbce1ee9bedfe3f1b58fe5584488b14d79fda6def7efe426`.
+- MLP candidate list, chosen configuration and epoch-selection protocol: `mlp_selection.json`. Candidate 6 and one final epoch.
 - Weather location/time policy: 4 `target_origin` + 1 `target_dest`; METAR available-at `valid + 10min < prediction_time`
 - Class weights: `N/(3*N_class)` calculated from each training window only
 - Train/test: Aug–Oct / Nov–Dec 2025; same fitted state for both holdout months
@@ -47,7 +47,7 @@
 | MLP B | VERIFIED | See event log for three checkpoint digests | `python scripts/phase4.py fit MLP-B --seed SEED` | 18.56 to 19.67 s per fit | 2026-11-20 20:28:04 |
 | MLP C | VERIFIED | Three matching checkpoints | `python scripts/phase4.py fit MLP-C --seed SEED` | See final experiment manifest | 2026-11-20 20:30:48 |
 | MLP D | VERIFIED | All three fits in the signed experiment manifest | `python scripts/phase4.py fit MLP-D --seed SEED` | 18.35 to 18.72 s per fit | 2026-11-20 20:41:07 |
-| Consolidated notebook | PENDING | — | — | — | — |
+| Consolidated notebook | VERIFIED | `39ab7eee40346aaf58bd754bacf557f62d1c4b4e3cd4435d0af43bbdc62ad787` | Execute the notebook from the recorded clean Git archive | 4 cells, 2 rendered figures | 2026-11-20 20:48:24 |
 
 ## D. Append-only chronological event log
 
@@ -120,6 +120,12 @@
 - `python scripts/phase4.py publish` independently checked saved probabilities against exact canonical holdout IDs and labels, then generated all per-month, pooled and subgroup metrics. Public score-table SHA-256 `70a7866342e3db9f37b11ebae0291aa523ff7d5b1c52436223341e3c7293e50a`. Pooled metrics used 1,052,024 rows per fit. The paired model and factorial contrasts are published alongside the metrics.
 - `python scripts/phase4.py replay` reloaded each verified fitted state and reproduced 2,048 predictions per month per fit. All 28 slices passed with a maximum absolute probability difference of 1.192093×10⁻⁷ under the 2×10⁻⁶ tolerance. Replay record SHA-256 `cafba97e1cef88a1e6665681d90627efd54cccace1fb758799ffb0ee13eb78ed`.
 
+### 2026-11-20 20:48:24 UTC — Clean notebook and independent full refits passed
+
+- Archived the published Git commit `f7d52708b91edf3e1d347a986d268d2d72d542c7` with only the tracked notebook, Phase IV aggregates and the Phase III reference table. Executed the archive's actual notebook. All four code cells ran, both figures rendered, and zero tracebacks or missing-aggregate placeholders appeared. The notebook and complete source/metric checksums are in `notebook_validation.json`.
+- Independently refitted XGB-weather and MLP-D at seed 6740 using an isolated ignored output directory. Only the output directory differed from the official configuration. Both fitted-state hashes, transformer hashes, train/test populations and all 1,052,024 holdout probability rows per fit matched exactly. XGB-weather encountered two transient source-read locks and recovered through bounded retry. The official scientific fits remained the original checkpoints. [Full-refit verification](full_refit_reproducibility.json)
+- All Phase IV acceptance checks passed. The branch retains original upstream scientific files, verified real-data reports, the complete tuning ledger, and the executable consolidated notebook. PACE remained unavailable and the local CPU path completed the study.
+
 ## E. Hard blockers and decisions needed
 
 | ID | Type (methodological/operational) | First seen UTC | Impact | Evidence | Decision needed | Status |
@@ -163,6 +169,6 @@ The development ledger records all 26 verified candidate-fold outcomes. The curr
 - [x] MLP architecture selection locked from development data
 - [x] All four frozen MLP arms verified, three seeds per arm
 - [x] November/December pooled and per-month results and weather/weighting contrasts verified
-- [ ] Notebook executes from committed aggregate-only reports
+- [x] Notebook executes from committed aggregate-only reports
 - [x] Original Phase I–III outputs intact. Research artifacts under ignored data paths.
-- [ ] Visible pushed branch with progress log, SHA and truthful completion status
+- [x] Visible pushed branch with progress log and verified results SHA

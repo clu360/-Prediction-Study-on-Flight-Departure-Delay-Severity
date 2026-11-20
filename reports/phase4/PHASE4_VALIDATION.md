@@ -1,6 +1,6 @@
 # Phase IV validation
 
-The real-data model, source, cohort and prediction checks passed for both XGBoost fits and all 12 MLP fits. The notebook execution record is published separately alongside these aggregates.
+The real-data model, source, cohort and prediction checks passed for both XGBoost fits and all 12 MLP fits. All Phase IV acceptance gates passed.
 
 ## Source and cohort
 
@@ -13,6 +13,11 @@ The real-data model, source, cohort and prediction checks passed for both XGBoos
 - The matched XGBoost fits reuse the byte-verified Phase III selected G1–G3 configuration at seed 6740 and four CPU threads. MLP tuning evaluated all 26 prescribed candidate-fold combinations. Candidate 6 won with mean development log loss 0.480053. The final lock uses hidden widths 256 and 128, dropout 0.3, learning rate 0.0003, one epoch and seeds 6740, 6741 and 6742. The epoch is the median of the seven inner stopping choices [1, 2, 1, 1, 1, 1, 1]. [Selection lock](mlp_selection.json) · [Tuning](mlp_tuning_summary.csv) · [Learning curves](mlp_learning_curves.csv)
 - All 14 final fits used 1,663,534 identical training IDs with class counts [1,370,826, 212,248, 80,460]. Weighted arms use training-derived weights [0.404509, 2.612563, 6.891764]. Both frozen months used identical fitted state and transformer hashes per fit. Each fit scored 519,971 November and 532,053 December flights. Verification reread canonical labels, confirmed probability class order [0, 1, 2], row sums and argmax, and recomputed pooled scores from all predictions. [Fit and prediction manifest](experiment_manifest.json) · [Metrics](metrics_summary.csv)
 - Replayed 2,048 evenly spaced predictions per fit/month across all 28 scoring slices using saved models. Maximum absolute probability difference was 1.19×10⁻⁷ against a tolerance of 2×10⁻⁶. [Replay evidence](frozen_replay.json)
+
+## Reproducibility and notebook
+
+- Separate real-data refits for XGB-weather and MLP-D at seed 6740 reproduced the exact model and transformer hashes and every probability across both complete holdout months. [Full refits](full_refit_reproducibility.json)
+- The tracked notebook executed from a clean Git archive containing only aggregate data. All four code cells executed and two figures rendered, with zero tracebacks. The archived notebook, metrics and experiment manifest are identified by SHA-256. [Notebook execution evidence](notebook_validation.json)
 
 ## Environment and integrity
 

@@ -1,0 +1,51 @@
+{
+  "repetitions": [
+    {
+      "arm": "XGB-weather",
+      "maximum_absolute_probability_difference": 0.0,
+      "model_hash_equal": true,
+      "month": 11,
+      "original_signature": "758cb98246c7c5883bd8075b4342eba7afd92bf82ad5f5f2de9f8e3d22a7ddd5",
+      "repeat_signature": "4c62cd64ca1e9a20d266806c9340fee94ce29ee96050b1a0e946c2a93ff72f8d",
+      "rows": 519971,
+      "seed": 6740,
+      "transformer_hash_equal": true
+    },
+    {
+      "arm": "XGB-weather",
+      "maximum_absolute_probability_difference": 0.0,
+      "model_hash_equal": true,
+      "month": 12,
+      "original_signature": "758cb98246c7c5883bd8075b4342eba7afd92bf82ad5f5f2de9f8e3d22a7ddd5",
+      "repeat_signature": "4c62cd64ca1e9a20d266806c9340fee94ce29ee96050b1a0e946c2a93ff72f8d",
+      "rows": 532053,
+      "seed": 6740,
+      "transformer_hash_equal": true
+    },
+    {
+      "arm": "MLP-D",
+      "maximum_absolute_probability_difference": 0.0,
+      "model_hash_equal": true,
+      "month": 11,
+      "original_signature": "a3ba849080035414e1f78012ce78376698bcf29943ed31fb21fe703a109d50a7",
+      "repeat_signature": "d62dd7a334c2dac5cb36dff5d8acde84a136983f28f7a96e67ae97fb88ab0b95",
+      "rows": 519971,
+      "seed": 6740,
+      "transformer_hash_equal": true
+    },
+    {
+      "arm": "MLP-D",
+      "maximum_absolute_probability_difference": 0.0,
+      "model_hash_equal": true,
+      "month": 12,
+      "original_signature": "a3ba849080035414e1f78012ce78376698bcf29943ed31fb21fe703a109d50a7",
+      "repeat_signature": "d62dd7a334c2dac5cb36dff5d8acde84a136983f28f7a96e67ae97fb88ab0b95",
+      "rows": 532053,
+      "seed": 6740,
+      "transformer_hash_equal": true
+    }
+  ],
+  "scope": "full training and both complete frozen months in isolated diagnostic outputs",
+  "status": "passed",
+  "tolerance": 2e-06
+}

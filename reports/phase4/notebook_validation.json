@@ -1,0 +1,12 @@
+{
+  "contains_private_input_tree": false,
+  "executed_code_cells": 4,
+  "executed_notebook_sha256": "39ab7eee40346aaf58bd754bacf557f62d1c4b4e3cd4435d0af43bbdc62ad787",
+  "input_notebook_sha256": "0c6ed800e57823c211ffe94b02ebc4f13991125df1d81fb9350953201557790b",
+  "metrics_summary_sha256": "70a7866342e3db9f37b11ebae0291aa523ff7d5b1c52436223341e3c7293e50a",
+  "rendered_figures": 2,
+  "source_commit": "f7d52708b91edf3e1d347a986d268d2d72d542c7",
+  "source_manifest_sha256": "2bb406654d8ce8b03c870bdf5637d0a8e7dcbc0c10a812ebe34988f6b257838f",
+  "status": "passed",
+  "tracebacks": 0
+}
