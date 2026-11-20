@@ -12,7 +12,7 @@ def main():
     audit = commands.add_parser("audit")
     audit.add_argument("scope", choices=["development", "all"])
     commands.add_parser("stations")
-    for name in ("fetch", "build-weather"):
+    for name in ("fetch", "audit-weather", "build-weather"):
         step = commands.add_parser(name)
         step.add_argument("--version", default="v1")
     tune = commands.add_parser("tune")
@@ -22,6 +22,7 @@ def main():
     final.add_argument("--seed", type=int, default=6740)
     final.add_argument("--device", default="cpu")
     commands.add_parser("publish")
+    commands.add_parser("replay")
     args = parser.parse_args()
     inputs = Inputs(args.config)
     if args.command == "audit":
@@ -44,6 +45,10 @@ def main():
         mapping = load_map(inputs.path("station_map"))
         archive = Archive(inputs.path("raw_weather_dir"), *bounds(inputs.weather), args.version)
         archive.fetch([row["station"] for row in mapping])
+    elif args.command == "audit-weather":
+        from flight_delay.weather.validation import audit_archive
+
+        print(audit_archive(inputs, args.version)["archive_digest"])
     elif args.command == "build-weather":
         from flight_delay.weather.features import build
 
@@ -56,6 +61,10 @@ def main():
         from flight_delay.experiments.phase4_final import execute_arm
 
         print(execute_arm(inputs, args.arm, args.seed, args.device).signature)
+    elif args.command == "replay":
+        from flight_delay.experiments.phase4_replay import replay
+
+        print(f"Verified {len(replay(inputs))} frozen prediction slices")
     elif args.command == "publish":
         from flight_delay.experiments.phase4_results import publish
 
@@ -64,4 +73,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

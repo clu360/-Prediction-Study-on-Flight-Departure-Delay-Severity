@@ -4,8 +4,8 @@
 
 **Base:** `feat/phase3-classical-models` at `bf4e9dc`
 **Branch:** `feat/phase4-weather-mlp`
-**Last recorded remote milestone:** `64d3001a209efa14d7704dddc07b6768b9352d34`
-**Last UTC update:** 2026-11-20 19:54:35
+**Last recorded remote milestone:** `19d35daf3148b0e839a5219683152e31a4735381`
+**Last UTC update:** 2026-11-20 20:02:29
 **Primary scientific status:** PARTIAL. Real development tuning and weather acquisition are in progress.
 **Final protocol:** August–October 2025 fit, frozen November–December 2025 scoring; new weather/weighted comparisons post-hoc
 **Sources:** Phase IV specification, locked Phase II/III manifests and dataset fingerprints
@@ -15,8 +15,8 @@
 | Track | Status (PENDING/RUNNING/VERIFIED/BLOCKED) | Latest verified evidence | Job/attempt | Blocker or next task |
 |---|---|---|---|---|
 | Environment + upstream dataset audit | VERIFIED | 6,461,609 aligned rows per canonical table | `upstream_all.json` | `upstream_verification.json` |
-| A1: IEM station map and raw fetch | RUNNING | 306/352 archived station responses | v1 | Recovered after Rochester source row audit |
-| A2: Five G4 feature columns and audit | PENDING | — | — | — |
+| A1: IEM station map and raw fetch | VERIFIED | All 352 station responses and archive checksums verified | v1 | `weather_source_inventory.csv` |
+| A2: Five G4 feature columns and audit | RUNNING | Source gate passed | Local G4 build | Independent oracle and full ID audit underway |
 | A3: Paired XGBoost base/weather fits | RUNNING | XGB-base fit and both frozen scores verified | `2b5f7992…` | G4 arm pending |
 | B1: Base MLP development tuning | RUNNING | 11/26 candidate-fold checkpoints verified | `13e39cfc…` | `mlp_development_progress.csv` |
 | B2: MLP A/B (no weather) | PENDING | — | — | — |
@@ -39,7 +39,7 @@
 | Milestone | Status | Metrics/report SHA | Reproduction command | Runtime / memory | Verified at (UTC) |
 |---|---|---|---|---|---|
 | Upstream gate | VERIFIED | `2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334` | `python scripts/phase4.py audit all` | — | 2026-11-20 19:44:35 |
-| Weather fetch | PENDING | — | — | — | — |
+| Weather fetch | VERIFIED | `0176ab0084e84d7728dcfe2b2b5b5ad345b1e3a9a32ecc2d05c05e4ea789010e` | `python scripts/phase4.py audit-weather` | — | 2026-11-20 20:02:29 |
 | G4 complete | PENDING | — | — | — | — |
 | XGB comparison | PENDING | — | — | — | — |
 | Base MLP architecture selected | PENDING | — | — | — | — |
@@ -76,6 +76,13 @@
 - Base XGBoost passed independent holdout ID, label, class assignment, probability and checkpoint validation. It scored 519,971 November flights and 532,053 December flights. Pooled macro-F1 was 0.646663, log loss 0.439373, severe precision 0.877413, severe recall 0.380777, and severe PR-AUC (average precision) 0.572743. Metrics SHA-256 for this snapshot `afbf41bd440fbb129ecbfda37c305bbe7165ed498dcb53759128804ddd00bd22`. The paired weather effect remains pending.
 - Weather acquisition reached 285 verified responses before Rochester exposed a malformed relay row containing unrelated station text. The exact response review has SHA-256 `e8067f5a3460b1501ae1074ba82bbb9d331c884876082d11ce16b53fc9b41cc4`. The parser now counts and excludes unverifiable report text from the causal stream while retaining the original station response. Acquisition resumed from the existing verified cache.
 - Verified 11 candidate-fold outcomes in the real CPU MLP run against their stored prediction and attempt checksums. Candidate order and stopping rules are unchanged. Reproduction `python scripts/phase4.py tune --device cpu`. Full automated suite passed 143 tests with one skip. Added alignment, holdout and notebook tests, and the expanded Phase IV suite passed 31 tests.
+
+### 2026-11-20 20:02:29 UTC — Full weather request inventory verified
+
+- Verified all 352 station requests from December 30, 2024 UTC through January 2, 2026 UTC exclusive. The inventory contains 3,895,897 raw observations, with observations present for every station. All response checksums and their retrieval timestamps are public aggregates. Raw response checksum-set digest `0176ab0084e84d7728dcfe2b2b5b5ad345b1e3a9a32ecc2d05c05e4ea789010e`.
+- `python scripts/phase4.py audit-weather` read the saved request metadata and recomputed the raw response hashes. Source counts include 36,527 undated correction rows, one unverifiable relay row, and 599 instances of distinct same-observation report versions. After explicit out-of-scope high-frequency filtering, the causal G4 build also checks for unresolved conflicts.
+- Ran the tracked notebook with only the public aggregate snapshot. The notebook displayed the real G1–G3 XGBoost holdout scores, the available MLP development ledger and the severe-risk figures. The snapshot SHA-256 is `f48f53d0c18584f52a59577620faf4c4cc08a89c1d569532296ffb25760eeba2`.
+- Persistent Phase IV completion goal is active. The data, weather, MLP development and frozen-fit checkpoint paths in this journal support recovery after interruption.
 
 ## E. Hard blockers and decisions needed
 

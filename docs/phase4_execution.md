@@ -13,6 +13,7 @@ The weather work can run independently. The `stations` command reads both airpor
 ```sh
 python scripts/phase4.py stations
 python scripts/phase4.py fetch
+python scripts/phase4.py audit-weather
 python scripts/phase4.py audit all
 python scripts/phase4.py build-weather
 python scripts/phase4.py fit XGB-base
@@ -30,4 +31,3 @@ Repeat each MLP arm for seeds 6741 and 6742. The G1–G3 MLP arms require the se
 Restart a command to reuse verified checkpoints. Development and final runs that stop before saving a complete fit restart that fit from its original seed. Before removing an interrupted writer lock, verify that the recorded process has stopped. The private attempt directories retain epoch curves and prior attempts. The notebook reads only the public aggregates and can be rerun with `scripts/phase4_build_notebook.py --execute <private-output.ipynb>`.
 
 The Phase IV protocol supersedes the archived draft's four-feature and development-only scope. It uses exactly five G4 features at the target's origin and destination and a frozen 2025 final evaluation. The archive's 10-minute modeled latency is an approximation. Undated corrections are excluded, reports at the prediction boundary are ineligible, and source identity issues require explicit investigation. Weather and weighting results are exploratory given previous holdout exposure.
-
