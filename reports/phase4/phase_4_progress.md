@@ -4,8 +4,8 @@
 
 **Base:** `feat/phase3-classical-models` at `bf4e9dc`
 **Branch:** `feat/phase4-weather-mlp`
-**Last recorded remote milestone:** `86f691099cf732f92ef5491415d93927b18ffd6c`
-**Last UTC update:** 2026-11-20 20:28:04
+**Last recorded remote milestone:** `50c034e5446c59893d2b3052048a1a0724211ce3`
+**Last UTC update:** 2026-11-20 20:30:48
 **Primary scientific status:** PARTIAL. Real development tuning and weather acquisition are in progress.
 **Final protocol:** August–October 2025 fit, frozen November–December 2025 scoring; new weather/weighted comparisons post-hoc
 **Sources:** Phase IV specification, locked Phase II/III manifests and dataset fingerprints
@@ -20,7 +20,7 @@
 | A3: Paired XGBoost base/weather fits | VERIFIED | Both frozen models match on train and holdout IDs | `2b5f7992…`, `758cb982…` | Aggregate publication retry pending |
 | B1: Base MLP development tuning | VERIFIED | 26 candidate-fold outcomes; winning candidate 6 | `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c` | `mlp_tuning_summary.csv` and `mlp_selection.json` |
 | B2: MLP A/B (no weather) | VERIFIED | Both arms completed for all three seeds | See signed fit ledger | Matched frozen holdout |
-| B3: MLP C/D (with weather) | RUNNING | Both selection and G4 gates verified | Local sequential CPU queue | Start after the base MLP arms |
+| B3: MLP C/D (with weather) | RUNNING | All three MLP-C seeds passed both months | `5c206e07…`, `5284021b…`, `413b5e1d…` | MLP-D frozen fits underway |
 | C: Verified metrics, notebook and RQ summary | RUNNING | Four code cells executed with public aggregates | Aggregate-only notebook check | Phase IV result figures require predictions |
 
 ## B. Locked methodology and provenance
@@ -45,7 +45,7 @@
 | Base MLP architecture selected | VERIFIED | `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c` | `python scripts/phase4.py tune --device cpu` | See the tuning ledger | 2026-11-20 20:18:09 |
 | MLP A | VERIFIED | See event log for three checkpoint digests | `python scripts/phase4.py fit MLP-A --seed SEED` | 18.25 to 34.56 s per fit | 2026-11-20 20:25:44 |
 | MLP B | VERIFIED | See event log for three checkpoint digests | `python scripts/phase4.py fit MLP-B --seed SEED` | 18.56 to 19.67 s per fit | 2026-11-20 20:28:04 |
-| MLP C | PENDING | — | — | — | — |
+| MLP C | VERIFIED | Three matching checkpoints | `python scripts/phase4.py fit MLP-C --seed SEED` | See final experiment manifest | 2026-11-20 20:30:48 |
 | MLP D | PENDING | — | — | — | — |
 | Consolidated notebook | PENDING | — | — | — | — |
 
@@ -108,6 +108,11 @@
 
 - MLP-B fitted inverse-frequency weights [0.404509, 2.612563, 6.891764] from August–October only. All three frozen seed outcomes passed checkpoint validation. Pooled macro-F1 by seed was 0.454002, 0.429600 and 0.451755. Severe recall by seed was 0.589464, 0.634273 and 0.616545. Fit-checkpoint hashes are `a2d8cf6b1f0b5d4091087b578e40d2513c98eb7fc90e0411430a761b769a358c`, `cfbfa437a7ceb509e9db3023f27af831df82633e48c2fd581a3e5d1d05ea3b00` and `843e50c1a2b353cff296f620b1ac1fd1e7fc2f75b2c593a6797828459dab3183`.
 - MLP-C and MLP-D are proceeding from the locked architecture and verified G4 inputs. The separate audit-only window-count tests passed along with all 26 weather tests. This stage does not add model predictors.
+
+### 2026-11-20 20:30:48 UTC — MLP-C and full audit-only weather diagnostics verified
+
+- All three MLP-C seeds completed their fixed-epoch Weather + standard CE fits and both frozen months. Run signatures `5c206e07ba6bb395ef21f0559a21da44546817427f908f1dbcd894d6b5126508`, `5284021baa79669dce1c32879826f7bb650e3cf3d7cb58a948a2cbde60bf46b1` and `413b5e1d4853db9bbd4fa2461fa2da5f82b8e5f8ef085a86d548b74abcb15eee`. MLP-D remains in progress.
+- `python scripts/phase4.py audit-g4-details` verified 12 private diagnostic partitions totaling 6,461,609 exact G4 target IDs. The public audit record contains only counts, hashes and schema. Report counts, latest observation ages, station identities and null indicators are outside all predictor views.
 
 ## E. Hard blockers and decisions needed
 

@@ -1,0 +1,97 @@
+{
+  "code_sha256": "a97dace68b1827f0bcd2ed850f50f7fdc62f08286645d3195d9014057011cde1",
+  "g4_signature": "d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef",
+  "months": {
+    "1": {
+      "destination_no_report_180m": 266,
+      "origin_no_report_180m": 279,
+      "rows": 482934
+    },
+    "10": {
+      "destination_no_report_180m": 565,
+      "origin_no_report_180m": 414,
+      "rows": 572886
+    },
+    "11": {
+      "destination_no_report_180m": 632,
+      "origin_no_report_180m": 616,
+      "rows": 519971
+    },
+    "12": {
+      "destination_no_report_180m": 409,
+      "origin_no_report_180m": 423,
+      "rows": 532053
+    },
+    "2": {
+      "destination_no_report_180m": 157,
+      "origin_no_report_180m": 162,
+      "rows": 466318
+    },
+    "3": {
+      "destination_no_report_180m": 473,
+      "origin_no_report_180m": 531,
+      "rows": 558899
+    },
+    "4": {
+      "destination_no_report_180m": 738,
+      "origin_no_report_180m": 455,
+      "rows": 547836
+    },
+    "5": {
+      "destination_no_report_180m": 424,
+      "origin_no_report_180m": 466,
+      "rows": 564296
+    },
+    "6": {
+      "destination_no_report_180m": 2639,
+      "origin_no_report_180m": 2751,
+      "rows": 559011
+    },
+    "7": {
+      "destination_no_report_180m": 2504,
+      "origin_no_report_180m": 2602,
+      "rows": 566757
+    },
+    "8": {
+      "destination_no_report_180m": 1698,
+      "origin_no_report_180m": 1615,
+      "rows": 558470
+    },
+    "9": {
+      "destination_no_report_180m": 701,
+      "origin_no_report_180m": 631,
+      "rows": 532178
+    }
+  },
+  "rows": 6461609,
+  "schema": {
+    "destination_latest_observation_age_min": "Float64",
+    "destination_reports_180m": "UInt16",
+    "destination_reports_60m": "UInt16",
+    "destination_station": "String",
+    "missing_g4_dest_worst_category_180m": "Boolean",
+    "missing_g4_origin_frozen_precip_180m": "Boolean",
+    "missing_g4_origin_thunderstorm_60m": "Boolean",
+    "missing_g4_origin_wind_max_kt": "Boolean",
+    "missing_g4_origin_worst_category_180m": "Boolean",
+    "origin_latest_observation_age_min": "Float64",
+    "origin_reports_180m": "UInt16",
+    "origin_reports_60m": "UInt16",
+    "origin_station": "String",
+    "target_record_id": "String"
+  },
+  "sha256_by_month": {
+    "1": "b7fc543a0dce84ad4d158a76f66b5a0875db627fd71e39e7d130898d697a91d2",
+    "10": "760c345fd1ad61bf3aea4422d59b21dfe02c5332dd5018c6b2370dc2cff77d18",
+    "11": "2ac01e7e7a84b7f92afe87cf01246bf3843d64edcb096d91ff5075f6cb884059",
+    "12": "ac9b52ba6915c0939522cf62dd92346b292cf0ba436f37feec079cb7430ccfe9",
+    "2": "9f76762a7625129de1d4d505780884e68a88caf9d2ab5a771adb0871cc1be5ad",
+    "3": "6a593a96f49bcde9ad6c67dcfb6780a07a2c30b82b67e3827062f1f41f6666d0",
+    "4": "e2d7cdd88128f11e625fb63ab32bd6322706b16b6bf495508ab855e3f66c4c26",
+    "5": "4a1b0e1c7cacb59b98d9eedefef28c1e50e5015c030a90279191d5e51f21108f",
+    "6": "eaa92a2d8c794774c0a1ef5a79383234eeb5e3365ccd3cdd2bdf83b767b581fd",
+    "7": "946d0c66774a2388c170a0f8791edf9ebd60a6be01105a0759f92ec92d7f8dec",
+    "8": "3739ed02294ae1e9d6a7f76597aac34d347ce90f656f2d457a5b5f4ac9ae33da",
+    "9": "3cfc2c7854ad798a3919920db491f9067b9a0d813d548b0305179d4b9ad46d0d"
+  }
+}
