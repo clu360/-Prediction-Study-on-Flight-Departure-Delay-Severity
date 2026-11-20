@@ -1,0 +1,171 @@
+{
+  "airport_count": 352,
+  "canonical_months": {
+    "1": {
+      "max_utc": "2025-02-01T05:37:00+00:00",
+      "min_utc": "2024-12-31T22:12:00+00:00",
+      "rows": 482934
+    },
+    "10": {
+      "max_utc": "2025-11-01T06:08:00+00:00",
+      "min_utc": "2025-09-30T00:32:00+00:00",
+      "rows": 572886
+    },
+    "11": {
+      "max_utc": "2025-12-01T06:54:00+00:00",
+      "min_utc": "2025-10-31T01:12:00+00:00",
+      "rows": 519971
+    },
+    "12": {
+      "max_utc": "2026-01-01T05:53:00+00:00",
+      "min_utc": "2025-11-30T01:23:00+00:00",
+      "rows": 532053
+    },
+    "2": {
+      "max_utc": "2025-03-01T06:38:00+00:00",
+      "min_utc": "2025-01-31T03:00:00+00:00",
+      "rows": 466318
+    },
+    "3": {
+      "max_utc": "2025-04-01T06:29:00+00:00",
+      "min_utc": "2025-02-28T10:50:00+00:00",
+      "rows": 558899
+    },
+    "4": {
+      "max_utc": "2025-05-01T05:53:00+00:00",
+      "min_utc": "2025-03-30T23:59:00+00:00",
+      "rows": 547836
+    },
+    "5": {
+      "max_utc": "2025-06-01T06:37:00+00:00",
+      "min_utc": "2025-04-30T00:35:00+00:00",
+      "rows": 564296
+    },
+    "6": {
+      "max_utc": "2025-07-01T06:47:00+00:00",
+      "min_utc": "2025-05-30T23:51:00+00:00",
+      "rows": 559011
+    },
+    "7": {
+      "max_utc": "2025-08-01T06:45:00+00:00",
+      "min_utc": "2025-06-29T23:53:00+00:00",
+      "rows": 566757
+    },
+    "8": {
+      "max_utc": "2025-09-01T06:01:00+00:00",
+      "min_utc": "2025-07-31T01:09:00+00:00",
+      "rows": 558470
+    },
+    "9": {
+      "max_utc": "2025-10-01T06:06:00+00:00",
+      "min_utc": "2025-08-31T01:04:00+00:00",
+      "rows": 532178
+    }
+  },
+  "causal_stream_audit": {
+    "corrections_dropped": 36527,
+    "distinct_same_observation": 0,
+    "duplicates": 0,
+    "invalid_numeric_fields": 0,
+    "out_of_scope_high_frequency": 605,
+    "rows": 3895897,
+    "unknown_category": 9727,
+    "unknown_wind": 20363,
+    "unverifiable_report": 1
+  },
+  "coverage_sha256": "b1e23830fcb8de2f7f9a8d6564bb854f7d93e68196b78129ef858795351a96fd",
+  "feature_builder_sha256": "17bb5b74943903289ded3b32e50a6686f300b2213dcdebfa73900ec16eb699a0",
+  "feature_missingness": {
+    "g4_dest_worst_category_180m": {
+      "fraction": 0.0018611463491523552,
+      "missing": 12026,
+      "rows": 6461609
+    },
+    "g4_origin_frozen_precip_180m": {
+      "fraction": 0.00169385055641714,
+      "missing": 10945,
+      "rows": 6461609
+    },
+    "g4_origin_thunderstorm_60m": {
+      "fraction": 0.015258428666915624,
+      "missing": 98594,
+      "rows": 6461609
+    },
+    "g4_origin_wind_max_kt": {
+      "fraction": 0.0027788744258589464,
+      "missing": 17956,
+      "rows": 6461609
+    },
+    "g4_origin_worst_category_180m": {
+      "fraction": 0.0017418262231589687,
+      "missing": 11255,
+      "rows": 6461609
+    }
+  },
+  "g4_config_sha256": "c3ef0dcf7d054658ed2c752226513a7caf7bb81c58fb5924ff44bd7d9ebba79a",
+  "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+  "monthly_logical_sha256": {
+    "1": "7ed6f88dab5ad3e30f2e9db0d999e19745c82560253058176234e45286397789",
+    "10": "6e32dfa5bfb3a581d0ed7cd5698701f5c8d63bfd4baa5e12c83ef03c2fa8bec3",
+    "11": "9b3c1df00b6fe53528847ac7549f25660910180103a2fbf2d08be0d7d27fe73d",
+    "12": "45a3276178b64ba7b090eda480a18a74c92918bc3a3dbb1493291630bccd8d16",
+    "2": "d69d4078a56e607049326367d49d5be27679e9d45ff3ce2485a5b6e07b3412f4",
+    "3": "98f2030c64e4d78aa46a35180f62de7fa65f65bcce8190a5be0f566ee0ec4749",
+    "4": "13b7fbb44ed55ee54e1d584adfd787e0d366536ca7c36f2407ef8a39b7e9ebb8",
+    "5": "16dd8d96d37df18c876a2d187c52ef47cab35e7f8b9c8e9901dcf2607560e024",
+    "6": "4608479fc3e3720f492be7ca66cdf1fab5ec00c6c3eda929dfc1c69e6e7451a0",
+    "7": "820daa2ddb1bdbff67442ca7c3a09100e1de20d7ef60c29c3673f053764dbc17",
+    "8": "c73b7fb6f3960cc819934ee18a9541cae6ee3231d0a6cbbaaba37abb2f09fc50",
+    "9": "e5ac58aa62abba24e4e7a946a8118fd5daf62076ba936cd5ef28c13a53d6d538"
+  },
+  "oracle_rows": 8145,
+  "parquet_file_sha256": {
+    "month=01": "3cde46f36c6e9c4c5884f02e283a0427df8619ec9b12e008837ce455d3d0b5fa",
+    "month=02": "7f9d3719cc8ffa2fdf9dd2d6477ead744234c913cb2a2d137cb25c064d26c36f",
+    "month=03": "fc6831a92ab0bfb073a623829afca2b0b8b4c090a2783b4c709c31d5d4e4fa41",
+    "month=04": "3344219e50a0bde3eea03fb457bf8c949a9d96d22f21db9af71cf464255ba4f7",
+    "month=05": "6f18f8faa98af9103cf9e19a5d3b000a0626e73dd64a22bb51fa820183bb5ecf",
+    "month=06": "0a8fa1baa1e1653eb51a860224b53ad8a516ff5e190728f8bc42d1bf9a89183b",
+    "month=07": "ab941c9c1ddcce7154361649ed54ef5c3a5b3b47915812e99fc53479ac058b86",
+    "month=08": "589d8790e4c5924548dddc08a643bcf9960659b4fe5671ae08a75dd1a069d10c",
+    "month=09": "cde3c1fe1a106ccf53d4d31ce2930ac6eb2517e62f8c7153498775897b85f9c0",
+    "month=10": "5a4b705293fa15f3e0dafd1a6395edd0b2dcedd01504280006f8b7f445751c58",
+    "month=11": "c4bf79e8d9d0755ccf998d19c2cb482a61c1b4e939fa13bbcbdd6353dcfc5ee9",
+    "month=12": "e7112d3d3260d345fb5a1064adb08e8c19c71258fd2a2eb74702bf328b2e7214"
+  },
+  "rows": 6461609,
+  "signature": "d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef",
+  "station_mapping_sha256": "6e2ef11e155e3c35baa18972c081f5bf15d59004b9133f45243ce9a7469c624a",
+  "status": "verified",
+  "unknown_coverage_airport_months": [
+    {
+      "airport": "HDN",
+      "month": 5
+    },
+    {
+      "airport": "HDN",
+      "month": 6
+    },
+    {
+      "airport": "WYS",
+      "month": 1
+    },
+    {
+      "airport": "WYS",
+      "month": 2
+    },
+    {
+      "airport": "WYS",
+      "month": 3
+    },
+    {
+      "airport": "WYS",
+      "month": 11
+    },
+    {
+      "airport": "WYS",
+      "month": 12
+    }
+  ],
+  "weather_parser_sha256": "b7beb9d50ed591e56992b7d681bbc41a3622372b6354bbbb37a3eb512aae8a71"
+}

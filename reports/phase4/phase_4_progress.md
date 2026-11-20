@@ -4,8 +4,8 @@
 
 **Base:** `feat/phase3-classical-models` at `bf4e9dc`
 **Branch:** `feat/phase4-weather-mlp`
-**Last recorded remote milestone:** `b2e9a0b9c1b9755038b487cf01aa43cf00be5487`
-**Last UTC update:** 2026-11-20 20:18:09
+**Last recorded remote milestone:** `febe23dc01eb442a93233460b5b25e4b3f5b784f`
+**Last UTC update:** 2026-11-20 20:21:46
 **Primary scientific status:** PARTIAL. Real development tuning and weather acquisition are in progress.
 **Final protocol:** August–October 2025 fit, frozen November–December 2025 scoring; new weather/weighted comparisons post-hoc
 **Sources:** Phase IV specification, locked Phase II/III manifests and dataset fingerprints
@@ -16,11 +16,11 @@
 |---|---|---|---|---|
 | Environment + upstream dataset audit | VERIFIED | 6,461,609 aligned rows per canonical table | `upstream_all.json` | `upstream_verification.json` |
 | A1: IEM station map and raw fetch | VERIFIED | All 352 station responses and archive checksums verified | v1 | `weather_source_inventory.csv` |
-| A2: Five G4 feature columns and audit | RUNNING | Source gate passed | Local G4 build | Independent oracle and full ID audit underway |
-| A3: Paired XGBoost base/weather fits | RUNNING | XGB-base fit and both frozen scores verified | `2b5f7992…` | G4 arm pending |
+| A2: Five G4 feature columns and audit | VERIFIED | 6,461,609 rows and 8,145 direct oracles | `d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef` | `weather_g4_verification.json` |
+| A3: Paired XGBoost base/weather fits | RUNNING | Base verified; weather fit started | CPU seed 6740, four threads | Score both holdout months |
 | B1: Base MLP development tuning | VERIFIED | 26 candidate-fold outcomes; winning candidate 6 | `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c` | `mlp_tuning_summary.csv` and `mlp_selection.json` |
-| B2: MLP A/B (no weather) | PENDING | — | — | — |
-| B3: MLP C/D (with weather) | PENDING | — | — | — |
+| B2: MLP A/B (no weather) | RUNNING | MLP-A seed 6740 frozen scores persisted | `4cefe7fb…` | Continue all three seeds |
+| B3: MLP C/D (with weather) | RUNNING | Both selection and G4 gates verified | Local sequential CPU queue | Start after the base MLP arms |
 | C: Verified metrics, notebook and RQ summary | RUNNING | Four code cells executed with public aggregates | Aggregate-only notebook check | Phase IV result figures require predictions |
 
 ## B. Locked methodology and provenance
@@ -40,7 +40,7 @@
 |---|---|---|---|---|---|
 | Upstream gate | VERIFIED | `2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334` | `python scripts/phase4.py audit all` | — | 2026-11-20 19:44:35 |
 | Weather fetch | VERIFIED | `0176ab0084e84d7728dcfe2b2b5b5ad345b1e3a9a32ecc2d05c05e4ea789010e` | `python scripts/phase4.py audit-weather` | — | 2026-11-20 20:02:29 |
-| G4 complete | PENDING | — | — | — | — |
+| G4 complete | VERIFIED | `d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef` | `python scripts/phase4.py build-weather` | Private build log | 2026-11-20 20:21:46 |
 | XGB comparison | PENDING | — | — | — | — |
 | Base MLP architecture selected | VERIFIED | `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c` | `python scripts/phase4.py tune --device cpu` | See the tuning ledger | 2026-11-20 20:18:09 |
 | MLP A | PENDING | — | — | — | — |
@@ -91,6 +91,12 @@
 - The initial tuning process stopped after all 18 screening checkpoints on a transient Windows file-sharing violation while opening a February source shard. The bounded restart verified and reused the screening predictions and completed all eight remaining finalist outcomes. Only the April–October development scope entered tuning.
 - Reviewed the stored XGB-base replays for 2,048 rows in each frozen month. Both replays recovered the same state and probabilities exactly. Full regression suite passed 146 tests, with one skip and a Windows Jupyter selector warning. Focused Phase IV suite passed 31 tests. Ruff unused-name checks on the Phase IV source and tests passed.
 
+### 2026-11-20 20:21:46 UTC — Five-column whole-cohort G4 verified
+
+- `python scripts/phase4.py build-weather` verified the full 2025 target set, exactly five G4 predictors, strict report timing, airport identities, the Phase I prediction clock, and 12 content-checked Parquet partitions. The causal oracle matched 8,145 row comparisons. G4 signature `d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef`. Its target UTC range was December 31, 2024 at 22:12 through January 1, 2026 at 05:53.
+- The mean missing fraction by predictor ranged from 0.169% to 1.526%. The causal coverage audit identified seven airport/month combinations with zero eligible source report days. No flight was dropped. The parser excluded 605 tagged high-frequency rows, 36,527 untimed corrections and one malformed source row. No unresolved duplicate observation times remained in the causal stream.
+- Started matched XGB-weather on the verified five-column extension. MLP-A seed 6740 finished. Seed 6741 initially hit a transient Windows source-sharing error while a second process was opening a checked input. The sequential MLP queue retries only recognized sharing errors, with all other failures surfaced. These attempts preserve the same data, seeds and locked fits.
+
 ## E. Hard blockers and decisions needed
 
 | ID | Type (methodological/operational) | First seen UTC | Impact | Evidence | Decision needed | Status |
@@ -117,9 +123,9 @@ Record one row per signed model/fold/view/seed attempt. Store *private* artifact
 ## H. Handoff checklist
 
 - [x] Environment and upstream audit passed for the Phase IV working tables
-- [ ] G4 five-column, all-2025 causal table and IEM coverage audited
+- [x] G4 five-column, all-2025 causal table and IEM coverage audited
 - [ ] Paired frozen XGBoost comparison verified
-- [ ] MLP architecture selection locked from development data
+- [x] MLP architecture selection locked from development data
 - [ ] All four frozen MLP arms verified, actual seed count disclosed
 - [ ] November/December pooled and per-month results and weather/weighting contrasts verified
 - [ ] Notebook executes from committed aggregate-only reports
