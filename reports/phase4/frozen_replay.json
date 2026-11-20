@@ -1,0 +1,23 @@
+{
+  "metrics_summary_sha256": "afbf41bd440fbb129ecbfda37c305bbe7165ed498dcb53759128804ddd00bd22",
+  "repetitions": [
+    {
+      "arm": "XGB-base",
+      "maximum_absolute_probability_difference": 0.0,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "2b5f7992b84d112380aeccd442d140a14cf4dc04437a18f3183780672cb1aca1"
+    },
+    {
+      "arm": "XGB-base",
+      "maximum_absolute_probability_difference": 0.0,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "2b5f7992b84d112380aeccd442d140a14cf4dc04437a18f3183780672cb1aca1"
+    }
+  ],
+  "status": "passed",
+  "tolerance": 2e-06
+}

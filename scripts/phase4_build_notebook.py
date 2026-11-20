@@ -63,6 +63,13 @@ if not tuning:
     if tuning:
         print('Completed development scores. The architecture lock is pending.')
 table(tuning, ['candidate_id', 'month', 'epochs', 'log_loss', 'macro_f1', 'stop_reason'])
+lock_path = phase4 / 'mlp_selection.json'
+if lock_path.exists():
+    lock = json.loads(lock_path.read_text(encoding='utf-8'))
+    fit_config = dict(candidate_id=lock['candidate_id'], **lock['candidate'], epochs=lock['epochs'],
+                      final_seeds=lock['settings']['final_seeds'])
+    table([fit_config], list(fit_config))
+    print(lock['epoch_rule'])
 seed_summary = csv_rows(phase4 / 'seed_summary.csv')
 table([r for r in seed_summary if r['subgroup'] == 'overall'],
       ['arm', 'month', 'seed_count', 'macro_f1', 'log_loss', 'severe_precision', 'severe_recall',

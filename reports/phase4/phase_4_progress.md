@@ -4,8 +4,8 @@
 
 **Base:** `feat/phase3-classical-models` at `bf4e9dc`
 **Branch:** `feat/phase4-weather-mlp`
-**Last recorded remote milestone:** `19d35daf3148b0e839a5219683152e31a4735381`
-**Last UTC update:** 2026-11-20 20:02:29
+**Last recorded remote milestone:** `b2e9a0b9c1b9755038b487cf01aa43cf00be5487`
+**Last UTC update:** 2026-11-20 20:18:09
 **Primary scientific status:** PARTIAL. Real development tuning and weather acquisition are in progress.
 **Final protocol:** August–October 2025 fit, frozen November–December 2025 scoring; new weather/weighted comparisons post-hoc
 **Sources:** Phase IV specification, locked Phase II/III manifests and dataset fingerprints
@@ -18,7 +18,7 @@
 | A1: IEM station map and raw fetch | VERIFIED | All 352 station responses and archive checksums verified | v1 | `weather_source_inventory.csv` |
 | A2: Five G4 feature columns and audit | RUNNING | Source gate passed | Local G4 build | Independent oracle and full ID audit underway |
 | A3: Paired XGBoost base/weather fits | RUNNING | XGB-base fit and both frozen scores verified | `2b5f7992…` | G4 arm pending |
-| B1: Base MLP development tuning | RUNNING | 11/26 candidate-fold checkpoints verified | `13e39cfc…` | `mlp_development_progress.csv` |
+| B1: Base MLP development tuning | VERIFIED | 26 candidate-fold outcomes; winning candidate 6 | `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c` | `mlp_tuning_summary.csv` and `mlp_selection.json` |
 | B2: MLP A/B (no weather) | PENDING | — | — | — |
 | B3: MLP C/D (with weather) | PENDING | — | — | — |
 | C: Verified metrics, notebook and RQ summary | RUNNING | Four code cells executed with public aggregates | Aggregate-only notebook check | Phase IV result figures require predictions |
@@ -42,7 +42,7 @@
 | Weather fetch | VERIFIED | `0176ab0084e84d7728dcfe2b2b5b5ad345b1e3a9a32ecc2d05c05e4ea789010e` | `python scripts/phase4.py audit-weather` | — | 2026-11-20 20:02:29 |
 | G4 complete | PENDING | — | — | — | — |
 | XGB comparison | PENDING | — | — | — | — |
-| Base MLP architecture selected | PENDING | — | — | — | — |
+| Base MLP architecture selected | VERIFIED | `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c` | `python scripts/phase4.py tune --device cpu` | See the tuning ledger | 2026-11-20 20:18:09 |
 | MLP A | PENDING | — | — | — | — |
 | MLP B | PENDING | — | — | — | — |
 | MLP C | PENDING | — | — | — | — |
@@ -83,6 +83,13 @@
 - `python scripts/phase4.py audit-weather` read the saved request metadata and recomputed the raw response hashes. Source counts include 36,527 undated correction rows, one unverifiable relay row, and 599 instances of distinct same-observation report versions. After explicit out-of-scope high-frequency filtering, the causal G4 build also checks for unresolved conflicts.
 - Ran the tracked notebook with only the public aggregate snapshot. The notebook displayed the real G1–G3 XGBoost holdout scores, the available MLP development ledger and the severe-risk figures. The snapshot SHA-256 is `f48f53d0c18584f52a59577620faf4c4cc08a89c1d569532296ffb25760eeba2`.
 - Persistent Phase IV completion goal is active. The data, weather, MLP development and frozen-fit checkpoint paths in this journal support recovery after interruption.
+
+### 2026-11-20 20:18:09 UTC — MLP configuration locked before final fitting
+
+- Six candidates completed April, July and October screening. The two finalists completed all seven April–October folds. The full ledger contains 26 verified candidate-fold evaluations and checkpoint digests. The equal-month finalist scores were candidate 6 mean log loss 0.480053 and mean macro-F1 0.612157; candidate 4 mean log loss 0.497185 and mean macro-F1 0.605218.
+- Selected candidate 6 with hidden widths [256, 128], learning rate 0.0003, and dropout 0.3. Fixed final fit length is 1 epoch. The seven chronological inner stopping choices for the winning candidate were [1, 2, 1, 1, 1, 1, 1]. Selection lock SHA-256 `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c`. Final seeds are 6740, 6741 and 6742 for each arm.
+- The initial tuning process stopped after all 18 screening checkpoints on a transient Windows file-sharing violation while opening a February source shard. The bounded restart verified and reused the screening predictions and completed all eight remaining finalist outcomes. Only the April–October development scope entered tuning.
+- Reviewed the stored XGB-base replays for 2,048 rows in each frozen month. Both replays recovered the same state and probabilities exactly. Full regression suite passed 146 tests, with one skip and a Windows Jupyter selector warning. Focused Phase IV suite passed 31 tests. Ruff unused-name checks on the Phase IV source and tests passed.
 
 ## E. Hard blockers and decisions needed
 

@@ -2,7 +2,6 @@ import pytest
 
 from flight_delay.experiments.phase4_inputs import BASE, ID
 from flight_delay.models.state import state_hash
-from test_phase4_alignment import phase4_inputs  # noqa: F401
 
 
 def test_locked_development_and_holdout_windows(phase4_inputs):
@@ -28,4 +27,3 @@ def test_locked_development_and_holdout_windows(phase4_inputs):
         assert transformation.transform(evaluation).shape[0] == evaluation.height
         assert transformation.unknown_counts(evaluation)["g1_month"] == evaluation.height
         assert state_hash(transformation) == fitted_state
-
