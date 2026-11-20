@@ -4,8 +4,8 @@
 
 **Base:** `feat/phase3-classical-models` at `bf4e9dc`
 **Branch:** `feat/phase4-weather-mlp`
-**Last recorded remote milestone:** `febe23dc01eb442a93233460b5b25e4b3f5b784f`
-**Last UTC update:** 2026-11-20 20:21:46
+**Last recorded remote milestone:** `86f691099cf732f92ef5491415d93927b18ffd6c`
+**Last UTC update:** 2026-11-20 20:28:04
 **Primary scientific status:** PARTIAL. Real development tuning and weather acquisition are in progress.
 **Final protocol:** August–October 2025 fit, frozen November–December 2025 scoring; new weather/weighted comparisons post-hoc
 **Sources:** Phase IV specification, locked Phase II/III manifests and dataset fingerprints
@@ -17,9 +17,9 @@
 | Environment + upstream dataset audit | VERIFIED | 6,461,609 aligned rows per canonical table | `upstream_all.json` | `upstream_verification.json` |
 | A1: IEM station map and raw fetch | VERIFIED | All 352 station responses and archive checksums verified | v1 | `weather_source_inventory.csv` |
 | A2: Five G4 feature columns and audit | VERIFIED | 6,461,609 rows and 8,145 direct oracles | `d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef` | `weather_g4_verification.json` |
-| A3: Paired XGBoost base/weather fits | RUNNING | Base verified; weather fit started | CPU seed 6740, four threads | Score both holdout months |
+| A3: Paired XGBoost base/weather fits | VERIFIED | Both frozen models match on train and holdout IDs | `2b5f7992…`, `758cb982…` | Aggregate publication retry pending |
 | B1: Base MLP development tuning | VERIFIED | 26 candidate-fold outcomes; winning candidate 6 | `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c` | `mlp_tuning_summary.csv` and `mlp_selection.json` |
-| B2: MLP A/B (no weather) | RUNNING | MLP-A seed 6740 frozen scores persisted | `4cefe7fb…` | Continue all three seeds |
+| B2: MLP A/B (no weather) | VERIFIED | Both arms completed for all three seeds | See signed fit ledger | Matched frozen holdout |
 | B3: MLP C/D (with weather) | RUNNING | Both selection and G4 gates verified | Local sequential CPU queue | Start after the base MLP arms |
 | C: Verified metrics, notebook and RQ summary | RUNNING | Four code cells executed with public aggregates | Aggregate-only notebook check | Phase IV result figures require predictions |
 
@@ -41,10 +41,10 @@
 | Upstream gate | VERIFIED | `2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334` | `python scripts/phase4.py audit all` | — | 2026-11-20 19:44:35 |
 | Weather fetch | VERIFIED | `0176ab0084e84d7728dcfe2b2b5b5ad345b1e3a9a32ecc2d05c05e4ea789010e` | `python scripts/phase4.py audit-weather` | — | 2026-11-20 20:02:29 |
 | G4 complete | VERIFIED | `d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef` | `python scripts/phase4.py build-weather` | Private build log | 2026-11-20 20:21:46 |
-| XGB comparison | PENDING | — | — | — | — |
+| XGB comparison | VERIFIED | `fa7fb14ad96055bb2d00bc8c7b368868b7c3f64ab8a061a306c282f5a1c2d60f` | `python scripts/phase4.py fit XGB-weather` | 121.33 s weather fit | 2026-11-20 20:25:44 |
 | Base MLP architecture selected | VERIFIED | `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c` | `python scripts/phase4.py tune --device cpu` | See the tuning ledger | 2026-11-20 20:18:09 |
-| MLP A | PENDING | — | — | — | — |
-| MLP B | PENDING | — | — | — | — |
+| MLP A | VERIFIED | See event log for three checkpoint digests | `python scripts/phase4.py fit MLP-A --seed SEED` | 18.25 to 34.56 s per fit | 2026-11-20 20:25:44 |
+| MLP B | VERIFIED | See event log for three checkpoint digests | `python scripts/phase4.py fit MLP-B --seed SEED` | 18.56 to 19.67 s per fit | 2026-11-20 20:28:04 |
 | MLP C | PENDING | — | — | — | — |
 | MLP D | PENDING | — | — | — | — |
 | Consolidated notebook | PENDING | — | — | — | — |
@@ -97,6 +97,18 @@
 - The mean missing fraction by predictor ranged from 0.169% to 1.526%. The causal coverage audit identified seven airport/month combinations with zero eligible source report days. No flight was dropped. The parser excluded 605 tagged high-frequency rows, 36,527 untimed corrections and one malformed source row. No unresolved duplicate observation times remained in the causal stream.
 - Started matched XGB-weather on the verified five-column extension. MLP-A seed 6740 finished. Seed 6741 initially hit a transient Windows source-sharing error while a second process was opening a checked input. The sequential MLP queue retries only recognized sharing errors, with all other failures surfaced. These attempts preserve the same data, seeds and locked fits.
 
+### 2026-11-20 20:25:44 UTC — Paired XGBoost and all MLP-A seeds verified
+
+- XGB-weather finished in 121.33 seconds on CPU. Saved model and transformer hashes match across November and December. Its checkpoint files passed independent readback. All 1,052,024 holdout IDs and labels matched XGB-base. Pooled macro-F1 was 0.648207, log loss 0.436634, severe precision 0.871171, severe recall 0.383870 and severe average precision 0.577189. Weather fit record SHA-256 `fa7fb14ad96055bb2d00bc8c7b368868b7c3f64ab8a061a306c282f5a1c2d60f`. The model comparison is exploratory.
+- MLP-A passed both frozen months for seeds 6740, 6741 and 6742. Pooled macro-F1 by seed was 0.624497, 0.618658 and 0.622114. Fit checksums are `d105dd2c169ec10ff50ffc10b62111aa97c5ff541568831f959fb6c2e95a45c6`, `fac4e6c29b786f68d2bea96e0b43d0a3d4cdd0155743b724c6b2ad9d5df8a1da` and `0e10a050b5b44a465a3a0febcff21e13e2448da3c9e9d003e50cb0e8a3106eff`. The saved holdout IDs and labels match the paired XGBoost runs.
+- Concurrent publication and MLP fitting collided on Windows source-file sharing. Both XGBoost fits and frozen predictions were already complete. MLP-A seed 6742 recovered on its third bounded attempt. Final public subgroup aggregation will resume after the remaining MLP fits to avoid concurrent file reads.
+- Started the separate private G4 age/count diagnostic export. It records station identity, strict-window report counts, report ages and missingness flags outside all predictor views.
+
+### 2026-11-20 20:28:04 UTC — MLP-B three-seed frozen scoring verified
+
+- MLP-B fitted inverse-frequency weights [0.404509, 2.612563, 6.891764] from August–October only. All three frozen seed outcomes passed checkpoint validation. Pooled macro-F1 by seed was 0.454002, 0.429600 and 0.451755. Severe recall by seed was 0.589464, 0.634273 and 0.616545. Fit-checkpoint hashes are `a2d8cf6b1f0b5d4091087b578e40d2513c98eb7fc90e0411430a761b769a358c`, `cfbfa437a7ceb509e9db3023f27af831df82633e48c2fd581a3e5d1d05ea3b00` and `843e50c1a2b353cff296f620b1ac1fd1e7fc2f75b2c593a6797828459dab3183`.
+- MLP-C and MLP-D are proceeding from the locked architecture and verified G4 inputs. The separate audit-only window-count tests passed along with all 26 weather tests. This stage does not add model predictors.
+
 ## E. Hard blockers and decisions needed
 
 | ID | Type (methodological/operational) | First seen UTC | Impact | Evidence | Decision needed | Status |
@@ -124,7 +136,7 @@ Record one row per signed model/fold/view/seed attempt. Store *private* artifact
 
 - [x] Environment and upstream audit passed for the Phase IV working tables
 - [x] G4 five-column, all-2025 causal table and IEM coverage audited
-- [ ] Paired frozen XGBoost comparison verified
+- [x] Paired frozen XGBoost comparison verified
 - [x] MLP architecture selection locked from development data
 - [ ] All four frozen MLP arms verified, actual seed count disclosed
 - [ ] November/December pooled and per-month results and weather/weighting contrasts verified

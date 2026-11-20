@@ -70,6 +70,18 @@ if lock_path.exists():
                       final_seeds=lock['settings']['final_seeds'])
     table([fit_config], list(fit_config))
     print(lock['epoch_rule'])
+    curves = csv_rows(phase4 / 'mlp_learning_curves.csv')
+    curves = [r for r in curves if int(r['candidate_id']) == lock['candidate_id']
+              and r['stage'] == 'inner']
+    if curves:
+        fig, ax = plt.subplots(figsize=(8, 4), layout='constrained')
+        for month in sorted({r['month'] for r in curves}, key=int):
+            line = [r for r in curves if r['month'] == month]
+            ax.plot([int(r['epoch']) for r in line], [float(r['stop_loss']) for r in line],
+                    marker='.', label=f'Scored month {int(month):02}')
+        ax.set(xlabel='Inner training epoch', ylabel='Chronological stop-validation log loss')
+        ax.legend(ncols=2, fontsize='small')
+        plt.show()
 seed_summary = csv_rows(phase4 / 'seed_summary.csv')
 table([r for r in seed_summary if r['subgroup'] == 'overall'],
       ['arm', 'month', 'seed_count', 'macro_f1', 'log_loss', 'severe_precision', 'severe_recall',

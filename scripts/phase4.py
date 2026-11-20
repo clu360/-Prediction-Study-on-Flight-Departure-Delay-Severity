@@ -12,7 +12,7 @@ def main():
     audit = commands.add_parser("audit")
     audit.add_argument("scope", choices=["development", "all"])
     commands.add_parser("stations")
-    for name in ("fetch", "audit-weather", "build-weather"):
+    for name in ("fetch", "audit-weather", "build-weather", "audit-g4-details"):
         step = commands.add_parser(name)
         step.add_argument("--version", default="v1")
     tune = commands.add_parser("tune")
@@ -49,6 +49,10 @@ def main():
         from flight_delay.weather.validation import audit_archive
 
         print(audit_archive(inputs, args.version)["archive_digest"])
+    elif args.command == "audit-g4-details":
+        from flight_delay.weather.diagnostics import coverage_diagnostics
+
+        print(coverage_diagnostics(inputs, args.version)["g4_signature"])
     elif args.command == "build-weather":
         from flight_delay.weather.features import build
 

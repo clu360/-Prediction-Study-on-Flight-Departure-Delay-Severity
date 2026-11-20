@@ -67,3 +67,13 @@ def test_corrections_blank_gust_and_unknown_sustained_wind():
                        (start + timedelta(minutes=30), 0, 0, 0, None)]
     assert audit["corrections_dropped"] == audit["duplicates"] == 1
 
+
+
+def test_audit_window_counts_and_age_exclude_reports_at_cutoff():
+    from flight_delay.weather.diagnostics import audit_windows
+
+    t = np.array(["2025-01-01T12:00"], dtype="datetime64[us]")
+    observed = np.array(["2025-01-01T09:00", "2025-01-01T11:00", "2025-01-01T12:00"], dtype="datetime64[us]")
+    counts, age = audit_windows(t, observed)
+    assert [count[0] for count in counts] == [2, 1]
+    assert age[0] == 70.0

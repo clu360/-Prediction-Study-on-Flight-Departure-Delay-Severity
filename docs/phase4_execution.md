@@ -16,6 +16,7 @@ python scripts/phase4.py fetch
 python scripts/phase4.py audit-weather
 python scripts/phase4.py audit all
 python scripts/phase4.py build-weather
+python scripts/phase4.py audit-g4-details
 python scripts/phase4.py fit XGB-base
 python scripts/phase4.py fit XGB-weather
 python scripts/phase4.py fit MLP-A --seed 6740
@@ -23,6 +24,7 @@ python scripts/phase4.py fit MLP-B --seed 6740
 python scripts/phase4.py fit MLP-C --seed 6740
 python scripts/phase4.py fit MLP-D --seed 6740
 python scripts/phase4.py publish
+python scripts/phase4.py replay
 python scripts/phase4_monitor.py
 ```
 
