@@ -4,9 +4,9 @@
 
 **Base:** `feat/phase3-classical-models` at `bf4e9dc`
 **Branch:** `feat/phase4-weather-mlp`
-**Last recorded remote milestone:** `50c034e5446c59893d2b3052048a1a0724211ce3`
-**Last UTC update:** 2026-11-20 20:30:48
-**Primary scientific status:** PARTIAL. Real development tuning and weather acquisition are in progress.
+**Last recorded remote milestone:** `ee2a2a56dde373a473d426545768544e8fbec796`
+**Last UTC update:** 2026-11-20 20:41:07
+**Primary scientific status:** All real-data prediction and aggregate gates passed. Clean-checkout notebook audit in progress.
 **Final protocol:** August–October 2025 fit, frozen November–December 2025 scoring; new weather/weighted comparisons post-hoc
 **Sources:** Phase IV specification, locked Phase II/III manifests and dataset fingerprints
 
@@ -17,11 +17,11 @@
 | Environment + upstream dataset audit | VERIFIED | 6,461,609 aligned rows per canonical table | `upstream_all.json` | `upstream_verification.json` |
 | A1: IEM station map and raw fetch | VERIFIED | All 352 station responses and archive checksums verified | v1 | `weather_source_inventory.csv` |
 | A2: Five G4 feature columns and audit | VERIFIED | 6,461,609 rows and 8,145 direct oracles | `d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef` | `weather_g4_verification.json` |
-| A3: Paired XGBoost base/weather fits | VERIFIED | Both frozen models match on train and holdout IDs | `2b5f7992…`, `758cb982…` | Aggregate publication retry pending |
+| A3: Paired XGBoost base/weather fits | VERIFIED | Both fits and pooled results verified | `2b5f7992…`, `758cb982…` | `model_contrasts.csv` |
 | B1: Base MLP development tuning | VERIFIED | 26 candidate-fold outcomes; winning candidate 6 | `65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c` | `mlp_tuning_summary.csv` and `mlp_selection.json` |
 | B2: MLP A/B (no weather) | VERIFIED | Both arms completed for all three seeds | See signed fit ledger | Matched frozen holdout |
-| B3: MLP C/D (with weather) | RUNNING | All three MLP-C seeds passed both months | `5c206e07…`, `5284021b…`, `413b5e1d…` | MLP-D frozen fits underway |
-| C: Verified metrics, notebook and RQ summary | RUNNING | Four code cells executed with public aggregates | Aggregate-only notebook check | Phase IV result figures require predictions |
+| B3: MLP C/D (with weather) | VERIFIED | Six fits and both months per fit passed | `experiment_manifest.json` | Three seeds per arm |
+| C: Verified metrics, notebook and RQ summary | RUNNING | All held-out metrics, replays and RQ evidence verified | `experiment_manifest.json` | Clean-checkout notebook execution underway |
 
 ## B. Locked methodology and provenance
 
@@ -46,7 +46,7 @@
 | MLP A | VERIFIED | See event log for three checkpoint digests | `python scripts/phase4.py fit MLP-A --seed SEED` | 18.25 to 34.56 s per fit | 2026-11-20 20:25:44 |
 | MLP B | VERIFIED | See event log for three checkpoint digests | `python scripts/phase4.py fit MLP-B --seed SEED` | 18.56 to 19.67 s per fit | 2026-11-20 20:28:04 |
 | MLP C | VERIFIED | Three matching checkpoints | `python scripts/phase4.py fit MLP-C --seed SEED` | See final experiment manifest | 2026-11-20 20:30:48 |
-| MLP D | PENDING | — | — | — | — |
+| MLP D | VERIFIED | All three fits in the signed experiment manifest | `python scripts/phase4.py fit MLP-D --seed SEED` | 18.35 to 18.72 s per fit | 2026-11-20 20:41:07 |
 | Consolidated notebook | PENDING | — | — | — | — |
 
 ## D. Append-only chronological event log
@@ -114,20 +114,38 @@
 - All three MLP-C seeds completed their fixed-epoch Weather + standard CE fits and both frozen months. Run signatures `5c206e07ba6bb395ef21f0559a21da44546817427f908f1dbcd894d6b5126508`, `5284021baa79669dce1c32879826f7bb650e3cf3d7cb58a948a2cbde60bf46b1` and `413b5e1d4853db9bbd4fa2461fa2da5f82b8e5f8ef085a86d548b74abcb15eee`. MLP-D remains in progress.
 - `python scripts/phase4.py audit-g4-details` verified 12 private diagnostic partitions totaling 6,461,609 exact G4 target IDs. The public audit record contains only counts, hashes and schema. Report counts, latest observation ages, station identities and null indicators are outside all predictor views.
 
+### 2026-11-20 20:41:07 UTC — All 14 final fits and 28 frozen scoring slices verified
+
+- MLP-D completed three seeds. All 14 Phase IV configs share the same August–October train ID hash and both holdout ID hashes. The signed experiment manifest records all fit, model, transformer, probability, and cohort checksums. Every MLP arm uses the locked one-epoch fit and the same three seeds.
+- `python scripts/phase4.py publish` independently checked saved probabilities against exact canonical holdout IDs and labels, then generated all per-month, pooled and subgroup metrics. Public score-table SHA-256 `70a7866342e3db9f37b11ebae0291aa523ff7d5b1c52436223341e3c7293e50a`. Pooled metrics used 1,052,024 rows per fit. The paired model and factorial contrasts are published alongside the metrics.
+- `python scripts/phase4.py replay` reloaded each verified fitted state and reproduced 2,048 predictions per month per fit. All 28 slices passed with a maximum absolute probability difference of 1.192093×10⁻⁷ under the 2×10⁻⁶ tolerance. Replay record SHA-256 `cafba97e1cef88a1e6665681d90627efd54cccace1fb758799ffb0ee13eb78ed`.
+
 ## E. Hard blockers and decisions needed
 
 | ID | Type (methodological/operational) | First seen UTC | Impact | Evidence | Decision needed | Status |
 |---|---|---|---|---|---|---|
-| PACE-1 | operational | 2026-11-20 UTC | Cluster compute unavailable | Strict SSH timed out | Local CPU work continues | OPEN |
+| PACE-1 | operational | 2026-11-20 UTC | Cluster compute unavailable | Strict SSH timed out | Local CPU completed all models | RESOLVED WITH LOCAL CPU |
 
 ## F. Experiment checkpoint ledger
 
-Record one row per signed model/fold/view/seed attempt. Store *private* artifact paths only generically in the committed log and keep concrete private paths in ignored machine-readable records.
+The development ledger records all 26 verified candidate-fold outcomes. The current successful final-fit ledger is below. Failed, interrupted and superseded attempts remain in chronological entries and ignored attempt logs.
 
-| Experiment signature | Status | Dataset/config/code digest | Verified result SHA | Last attempted UTC | Run/recovery note |
-|---|---|---|---|---|---|
-| XGB-base seed 6740 | verified | Final input `2a212c26…` and locked Phase III configuration | `1d286a45e919151141c5050af839cbebaf5e1329d78edc6bf353273e58ef9515` | 2026-11-20 UTC | Original fitted state recovered and verified for both months |
-| April MLP candidate 1, seed 6740 | verified | Development input `3b93d9c0…` | `b900171f901c3e11cb839f7f7d7401298ad314aab23d03c64ee681460004547d` | 2026-11-20 UTC | 40.55 s, checkpoint verified |
+| Arm | Seed | Run signature | Fit checkpoint | Fit seconds |
+| --- | --- | --- | --- | --- |
+| XGB-base | 6740 | `2b5f7992b84d112380aeccd442d140a14cf4dc04437a18f3183780672cb1aca1` | `1d286a45e919151141c5050af839cbebaf5e1329d78edc6bf353273e58ef9515` | 143.70 |
+| XGB-weather | 6740 | `758cb98246c7c5883bd8075b4342eba7afd92bf82ad5f5f2de9f8e3d22a7ddd5` | `fa7fb14ad96055bb2d00bc8c7b368868b7c3f64ab8a061a306c282f5a1c2d60f` | 121.33 |
+| MLP-A | 6740 | `4cefe7fb7b330e8d16b0d957c8cd309cae822448e598572a90b7168336d73796` | `d105dd2c169ec10ff50ffc10b62111aa97c5ff541568831f959fb6c2e95a45c6` | 34.56 |
+| MLP-A | 6741 | `5e904c912a3a9a2bbb56f8a58e5b1833708e699bb55dc0ac9fe989b2617853db` | `fac4e6c29b786f68d2bea96e0b43d0a3d4cdd0155743b724c6b2ad9d5df8a1da` | 26.27 |
+| MLP-A | 6742 | `4cb8eb59f813579d02efdf75fce7f23c1a70abcab40f4fa026c61399f264404d` | `0e10a050b5b44a465a3a0febcff21e13e2448da3c9e9d003e50cb0e8a3106eff` | 18.25 |
+| MLP-B | 6740 | `5d539560b186629ee024cbe6da5e3e2578db24da0cac5e677c46411cf0f9d16e` | `a2d8cf6b1f0b5d4091087b578e40d2513c98eb7fc90e0411430a761b769a358c` | 19.67 |
+| MLP-B | 6741 | `361ee14801cef55dfc1999b51147cd4d190c4e200224fe923fd845aa7d0f7191` | `cfbfa437a7ceb509e9db3023f27af831df82633e48c2fd581a3e5d1d05ea3b00` | 19.04 |
+| MLP-B | 6742 | `d94090c29c77d8a252828413c1e8707c2d39fbb550074654a5446d930b58b838` | `843e50c1a2b353cff296f620b1ac1fd1e7fc2f75b2c593a6797828459dab3183` | 18.56 |
+| MLP-C | 6740 | `5c206e07ba6bb395ef21f0559a21da44546817427f908f1dbcd894d6b5126508` | `078d782511223ae245ec319617d9e180fc3634e95b149de3d2dedaa48fb29308` | 19.28 |
+| MLP-C | 6741 | `5284021baa79669dce1c32879826f7bb650e3cf3d7cb58a948a2cbde60bf46b1` | `7cfdbf3eadf69d4555699e87617fb9da1b305fe6bc450d19cca33232fe7bf96f` | 18.56 |
+| MLP-C | 6742 | `413b5e1d4853db9bbd4fa2461fa2da5f82b8e5f8ef085a86d548b74abcb15eee` | `8fba92be5f27a139fe2565c6d7097ba3eeda6be2c831d58816e1b1c77d98dce8` | 17.98 |
+| MLP-D | 6740 | `a3ba849080035414e1f78012ce78376698bcf29943ed31fb21fe703a109d50a7` | `062fd71133d22f37fc5f842363a32e2e11edfc30d2ed74f0e13c3cc01c4d19bc` | 18.35 |
+| MLP-D | 6741 | `14332e1ad04f302f6c5387e31881e788b4633e11a32275b32ca66e6a3786be84` | `97e7d9f0aa0bb626d0d028b8c957aa33752b75e27c58ef1b294bdb35be123eea` | 18.67 |
+| MLP-D | 6742 | `e13b86f77d9899046b5c2229484652e969102097e59701b5cf94dc1ac80564c8` | `cadda732851ed4e1a7ba1e0c117443cf84a584e7ef2646f025eff89d837d884d` | 18.72 |
 
 ## G. Remote sync and monitoring
 
@@ -143,8 +161,8 @@ Record one row per signed model/fold/view/seed attempt. Store *private* artifact
 - [x] G4 five-column, all-2025 causal table and IEM coverage audited
 - [x] Paired frozen XGBoost comparison verified
 - [x] MLP architecture selection locked from development data
-- [ ] All four frozen MLP arms verified, actual seed count disclosed
-- [ ] November/December pooled and per-month results and weather/weighting contrasts verified
+- [x] All four frozen MLP arms verified, three seeds per arm
+- [x] November/December pooled and per-month results and weather/weighting contrasts verified
 - [ ] Notebook executes from committed aggregate-only reports
-- [ ] Original Phase I/II/III outputs intact; no private data committed
+- [x] Original Phase I–III outputs intact. Research artifacts under ignored data paths.
 - [ ] Visible pushed branch with progress log, SHA and truthful completion status
