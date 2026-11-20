@@ -1,6 +1,6 @@
 # Project guardrails
 
-Phase II feature engineering is authorized by docs/phase2_specification.md. Phase III classical classifiers, development tuning and frozen holdout evaluation are authorized by docs/phase3_specification.md. Do not implement MLP training or the final project report.
+Phase II feature engineering is authorized by docs/phase2_specification.md. Phase III classical classifiers, development tuning and frozen holdout evaluation are authorized by docs/phase3_specification.md. Phase IV authorizes the specified five causal METAR predictors, fixed-parameter XGBoost comparison, and four MLP arms with the existing frozen November/December holdout. This authorization supersedes earlier prohibitions on Phase IV experiments only. Do not implement the final project report or presentation.
 Read docs/phase1_specification.md and preserve its research protocol.
 Never commit source or processed flight records, local paths, secrets, or checkpoints.
 Keep all input bytes unchanged. Use explicit predictor allowlists in future phases.

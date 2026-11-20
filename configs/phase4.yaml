@@ -1,0 +1,9 @@
+features_dir: data/phase3_inputs/features
+processed_dir: data/phase3_inputs/processed
+output_dir: data/model_outputs/phase4
+weather_dir: data/features_g4
+raw_weather_dir: data/external/iem/metar
+reports_dir: reports/phase4
+station_map: configs/g4_station_map.csv
+mlp: configs/phase4_mlp.yaml
+weather: configs/g4_weather.yaml

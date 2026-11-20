@@ -2,7 +2,7 @@
 
 Team: Caleb Lu, Ho Young Lee, Christopher Yi.
 
-Phase 1 implements deterministic preprocessing of the twelve 2025 **BTS Reporting Carrier** monthly exports. Phase II constructs three causal feature groups and fold-aware sparse numerical matrices on the unchanged cohort. Phase III adds classical-model tuning and frozen holdout evaluation; actual run status is recorded in `reports/phase3/PHASE3_VALIDATION.md`. MLP training remains out of scope.
+Phase 1 implements deterministic preprocessing of the twelve 2025 **BTS Reporting Carrier** monthly exports. Phase II constructs three causal feature groups and fold-aware sparse numerical matrices on the unchanged cohort. Phase III adds classical-model tuning and frozen holdout evaluation; actual run status is recorded in `reports/phase3/PHASE3_VALIDATION.md`. Phase IV adds the weather and MLP protocol described in [the Phase IV execution guide](docs/phase4_execution.md).
 
 ## Install and run
 
@@ -42,7 +42,7 @@ python -m venv .venv
 & .\.venv\Scripts\python.exe -m pip install -e '.[dev]'
 ```
 
-The base dependencies support preprocessing, feature engineering and scikit-learn models. Install the pinned Phase III XGBoost dependency with `python -m pip install -e '.[dev,modeling]'`. Neural-network frameworks remain a later-phase dependency. Installing modeling dependencies does not train models or change the research protocol.
+The base dependencies support preprocessing, feature engineering and scikit-learn models. Install the pinned Phase III XGBoost dependency with `python -m pip install -e '.[dev,modeling]'`. Phase IV uses the optional `neural` dependency group. Installing modeling dependencies does not train models or change the research protocol.
 
 ## Outputs
 

@@ -1,0 +1,7 @@
+{
+  "PBI": {
+    "station": "DJT",
+    "metar_identity": "KPBI|PBI",
+    "evidence": "https://mesonet.agron.iastate.edu/geojson/network/FL_ASOS.geojson"
+  }
+}
