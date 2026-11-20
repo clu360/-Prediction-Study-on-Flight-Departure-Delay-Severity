@@ -78,7 +78,20 @@ def monthly_queries(inputs, month):
     features = inputs.path("features_dir")
     airports = table_scan(features, "full_features", [month]).select(ID, "g1_origin", "g1_dest")
     meta = table_scan(features, "metadata", [month]).select(ID, "prediction_time_utc")
-    return (airports.join(meta, on=ID, how="left", validate="1:1").sort(ID).collect())
+    cohort = table_scan(inputs.path("processed_dir"), "modeling_cohort", [month]).select(
+        ID, "target_origin", "target_dest", "prior_wheels_off_utc",
+        pl.col("prediction_time_utc").alias("phase1_cutoff"))
+    query = airports.join(meta, on=ID, how="left", validate="1:1").join(
+        cohort, on=ID, how="left", validate="1:1").sort(ID).collect()
+    invalid = query.filter(
+        ~pl.col("g1_origin").eq_missing(pl.col("target_origin"))
+        | ~pl.col("g1_dest").eq_missing(pl.col("target_dest"))
+        | ~pl.col("prediction_time_utc").eq_missing(pl.col("phase1_cutoff"))
+        | ~pl.col("prediction_time_utc").eq_missing(pl.col("prior_wheels_off_utc") + pl.duration(minutes=1))
+    )
+    if invalid.height:
+        raise ValueError("Phase I airport or prediction-clock alignment failed")
+    return query.select(ID, "g1_origin", "g1_dest", "prediction_time_utc")
 
 
 def build(inputs, version):
@@ -114,7 +127,7 @@ def build(inputs, version):
                 if file_hash(root / relative) != hashed:
                     raise ValueError("Existing G4 parquet checksum differs")
             return old
-        cover, files, month_hashes = [], {}, {}
+        cover, files, month_hashes, monthly_ranges = [], {}, {}, {}
         audited_rows = 0
         for month in range(1, 13):
             query = monthly_queries(inputs, month)
@@ -122,6 +135,9 @@ def build(inputs, version):
                 or query["prediction_time_utc"].min() - timedelta(minutes=190) < start
                 or query["prediction_time_utc"].max() >= end):
                 raise ValueError("Weather archive date range does not serve flight timestamps")
+            month_min, month_max = query["prediction_time_utc"].min(), query["prediction_time_utc"].max()
+            monthly_ranges[str(month)] = {"min_utc": month_min.isoformat(), "max_utc": month_max.isoformat(),
+                                          "rows": query.height}
             times = query["prediction_time_utc"].to_numpy()
             data = np.full((query.height, 5), np.nan)
             for field, indexes in (("g1_origin", slice(0, 4)), ("g1_dest", slice(4, 5))):
@@ -150,18 +166,27 @@ def build(inputs, version):
                 raise ValueError("G4 readback or one-to-one alignment failed")
             files[path.relative_to(root).as_posix()] = file_hash(path)
             month_hashes[str(month)] = logical_hash(readback, [ID])
-            for entry in frame.join(query.select(ID, "g1_origin"), on=ID).group_by("g1_origin").agg(
-                pl.len().alias("flights"), *[pl.col(name).null_count().alias(name) for name in names]
-            ).to_dicts():
-                code = entry["g1_origin"]
-                days = archives[code]["audit"]["days"]
+            aligned = frame.join(query.select(ID, "g1_origin", "g1_dest"), on=ID, validate="1:1")
+            origins = aligned.group_by("g1_origin").agg(
+                pl.len().alias("origin_flights"), *[pl.col(name).null_count().alias(f"{name}_nulls") for name in names[:4]]
+            )
+            dests = aligned.group_by("g1_dest").agg(
+                pl.len().alias("dest_flights"), pl.col(names[4]).null_count().alias(f"{names[4]}_nulls")
+            )
+            coverages = pl.DataFrame({"airport": sorted(by_airport)}).join(
+                origins, left_on="airport", right_on="g1_origin", how="left").join(
+                dests, left_on="airport", right_on="g1_dest", how="left").fill_null(0)
+            for entry in coverages.to_dicts():
+                code = entry["airport"]
+                days = archives[code]["causal_stream_audit"]["days"]
                 cover.append(dict(month=month, archive_station=by_airport[code]["station"],
                                   report_days_utc=sum(day.startswith(f"2025-{month:02}") for day in days), **entry))
             print(f"G4 month {month:02}: {frame.height} aligned target flights", flush=True)
         coverage = inputs.path("reports_dir") / "weather_coverage.csv"
-        write_frame(coverage, pl.DataFrame(cover).sort("month", "g1_origin"))
+        write_frame(coverage, pl.DataFrame(cover).sort("month", "airport"))
         result = dict(context=context, signature=digest(context), files=files, audited_rows=audited_rows,
                       monthly_logical_sha256=month_hashes, coverage_sha256=file_hash(coverage),
+                      prediction_time_ranges=monthly_ranges,
                       archive_counts={k: {f: v for f, v in record["causal_stream_audit"].items() if f != "days"}
                                       for k, record in archives.items()})
         write_json(manifest, result)

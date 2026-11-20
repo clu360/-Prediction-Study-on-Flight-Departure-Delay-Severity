@@ -58,11 +58,18 @@ Six unweighted candidates screen on April, July, and October. The top two are co
 
 XGBoost uses the Phase III G1–G3 settings for both fresh fits. MLP-A and MLP-B use G1–G3. MLP-C and MLP-D add G4. MLP-B and MLP-D use inverse-frequency class weighting."""),
             code("""tuning = csv_rows(phase4 / 'mlp_tuning_summary.csv')
+if not tuning:
+    tuning = csv_rows(phase4 / 'mlp_development_progress.csv')
+    if tuning:
+        print('Completed development scores. The architecture lock is pending.')
 table(tuning, ['candidate_id', 'month', 'epochs', 'log_loss', 'macro_f1', 'stop_reason'])
 seed_summary = csv_rows(phase4 / 'seed_summary.csv')
 table([r for r in seed_summary if r['subgroup'] == 'overall'],
       ['arm', 'month', 'seed_count', 'macro_f1', 'log_loss', 'severe_precision', 'severe_recall',
-       'severe_pr_auc_ap', 'actual_severe_prevalence', 'mean_predicted_severe_probability', 'argmax_severe_share'])"""),
+       'severe_pr_auc_ap', 'actual_severe_prevalence', 'mean_predicted_severe_probability', 'argmax_severe_share'])
+comparisons = csv_rows(phase4 / 'model_contrasts.csv')
+if comparisons:
+    table(comparisons, ['month', 'arm', 'reference', 'metric', 'raw_difference'])"""),
             markdown("""## Severe risk and paired contrasts
 
 Calibration compares mean severe probability with observed severe frequency within each bin. The argmax severe share is the proportion classified as severe. The precision–recall curves are saved numerical aggregates. Factorial contrasts are raw model-minus-comparator differences, including for log loss."""),
@@ -98,6 +105,17 @@ Lead-time bands use the interval from prediction to scheduled departure. The adv
 These comparisons describe predictive performance. The evaluated period is within 2025 and correlated flight counts do not justify IID confidence intervals."""),
             code("""table([r for r in seed_summary if r['subgroup'] != 'overall' and r['month'] == 'pooled'],
       ['arm', 'subgroup', 'seed_count', 'macro_f1', 'log_loss', 'severe_precision', 'severe_recall'])
+coverage = csv_rows(phase4 / 'weather_coverage.csv')
+if coverage:
+    columns = [key for key in coverage[0] if key.startswith('g4_') and key.endswith('_nulls')]
+    coverage_summary = []
+    for key in columns:
+        scope = 'dest_flights' if key.startswith('g4_dest') else 'origin_flights'
+        available = sum(int(row[scope]) for row in coverage)
+        missing = sum(int(row[key]) for row in coverage)
+        coverage_summary.append(dict(feature=key.removesuffix('_nulls'), targets=available,
+                                     missing=missing, fraction=round(missing / available, 6)))
+    table(coverage_summary, ['feature', 'targets', 'missing', 'fraction'])
 for name in ('research_question_summary.md', 'PHASE4_VALIDATION.md'):
     path = phase4 / name
     if path.exists():
@@ -113,6 +131,7 @@ def main():
     args = parser.parse_args()
     notebook = build()
     if args.execute:
+        notebook = nbf.read(NOTEBOOK, as_version=4)
         notebook = NotebookClient(notebook, timeout=120, kernel_name="python3",
                                   resources={"metadata": {"path": str(args.aggregate_root.resolve())}}).execute()
         args.execute.parent.mkdir(parents=True, exist_ok=True)
@@ -123,4 +142,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

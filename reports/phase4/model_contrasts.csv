@@ -1,0 +1,13 @@
+month,arm,reference,metric,raw_difference
+11,XGB-base,XGB-phase3-reference,macro_f1,-0.000824456888
+11,XGB-base,XGB-phase3-reference,log_loss,-0.000286067025
+11,XGB-base,XGB-phase3-reference,severe_precision,0.000164387821
+11,XGB-base,XGB-phase3-reference,severe_recall,-0.002872580535
+12,XGB-base,XGB-phase3-reference,macro_f1,-0.000179444152
+12,XGB-base,XGB-phase3-reference,log_loss,-0.000588184021
+12,XGB-base,XGB-phase3-reference,severe_precision,0.000128702067
+12,XGB-base,XGB-phase3-reference,severe_recall,-0.001486969452
+pooled,XGB-base,XGB-phase3-reference,macro_f1,-0.000448866351
+pooled,XGB-base,XGB-phase3-reference,log_loss,-0.000438860359
+pooled,XGB-base,XGB-phase3-reference,severe_precision,0.000127939652
+pooled,XGB-base,XGB-phase3-reference,severe_recall,-0.002086570478

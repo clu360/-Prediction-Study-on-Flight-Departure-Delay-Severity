@@ -36,15 +36,16 @@ def category(row):
 
 
 def flags(codes):
-    tokens = [token.lstrip("+-") for token in codes.split()]
-    thunder = any(token.startswith(("TS", "VCTS")) for token in tokens)
-    frozen = any(
-        re.fullmatch(r"(?:VC|MI|PR|BC|DR|BL|SH|TS)?(?:DZ|RA|SN|SG|IC|PL|GR|GS|UP)*(?:SN|SG|PL|GS)(?:DZ|RA|SN|SG|IC|PL|GR|GS|UP)*", token)
-        or token in ("FZRA", "FZDZ", "FZRASN", "FZDZSN")
-        for token in tokens
-    )
+    frozen = thunder = False
+    for token in codes.split():
+        token = token.lstrip("+-").removeprefix("VC")
+        thunder |= token.startswith("TS")
+        descriptor = token[:2]
+        values = token[2:] if descriptor in {"MI", "PR", "BC", "DR", "BL", "SH", "TS", "FZ"} else token
+        phenomena = {values[i:i + 2] for i in range(0, len(values), 2)}
+        frozen |= bool(phenomena.intersection({"SN", "SG", "PL", "GS"}))
+        frozen |= descriptor == "FZ" and bool(phenomena.intersection({"RA", "DZ"}))
     return int(frozen), int(thunder)
-
 
 def decode(raw, station, start, end, *, routine_and_special_only=False):
     reader = csv.DictReader(StringIO(raw.decode("utf-8-sig"), newline=""))
@@ -62,7 +63,8 @@ def decode(raw, station, start, end, *, routine_and_special_only=False):
         if not start <= valid < end:
             raise ValueError("Report outside the requested UTC date range")
         audit["rows"] += 1
-        days.add(valid.date().isoformat())
+        if not routine_and_special_only:
+            days.add(valid.date().isoformat())
         metar = row["metar"].split()
         identity = re.match(r"^(?:(?:METAR|SPECI|COR) )*([A-Z0-9]{3,4}) [0-9]{6}Z\b", row["metar"])
         if identity:
@@ -74,7 +76,12 @@ def decode(raw, station, start, end, *, routine_and_special_only=False):
             audit["corrections_dropped"] += 1
             continue
         if not identity:
-            raise ValueError("Cannot verify original report identity and correction status")
+            # An archive row can contain a garbled relay or mixed station text.
+            # Preserve the source bytes and count it, but never infer its weather.
+            audit["unverifiable_report"] = audit.get("unverifiable_report", 0) + 1
+            continue
+        if routine_and_special_only:
+            days.add(valid.date().isoformat())
         key = (valid, tuple(row[name] for name in sorted(FIELDS)))
         if key in seen:
             audit["duplicates"] += 1
@@ -96,4 +103,3 @@ def decode(raw, station, start, end, *, routine_and_special_only=False):
     audit["days"] = sorted(days)
     audit["metar_identities"] = sorted(identities)
     return sorted(reports, key=lambda report: report[0]), audit
-

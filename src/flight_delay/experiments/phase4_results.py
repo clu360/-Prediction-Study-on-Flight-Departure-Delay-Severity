@@ -1,10 +1,13 @@
 """Validate private prediction checkpoints and publish bounded aggregate tables."""
 
+from pathlib import Path
+
 import numpy as np
 import polars as pl
 
-from .config import file_hash
+from .config import digest, file_hash
 from .phase4_final import ARMS, load_predictions, metadata, subgroup_scores, xgb_config
+from .inputs import memberships, table_scan
 from .phase4_inputs import HOLDOUT, ID
 from .results import PROB_COLUMNS, ResultStore, exclusive, read_json, write_frame, write_json
 from .runner import ids_hash
@@ -60,6 +63,14 @@ def publish(inputs):
         weather_sha = weather_signature(inputs, upstream)
     else:
         weather_root, weather_sha = None, None
+    labels = {}
+    for month in HOLDOUT:
+        expected = memberships(inputs.path("processed_dir"), f"2025-{month:02}", "test").sort(ID)
+        target = table_scan(inputs.path("features_dir"), "targets", [month]).select(ID, "target_class").collect()
+        labels[month] = expected.join(target, on=ID, how="left", validate="1:1",
+                                      maintain_order="left").rename({"target_class": "y_true"})
+        if labels[month]["y_true"].null_count():
+            raise ValueError("Canonical holdout labels do not align with their published fold")
     shared = {}
     row_records, detailed, provenance = [], {}, []
     for (arm, seed), store in stores.items():
@@ -78,6 +89,14 @@ def publish(inputs):
         scored = {}
         for month in HOLDOUT:
             frame, record = load_predictions(store, month)
+            if not frame.select(ID, "y_true").equals(labels[month], null_equal=False):
+                # Prediction files use Int8 and upstream schemas may use another integer width.
+                if not frame.select(ID, pl.col("y_true").cast(pl.Int64)).equals(
+                    labels[month].with_columns(pl.col("y_true").cast(pl.Int64)), null_equal=False
+                ):
+                    raise ValueError("Frozen predictions differ from exact holdout IDs or labels")
+            if not np.array_equal(frame["y_pred"].to_numpy(), frame.select(PROB_COLUMNS).to_numpy().argmax(axis=1)):
+                raise ValueError("Saved learned-model classes differ from probability argmax")
             if shared.setdefault(str(month), record["ids_sha256"]) != record["ids_sha256"]:
                 raise ValueError("Evaluation ID hashes differ across arms")
             scored[str(month)] = (frame, checked_metadata(inputs, month, frame, weather_root))
@@ -88,18 +107,25 @@ def publish(inputs):
             for subgroup, metrics in results.items():
                 common = dict(arm=arm, seed=seed, month=month, subgroup=subgroup,
                               n=metrics["n"], view=ARMS[arm][0],
-                              fit_id=fit["record_hash"], epochs=fit["epochs"],
+                              fit_id=digest(fit), epochs=fit["epochs"],
                               train_ids_sha256=fit["train_ids_sha256"],
                               test_ids_sha256=ids_hash(frame[ID]), input_sha256=upstream)
                 row_records.append(dict(common, **{key: metrics[key] for key in METRICS},
                                         actual_severe_prevalence=metrics["observed_proportions"][2],
                                         mean_predicted_severe_probability=metrics["mean_probabilities"][2],
                                         argmax_severe_share=metrics["argmax_proportions"][2]))
-                detailed[f"{arm}/{seed}/{month}/{subgroup}"] = metrics
+                detailed[f"{arm}/{seed}/{month}/{subgroup}"] = {
+                    key: value for key, value in metrics.items()
+                    if key != "severe_pr_curve" or subgroup == "overall"
+                }
+        checkpoint_hashes = {}
+        for month in HOLDOUT:
+            record = store.load(f"month-{month}")
+            checkpoint_hashes[str(month)] = dict(record_sha256=digest(record),
+                                                predictions_sha256=record["artifacts"][f"predictions-{month}.parquet"])
         provenance.append(dict(arm=arm, seed=seed, signature=store.signature, context=store.context,
                                fit={k: v for k, v in fit.items() if k != "artifacts"},
-                               month_checkpoints={str(month): store.load(f"month-{month}")["record_hash"]
-                                                  for month in HOLDOUT}))
+                               month_checkpoints=checkpoint_hashes))
     rows = pl.DataFrame(row_records, infer_schema_length=None)
     expected_units = {(arm, seed) for arm in ARMS for seed in (
         inputs.mlp["final_seeds"] if arm.startswith("MLP") else [xgb_config()["seed"]])}
@@ -108,6 +134,25 @@ def publish(inputs):
         pl.len().alias("seed_count"), *[pl.col(m).mean().alias(m) for m in (*METRICS, *RATIOS)],
         *[pl.col(m).std().alias(f"{m}_seed_sd") for m in METRICS],
     ).sort("arm", "month", "subgroup")
+    contrasts = []
+    reference = pl.read_csv(Path("reports/phase3/metrics_summary.csv"), schema_overrides={"scored_month": pl.String})
+    historical = reference.filter(
+        (pl.col("model") == "xgboost") & (pl.col("feature_view") == "G1_G2_G3")
+        & (pl.col("airport") == "overall") & (pl.col("evaluation_stage") == "frozen_holdout")
+    )
+    for month in ("11", "12", "pooled"):
+        data = seed_summary.filter((pl.col("month") == month) & (pl.col("subgroup") == "overall"))
+        matched = {r["arm"]: r for r in data.iter_rows(named=True)}
+        old_month = "2025-11_12_pooled" if month == "pooled" else f"2025-{month}"
+        old = historical.filter(pl.col("scored_month") == old_month)
+        if old.height == 1:
+            matched["XGB-phase3-reference"] = old.row(0, named=True)
+        for left, right in (("XGB-weather", "XGB-base"), ("MLP-A", "XGB-base"),
+                            ("XGB-base", "XGB-phase3-reference"), ("MLP-A", "XGB-phase3-reference")):
+            if left in matched and right in matched:
+                for metric in ("macro_f1", "log_loss", "severe_precision", "severe_recall"):
+                    contrasts.append(dict(month=month, arm=left, reference=right, metric=metric,
+                                          raw_difference=matched[left][metric] - matched[right][metric]))
     factorial = []
     for key, group in rows.filter(pl.col("arm").str.starts_with("MLP")).group_by("seed", "month", "subgroup"):
         arms = {row["arm"][-1]: row for row in group.iter_rows(named=True)}
@@ -124,6 +169,8 @@ def publish(inputs):
         write_frame(root / "metrics_summary.csv", rows.sort("arm", "seed", "month", "subgroup"))
         write_frame(root / "seed_summary.csv", seed_summary)
         write_json(root / "metric_details.json", detailed)
+        if contrasts:
+            write_frame(root / "model_contrasts.csv", pl.DataFrame(contrasts))
         if factorial:
             write_frame(root / "factorial_contrasts.csv", pl.DataFrame(factorial).sort(
                 "seed", "month", "subgroup", "metric"))

@@ -13,8 +13,9 @@ import torch
 
 from .config import digest, file_hash
 from .evaluation import evaluate
+from .phase4_checkpoint import compatible_store
 from .phase4_inputs import BASE, DEV, ID
-from .results import ResultStore, exclusive, read_json, write_frame, write_json
+from .results import exclusive, read_json, write_frame, write_json
 from .runner import ids_hash
 from ..models import mlp
 from ..models.state import state_hash
@@ -124,7 +125,7 @@ def tuning_fold(inputs, store, records, indices, month, device):
 def tune(inputs, device):
     fingerprint = inputs.verify_source("development")
     context = source_context(inputs, device, fingerprint)
-    store = ResultStore(inputs.path("output_dir") / "development", context, resume=True)
+    store = compatible_store(inputs.path("output_dir") / "development", context, Path(__file__))
     settings = inputs.mlp
     candidates = settings["candidates"]
     screen, months = settings["screening_months"], settings["development_months"]
@@ -143,7 +144,7 @@ def tune(inputs, device):
             rows.append(dict(candidate_id=index + 1, month=month, epochs=record["epochs"],
                              log_loss=record["metrics"]["log_loss"], macro_f1=record["metrics"]["macro_f1"],
                              seconds=record["seconds"], stop_reason=record["stop_reason"],
-                             attempt_id=record["attempt_id"], checkpoint_sha256=record["record_hash"]))
+                             attempt_id=record["attempt_id"], checkpoint_sha256=digest(record)))
         summary = inputs.path("reports_dir") / "mlp_tuning_summary.csv"
         write_frame(summary, pl.DataFrame(rows))
         selection = dict(candidate=candidates[winner], candidate_id=winner + 1,
@@ -158,4 +159,3 @@ def tune(inputs, device):
             raise ValueError("MLP architecture lock already exists with different provenance")
         write_json(path, selection)
         return selection
-

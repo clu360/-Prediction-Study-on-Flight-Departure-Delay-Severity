@@ -1,0 +1,83 @@
+{
+  "class_order": [
+    0,
+    1,
+    2
+  ],
+  "exploratory_weather_and_weighting": true,
+  "fits": [
+    {
+      "arm": "XGB-base",
+      "context": {
+        "code_sha256": "0d7350ecaa6d581bbd3a49ae77b49014847eb7ae7dafc502a543e0365b48634a",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "device": "cpu",
+          "platform": "Windows",
+          "xgboost": "3.1.2"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "XGB-base",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "manifest_sha256": "a51bedcd9893f242fbce1ee9bedfe3f1b58fe5584488b14d79fda6def7efe426",
+          "params": {
+            "colsample_bytree": 0.8,
+            "eval_metric": "mlogloss",
+            "learning_rate": 0.1,
+            "max_depth": 6,
+            "n_estimators": 400,
+            "num_class": 3,
+            "objective": "multi:softprob",
+            "subsample": 0.8,
+            "tree_method": "hist"
+          },
+          "seed": 6740,
+          "selected_sha256": "f2159385f6eb0d556f224ab8569cca737ab14744232f061f83c6b1ec4692346c",
+          "threads": 4
+        },
+        "seed": 6740,
+        "view": "G1_G2_G3",
+        "weather_sha256": null
+      },
+      "fit": {
+        "attempt": "53c76003282846ba8a293910bb936043",
+        "curves": [],
+        "epochs": null,
+        "model_hash": "eaf510ef97fac9ac4ef1b1420212a07e74c81a1552938d7c1a3b39e135e82767",
+        "rows": 1663534,
+        "run_signature": "2b5f7992b84d112380aeccd442d140a14cf4dc04437a18f3183780672cb1aca1",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 143.6986603999976,
+        "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07",
+        "weights": null
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "43c1f343546b67cf009da381a07d96a5d074cd4981853eb72d7d44a37097d195",
+          "record_sha256": "aafe8acb9596b34babbb0a8906d13e217f87c86eecade9c3d93e17516d0a9d1e"
+        },
+        "12": {
+          "predictions_sha256": "0afee89aa03617457943284243c592a4d256d9282808ccc5d9e2f29eea0eec0f",
+          "record_sha256": "617f67e290983bf4aa7d1364f37af286566eae79aae8920b327636e824c7699c"
+        }
+      },
+      "seed": 6740,
+      "signature": "2b5f7992b84d112380aeccd442d140a14cf4dc04437a18f3183780672cb1aca1"
+    }
+  ],
+  "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+  "public_metrics_sha256": "afbf41bd440fbb129ecbfda37c305bbe7165ed498dcb53759128804ddd00bd22",
+  "shared_population": {
+    "11": "a8ab5b01bb72cd11763b26afd35ddf7a329956c29d8905971cce01c2b4a13ba4",
+    "12": "1fbd725dcce666a53855bd9c0920053a9a4b8c46a3a35be9d09b6542dc233450",
+    "train": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc"
+  },
+  "status": "partial_model_checkpoints",
+  "weather_sha256": null
+}

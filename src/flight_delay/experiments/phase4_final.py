@@ -13,9 +13,10 @@ from sklearn.metrics import average_precision_score, precision_recall_curve
 from .config import digest, file_hash
 from .evaluation import airport_metrics, check_probabilities, evaluate
 from .inputs import table_scan
+from .phase4_checkpoint import compatible_store
 from .phase4_inputs import BASE, HOLDOUT, ID, WEATHER
 from .results import (
-    PROB_COLUMNS, ResultStore, atomic, exclusive, prediction_frame, read_json, write_frame,
+    PROB_COLUMNS, atomic, exclusive, prediction_frame, read_json, write_frame,
     write_json, write_model,
 )
 from .runner import ids_hash
@@ -139,7 +140,7 @@ def execute_arm(inputs, arm, seed, device="cpu"):
     context = dict(phase="phase4-frozen-holdout", input_sha256=upstream, weather_sha256=g4,
                    model=arm, view=view, seed=seed, protocol=protocol, environment=hardware,
                    code_sha256=file_hash(__file__), config_sha256=file_hash(inputs.config_path))
-    store = ResultStore(inputs.path("output_dir") / "final" / arm / str(seed), context, resume=True)
+    store = compatible_store(inputs.path("output_dir") / "final" / arm / str(seed), context, Path(__file__))
     with exclusive(store.root):
         fitted = store.load("fit")
         if fitted is None:
@@ -220,8 +221,8 @@ def execute_arm(inputs, arm, seed, device="cpu"):
                 raise ValueError("Fitted model or transformation changed during holdout")
             path = store.root / f"predictions-{month}.parquet"
             write_frame(path, prediction_frame(store.signature, arm, view, "frozen", month,
-                                               ids, y, actual, fitted["record_hash"]))
-            store.save(key, dict(month=month, fit_hash=fitted["record_hash"], rows=len(y),
+                                               ids, y, actual, digest(fitted)))
+            store.save(key, dict(month=month, fit_hash=digest(fitted), rows=len(y),
                                  ids_sha256=ids_hash(ids), model_hash=state[0],
                                  transformer_hash=state[1]), (path,))
     return store
@@ -229,7 +230,7 @@ def execute_arm(inputs, arm, seed, device="cpu"):
 
 def load_predictions(store, month):
     record, fit = store.load(f"month-{month}"), store.load("fit")
-    if not record or not fit or record["fit_hash"] != fit["record_hash"] or any(
+    if not record or not fit or record["fit_hash"] != digest(fit) or any(
         record[key] != fit[key] for key in ("model_hash", "transformer_hash")
     ):
         raise ValueError("Month lacks matching frozen-fit evidence")
