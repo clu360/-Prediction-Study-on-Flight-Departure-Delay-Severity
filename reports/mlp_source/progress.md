@@ -1,6 +1,6 @@
 # Source-input MLP follow-up
 
-**Status** In progress.
+**Status** Complete. All 52 development evaluations and 24 final fits verified.
 
 ## Predeclared comparison
 
@@ -29,3 +29,5 @@ The view-specific `--view G1_G2_G3` and `--view G1_G2_G3_G4` options apply to tu
 - 2026-11-23 08:38 UTC. The 18 G4 screening evaluations completed. Mean screening log loss for the leading candidates was candidate 6: 0.418390, candidate 5: 0.423849. Both finalists are running on the four remaining development folds.
 - 2026-11-23 09:26 UTC. All 52 chronological development evaluations passed. G4 selected candidate 6 with [256, 128] widths, 0.3 dropout, 0.0003 learning rate, and 0.426911 mean log loss. Its seven inner selections [32, 19, 21, 29, 35, 7, 49] lock 29 final epochs. The selection digest is `8059f5722856c28840e4f946730bf358fa38191992aa1132128333d7a05000b0`. Both development locks now precede all tuned holdout scoring.
 - 2026-11-23 09:47 UTC. Independent readback verified all 52 development checkpoints and the candidates' rankings and selected epochs. Development fold ID hashes match across views. The six tuned G1–G3 fits, three per loss, completed both frozen months. The six tuned G4 fits are running. A lightweight independent read of the three tuned standard G1–G3 prediction pairs found mean pooled macro-F1 0.650864. Final publication will recheck the matched Phase IV holdout IDs and labels for all runs.
+- 2026-11-23 10:19 UTC. All 24 frozen fits scored the exact matched Phase IV flights. Publication checked each train population and loss weight against its reference, both holdout ID and label vectors, checkpoint content, class order and argmax, and all 72 per-seed metric rows. The signed per-seed metrics SHA-256 is `1c366fda00a608eef3c8fb92c98fd658df9667176f407a8d30f36dad8dde31e2`.
+- 2026-11-23 10:19 UTC. Independently loaded each saved fitted model and adapter and replayed 2,048 predictions in each of its two scored months. All 48 slices passed with maximum absolute error 1.78813934e-07 within the declared 2×10⁻⁶ tolerance. Results, month-level scores and matched baseline deltas are in [results.md](results.md).
