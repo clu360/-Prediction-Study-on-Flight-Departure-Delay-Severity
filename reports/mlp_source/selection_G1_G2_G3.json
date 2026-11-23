@@ -1,0 +1,119 @@
+{
+  "candidate": {
+    "dropout": 0.1,
+    "learning_rate": 0.001,
+    "widths": [
+      256,
+      128
+    ]
+  },
+  "candidate_id": 5,
+  "development": {
+    "code": {
+      "mlp.py": "fb80f2d37ed8a457667cef5865ca219559eaf8a1a1468a8caaeb8032d500d7e8",
+      "phase4_inputs.py": "4eeff82176b62a9a4c2ba2f98399729d6a91a72e7f0284f7845c1146c704d465",
+      "phase4_mlp.py": "d7cf35b9cabac06f653f8cf36e97481a244ba6966b6f7f7bb9a4dfb9b5bf17ce",
+      "source_mlp.py": "5d07dc0b1bea0bc648905082b4ea2c15fee4a163fb2394a1efec5618d1b44c57"
+    },
+    "environment": {
+      "cuda": null,
+      "cudnn": null,
+      "device": "cpu",
+      "gpu": null,
+      "platform": "Windows",
+      "python": "3.12.11",
+      "torch": "2.9.1+cpu"
+    },
+    "g4": null,
+    "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+    "phase": "mlp-source-inputs",
+    "scope": "development",
+    "settings": {
+      "batch_size": 2048,
+      "candidates": [
+        {
+          "dropout": 0.1,
+          "learning_rate": 0.001,
+          "widths": [
+            64,
+            32
+          ]
+        },
+        {
+          "dropout": 0.3,
+          "learning_rate": 0.0003,
+          "widths": [
+            64,
+            32
+          ]
+        },
+        {
+          "dropout": 0.3,
+          "learning_rate": 0.001,
+          "widths": [
+            128,
+            64
+          ]
+        },
+        {
+          "dropout": 0.1,
+          "learning_rate": 0.0003,
+          "widths": [
+            128,
+            64
+          ]
+        },
+        {
+          "dropout": 0.1,
+          "learning_rate": 0.001,
+          "widths": [
+            256,
+            128
+          ]
+        },
+        {
+          "dropout": 0.3,
+          "learning_rate": 0.0003,
+          "widths": [
+            256,
+            128
+          ]
+        }
+      ],
+      "development_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "development_seed": 6740,
+      "final_seeds": [
+        6740,
+        6741,
+        6742
+      ],
+      "max_epochs": 50,
+      "patience": 5,
+      "screening_months": [
+        4,
+        7,
+        10
+      ],
+      "threads": 4,
+      "weight_decay": 0.0001
+    },
+    "view": "G1_G2_G3"
+  },
+  "epochs": 19,
+  "finalists": [
+    1,
+    5
+  ],
+  "mean_log_loss": 0.4327209522608529,
+  "sha256": "6358fbe9eca4428bf4bf93a8539d1de0437ad4da752e8fa4bb1df74c03f547e8",
+  "signature": "8d3576ddfcccda0bed0bbd1d3db89cc61a632765d38560f57c0d8a09565cfcb3",
+  "tuning_sha256": "fc564148b6b9b184fa8450e1e79c19642e727c07913c6419c803bde1b385e98c"
+}
