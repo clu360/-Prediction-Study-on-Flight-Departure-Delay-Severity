@@ -39,7 +39,8 @@ def state_sha(model):
 
 
 def tensor_batch(matrix, indices, device):
-    return torch.from_numpy(matrix[indices].toarray()).to(device)
+    batch = matrix[indices]
+    return torch.from_numpy(batch if isinstance(batch, np.ndarray) else batch.toarray()).to(device)
 
 
 @torch.inference_mode()
@@ -65,8 +66,8 @@ def validation_loss(model, matrix, labels, batch_size, device):
 
 
 def train(matrix, labels, candidate, settings, seed, device, epochs, *,
-          weighted=False, stop=None, on_epoch=None):
-    model = create(matrix.shape[1], candidate, seed, settings["threads"], device)
+          weighted=False, stop=None, on_epoch=None, model_factory=create):
+    model = model_factory(matrix.shape[1], candidate, seed, settings["threads"], device)
     counts = training_weights(labels)
     weights = torch.from_numpy(counts).to(device) if weighted else None
     loss_fn = nn.CrossEntropyLoss(weight=weights)

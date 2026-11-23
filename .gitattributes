@@ -15,3 +15,5 @@ reports/phase3/*.json -text whitespace=cr-at-eol
 reports/phase3/*.csv -text whitespace=cr-at-eol
 reports/phase4/*.json -text whitespace=cr-at-eol
 reports/phase4/*.csv -text whitespace=cr-at-eol
+reports/mlp_source/*.json -text whitespace=cr-at-eol
+reports/mlp_source/*.csv -text whitespace=cr-at-eol
