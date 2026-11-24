@@ -138,13 +138,24 @@ class ResultStore:
         write_json(self.root / f"{key}.json", value)
 
 
-def prediction_frame(run_id, model, view, stage, month, ids, y, p, fit_id):
+def prediction_frame(
+    run_id, model, view, stage, month, ids, y, p, fit_id, *, predicted=None
+):
     import numpy as np
     from .evaluation import check_probabilities
 
     check_probabilities(p, len(ids))
     if len(set(ids)) != len(ids) or len(y) != len(ids):
         raise ValueError("Duplicate or misaligned prediction IDs")
+    if predicted is None:
+        from ..models.baseline import sampled_classes
+
+        predicted = (
+            sampled_classes(p, ids) if model == "baseline" else np.argmax(p, axis=1)
+        )
+    predicted = np.asarray(predicted)
+    if predicted.shape != (len(ids),) or not np.isin(predicted, [0, 1, 2]).all():
+        raise ValueError("Invalid saved predicted classes")
     return pl.DataFrame(
         dict(
             run_id=[run_id] * len(ids),
@@ -158,7 +169,7 @@ def prediction_frame(run_id, model, view, stage, month, ids, y, p, fit_id):
                 name: np.asarray(p[:, c], dtype=np.float64)
                 for c, name in enumerate(PROB_COLUMNS)
             },
-            y_pred=np.argmax(p, axis=1).astype(np.int8),
+            y_pred=predicted.astype(np.int8),
             model_fit_id=[fit_id] * len(ids),
         )
     )
@@ -193,6 +204,8 @@ def public_tables(root, records):
                     "resources",
                     "transform",
                     "warnings",
+                    "prediction_rule",
+                    "report_revision_id",
                 ]
                 if k in record
             }

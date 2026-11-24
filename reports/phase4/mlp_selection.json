@@ -1,0 +1,192 @@
+{
+  "candidate": {
+    "dropout": 0.3,
+    "learning_rate": 0.0003,
+    "widths": [
+      256,
+      128
+    ]
+  },
+  "candidate_id": 6,
+  "context": {
+    "code": {
+      "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+      "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+      "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+    },
+    "environment": {
+      "cuda": null,
+      "cudnn": null,
+      "device": "cpu",
+      "gpu": null,
+      "platform": "Windows",
+      "python": "3.12.11",
+      "torch": "2.9.1+cpu"
+    },
+    "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+    "phase": "phase4-mlp-development",
+    "settings": {
+      "batch_size": 2048,
+      "candidates": [
+        {
+          "dropout": 0.1,
+          "learning_rate": 0.001,
+          "widths": [
+            64,
+            32
+          ]
+        },
+        {
+          "dropout": 0.3,
+          "learning_rate": 0.0003,
+          "widths": [
+            64,
+            32
+          ]
+        },
+        {
+          "dropout": 0.3,
+          "learning_rate": 0.001,
+          "widths": [
+            128,
+            64
+          ]
+        },
+        {
+          "dropout": 0.1,
+          "learning_rate": 0.0003,
+          "widths": [
+            128,
+            64
+          ]
+        },
+        {
+          "dropout": 0.1,
+          "learning_rate": 0.001,
+          "widths": [
+            256,
+            128
+          ]
+        },
+        {
+          "dropout": 0.3,
+          "learning_rate": 0.0003,
+          "widths": [
+            256,
+            128
+          ]
+        }
+      ],
+      "development_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "development_seed": 6740,
+      "final_seeds": [
+        6740,
+        6741,
+        6742
+      ],
+      "max_epochs": 50,
+      "patience": 5,
+      "screening_months": [
+        4,
+        7,
+        10
+      ],
+      "threads": 4,
+      "weight_decay": 0.0001
+    }
+  },
+  "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+  "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+  "epochs": 1,
+  "finalists": [
+    6,
+    4
+  ],
+  "settings": {
+    "batch_size": 2048,
+    "candidates": [
+      {
+        "dropout": 0.1,
+        "learning_rate": 0.001,
+        "widths": [
+          64,
+          32
+        ]
+      },
+      {
+        "dropout": 0.3,
+        "learning_rate": 0.0003,
+        "widths": [
+          64,
+          32
+        ]
+      },
+      {
+        "dropout": 0.3,
+        "learning_rate": 0.001,
+        "widths": [
+          128,
+          64
+        ]
+      },
+      {
+        "dropout": 0.1,
+        "learning_rate": 0.0003,
+        "widths": [
+          128,
+          64
+        ]
+      },
+      {
+        "dropout": 0.1,
+        "learning_rate": 0.001,
+        "widths": [
+          256,
+          128
+        ]
+      },
+      {
+        "dropout": 0.3,
+        "learning_rate": 0.0003,
+        "widths": [
+          256,
+          128
+        ]
+      }
+    ],
+    "development_months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "development_seed": 6740,
+    "final_seeds": [
+      6740,
+      6741,
+      6742
+    ],
+    "max_epochs": 50,
+    "patience": 5,
+    "screening_months": [
+      4,
+      7,
+      10
+    ],
+    "threads": 4,
+    "weight_decay": 0.0001
+  },
+  "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+  "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+}

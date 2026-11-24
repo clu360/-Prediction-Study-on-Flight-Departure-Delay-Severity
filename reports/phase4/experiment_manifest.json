@@ -1,0 +1,3147 @@
+{
+  "class_order": [
+    0,
+    1,
+    2
+  ],
+  "exploratory_weather_and_weighting": true,
+  "fits": [
+    {
+      "arm": "XGB-base",
+      "context": {
+        "code_sha256": "0d7350ecaa6d581bbd3a49ae77b49014847eb7ae7dafc502a543e0365b48634a",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "device": "cpu",
+          "platform": "Windows",
+          "xgboost": "3.1.2"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "XGB-base",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "manifest_sha256": "a51bedcd9893f242fbce1ee9bedfe3f1b58fe5584488b14d79fda6def7efe426",
+          "params": {
+            "colsample_bytree": 0.8,
+            "eval_metric": "mlogloss",
+            "learning_rate": 0.1,
+            "max_depth": 6,
+            "n_estimators": 400,
+            "num_class": 3,
+            "objective": "multi:softprob",
+            "subsample": 0.8,
+            "tree_method": "hist"
+          },
+          "seed": 6740,
+          "selected_sha256": "f2159385f6eb0d556f224ab8569cca737ab14744232f061f83c6b1ec4692346c",
+          "threads": 4
+        },
+        "seed": 6740,
+        "view": "G1_G2_G3",
+        "weather_sha256": null
+      },
+      "fit": {
+        "attempt": "53c76003282846ba8a293910bb936043",
+        "curves": [],
+        "epochs": null,
+        "model_hash": "eaf510ef97fac9ac4ef1b1420212a07e74c81a1552938d7c1a3b39e135e82767",
+        "rows": 1663534,
+        "run_signature": "2b5f7992b84d112380aeccd442d140a14cf4dc04437a18f3183780672cb1aca1",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 143.6986603999976,
+        "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07",
+        "weights": null
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "43c1f343546b67cf009da381a07d96a5d074cd4981853eb72d7d44a37097d195",
+          "record_sha256": "aafe8acb9596b34babbb0a8906d13e217f87c86eecade9c3d93e17516d0a9d1e"
+        },
+        "12": {
+          "predictions_sha256": "0afee89aa03617457943284243c592a4d256d9282808ccc5d9e2f29eea0eec0f",
+          "record_sha256": "617f67e290983bf4aa7d1364f37af286566eae79aae8920b327636e824c7699c"
+        }
+      },
+      "seed": 6740,
+      "signature": "2b5f7992b84d112380aeccd442d140a14cf4dc04437a18f3183780672cb1aca1"
+    },
+    {
+      "arm": "XGB-weather",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "device": "cpu",
+          "platform": "Windows",
+          "xgboost": "3.1.2"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "XGB-weather",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "manifest_sha256": "a51bedcd9893f242fbce1ee9bedfe3f1b58fe5584488b14d79fda6def7efe426",
+          "params": {
+            "colsample_bytree": 0.8,
+            "eval_metric": "mlogloss",
+            "learning_rate": 0.1,
+            "max_depth": 6,
+            "n_estimators": 400,
+            "num_class": 3,
+            "objective": "multi:softprob",
+            "subsample": 0.8,
+            "tree_method": "hist"
+          },
+          "seed": 6740,
+          "selected_sha256": "f2159385f6eb0d556f224ab8569cca737ab14744232f061f83c6b1ec4692346c",
+          "threads": 4
+        },
+        "seed": 6740,
+        "view": "G1_G2_G3_G4",
+        "weather_sha256": "d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef"
+      },
+      "fit": {
+        "attempt": "57fba329aab94094b87338538514384f",
+        "curves": [],
+        "epochs": null,
+        "model_hash": "6123cbbbbc3f05e479b79a35d1855ae8f35aa1516933f08238469896f4c83279",
+        "rows": 1663534,
+        "run_signature": "758cb98246c7c5883bd8075b4342eba7afd92bf82ad5f5f2de9f8e3d22a7ddd5",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 121.32729430007748,
+        "transformer_hash": "e363e60af04decbb8e8beb8257f5c9ce",
+        "weights": null
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "fb6d8e5816b6b5de314f2a0fc65c51fe97e980f0db3bf65733df6d61c22c8754",
+          "record_sha256": "fe44c9a83d6a96a9dcc21bb803b0082f468f339d047eb831b0e943996746fcc4"
+        },
+        "12": {
+          "predictions_sha256": "8e47fca4f7b81236208ae728e4ef881435fb1b0535d9aaea98145fa21167249c",
+          "record_sha256": "9f8c2b88ef925acc0da5f34570453ec3aa6eda544e2b8e84586750d77950c155"
+        }
+      },
+      "seed": 6740,
+      "signature": "758cb98246c7c5883bd8075b4342eba7afd92bf82ad5f5f2de9f8e3d22a7ddd5"
+    },
+    {
+      "arm": "MLP-A",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-A",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6740,
+        "view": "G1_G2_G3",
+        "weather_sha256": null
+      },
+      "fit": {
+        "attempt": "06170f5a0b9742ab971a86bb4197f54e",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.4741448824762656
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "cbe531514065f2ac841a5b78337b3ce6fd80fd1c12ace987300c013cc1ebdc96",
+        "rows": 1663534,
+        "run_signature": "4cefe7fb7b330e8d16b0d957c8cd309cae822448e598572a90b7168336d73796",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 34.56375259999186,
+        "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07",
+        "weights": null
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "b586ea237cdd141127f864541cfe9a1fcbb2612616d297102ab14029d1066f52",
+          "record_sha256": "1edd1ec441979080d2765a5ab889068db2dd265c2f9bf2ccbee78f6a119c91fe"
+        },
+        "12": {
+          "predictions_sha256": "c3e5179d450a566264a9ee53385d8b53aea892be8d12e524221e5f1a69e3bef8",
+          "record_sha256": "b5f9efe0e60bbb3bdde648c2ee1d505ce3d1c9f0bc2e9d9e741d5790795bc642"
+        }
+      },
+      "seed": 6740,
+      "signature": "4cefe7fb7b330e8d16b0d957c8cd309cae822448e598572a90b7168336d73796"
+    },
+    {
+      "arm": "MLP-A",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-A",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6741,
+        "view": "G1_G2_G3",
+        "weather_sha256": null
+      },
+      "fit": {
+        "attempt": "6ddd13ff46bb4bacb7f166c90b961178",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.47535037753584775
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "e0ee945a846de45366490b00e29076058988ab92435e4c69431487d49385ad0a",
+        "rows": 1663534,
+        "run_signature": "5e904c912a3a9a2bbb56f8a58e5b1833708e699bb55dc0ac9fe989b2617853db",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 26.26573510002345,
+        "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07",
+        "weights": null
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "feab6b638bfdb0a47b95bc061b8df3e53597c2d311afff8dfa8039a5a7a5baa1",
+          "record_sha256": "88e0c723dd340e718b5328c4f9c02b084fbcf943e947656dbd2cdc38eafb3eca"
+        },
+        "12": {
+          "predictions_sha256": "f5f4caf262bcd38f361b6c3024a0599c986d733ea17139b0c15c6a3c77663bd9",
+          "record_sha256": "b70f33a899f7d49fffa379de5a366d6e6d915ab9e6399285df5ed14ea6906808"
+        }
+      },
+      "seed": 6741,
+      "signature": "5e904c912a3a9a2bbb56f8a58e5b1833708e699bb55dc0ac9fe989b2617853db"
+    },
+    {
+      "arm": "MLP-A",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-A",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6742,
+        "view": "G1_G2_G3",
+        "weather_sha256": null
+      },
+      "fit": {
+        "attempt": "6f29c38e6e264383bf15d8312b1b5204",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.4694658064549793
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "557ce57a252030295a9b1acb35075c97d167ffdcaeee42f504d9d48d47876826",
+        "rows": 1663534,
+        "run_signature": "4cb8eb59f813579d02efdf75fce7f23c1a70abcab40f4fa026c61399f264404d",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 18.249383199959993,
+        "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07",
+        "weights": null
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "0d371afb04b025656dbad9094c5c746d7ba9f1a4976173be9a88f346fbabdddd",
+          "record_sha256": "4032bb7b59338cb7035592577d1da1d5f128966d7c0ccb4a29dec434b5398954"
+        },
+        "12": {
+          "predictions_sha256": "47855cb4b5083cee5b1de421b50a570daaed79dd5c4b613c780075d10d6bcad1",
+          "record_sha256": "2b12d2bcc860002b1976bc5835a8ba0bfecd24cb443cf45257152544ef243015"
+        }
+      },
+      "seed": 6742,
+      "signature": "4cb8eb59f813579d02efdf75fce7f23c1a70abcab40f4fa026c61399f264404d"
+    },
+    {
+      "arm": "MLP-B",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-B",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6740,
+        "view": "G1_G2_G3",
+        "weather_sha256": null
+      },
+      "fit": {
+        "attempt": "672c5aeca9dc41f980e1ff44e13042fd",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.87385652981857
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "29c798d068de6179c516c77bb2439ad73eb6a72d9e42cdf228df94f2fd0b88c3",
+        "rows": 1663534,
+        "run_signature": "5d539560b186629ee024cbe6da5e3e2578db24da0cac5e677c46411cf0f9d16e",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 19.67015319992788,
+        "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07",
+        "weights": [
+          0.40450891852378845,
+          2.612563371658325,
+          6.891764163970947
+        ]
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "e074548ce8c5bb5316690ce9f45b7dda74ccdb21d1efffa6855f911cecd4770a",
+          "record_sha256": "cfec2ada5a6f0e728dca34a30f27e1b659b876c67044a0271a66edde6db151d5"
+        },
+        "12": {
+          "predictions_sha256": "11aa8dece64aec6174b479f7f2dc33fb394ee5f63500fd1c12e8b8153a6b4e8f",
+          "record_sha256": "b7e415ef454c209e39b3aacffba596ef3e6ce45b4f519ff8a08b39f789ba33ae"
+        }
+      },
+      "seed": 6740,
+      "signature": "5d539560b186629ee024cbe6da5e3e2578db24da0cac5e677c46411cf0f9d16e"
+    },
+    {
+      "arm": "MLP-B",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-B",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6741,
+        "view": "G1_G2_G3",
+        "weather_sha256": null
+      },
+      "fit": {
+        "attempt": "7085dfcc92c2432e9280c5cc3b6fde61",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.8747772910877694
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "6836509f253825048383bd51dba128f5f5af354f8e6c2f2aef5e03adfc58bbd2",
+        "rows": 1663534,
+        "run_signature": "361ee14801cef55dfc1999b51147cd4d190c4e200224fe923fd845aa7d0f7191",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 19.039556300034747,
+        "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07",
+        "weights": [
+          0.40450891852378845,
+          2.612563371658325,
+          6.891764163970947
+        ]
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "5cd52ed57b5681da3c9b6eefc5bcdae2751669fad06b3e88bacd5b9a55feec65",
+          "record_sha256": "9c0f72ccb945e443efff122852bb739e526a6bad14c20d11180adc300f9ff528"
+        },
+        "12": {
+          "predictions_sha256": "fc279ada1b2e4c9008010d64b9c5c342429b47dfb80ffaa859718d98bfaf4f16",
+          "record_sha256": "9078f28a3e4624333bf15c9e7238681b4c54a294382be561bce3787900345f19"
+        }
+      },
+      "seed": 6741,
+      "signature": "361ee14801cef55dfc1999b51147cd4d190c4e200224fe923fd845aa7d0f7191"
+    },
+    {
+      "arm": "MLP-B",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-B",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6742,
+        "view": "G1_G2_G3",
+        "weather_sha256": null
+      },
+      "fit": {
+        "attempt": "a578d193993a45f6a1adc40a7442353e",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.8770319257496861
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "c6a03ec4b8b9d3bac6447ab3ffe4a35700ed4bb21e5b4486bf4c345dd12ee4f9",
+        "rows": 1663534,
+        "run_signature": "d94090c29c77d8a252828413c1e8707c2d39fbb550074654a5446d930b58b838",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 18.556349799968302,
+        "transformer_hash": "b697597cc6c0110c8e8d86e6f7db7a07",
+        "weights": [
+          0.40450891852378845,
+          2.612563371658325,
+          6.891764163970947
+        ]
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "b7250f1c3decd1e15952f653f945e631aec64b5456211c2887e17dbac7ca0f5a",
+          "record_sha256": "b3ee0165e7c5b508315234a8156dc70a511533cc1faa74f8975323c2c1fd928c"
+        },
+        "12": {
+          "predictions_sha256": "c6dcc863af194e76abcfe324994a2b6b6763c0a8b17e19e43ed7401047c55214",
+          "record_sha256": "cc7afc74e8cdb111a0dd71db83b68c5d8eb68fecb8028b2507648a9e0b358203"
+        }
+      },
+      "seed": 6742,
+      "signature": "d94090c29c77d8a252828413c1e8707c2d39fbb550074654a5446d930b58b838"
+    },
+    {
+      "arm": "MLP-C",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-C",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6740,
+        "view": "G1_G2_G3_G4",
+        "weather_sha256": "d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef"
+      },
+      "fit": {
+        "attempt": "6912e59e0b5d4f9c8353c950bb13439d",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.4719512100264755
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "46c177e5e938db9fe2b30aff5c44179ec4b659062bbe846294d174d654461965",
+        "rows": 1663534,
+        "run_signature": "5c206e07ba6bb395ef21f0559a21da44546817427f908f1dbcd894d6b5126508",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 19.27881020004861,
+        "transformer_hash": "e363e60af04decbb8e8beb8257f5c9ce",
+        "weights": null
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "1c2c8a14399c4fd8f884e94ae8ae12ac2b06ca3af9f78591e13c6392ea98c544",
+          "record_sha256": "b47565edc8e480e7b788176020b0574566126d23b84bb16c02f834dc5d6a6c2d"
+        },
+        "12": {
+          "predictions_sha256": "23d65c601f0c8523c8c6f158cae2e2e99e1f5f5a2d16ced7963ae9d07bea2bce",
+          "record_sha256": "cbda396a29212d524be5836ce19317c222772104fece3a5a18215a07b1194fc8"
+        }
+      },
+      "seed": 6740,
+      "signature": "5c206e07ba6bb395ef21f0559a21da44546817427f908f1dbcd894d6b5126508"
+    },
+    {
+      "arm": "MLP-C",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-C",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6741,
+        "view": "G1_G2_G3_G4",
+        "weather_sha256": "d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef"
+      },
+      "fit": {
+        "attempt": "a041ea5310744e23b6a2518e1b712f6f",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.46935375299577675
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "43550d791a15e6dcffb4ebeeac3a3c85c664ce7a43d2a964b9e0e9aa7dbf924b",
+        "rows": 1663534,
+        "run_signature": "5284021baa79669dce1c32879826f7bb650e3cf3d7cb58a948a2cbde60bf46b1",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 18.55920589994639,
+        "transformer_hash": "e363e60af04decbb8e8beb8257f5c9ce",
+        "weights": null
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "a49efceda084941f737feaf253f338d93eedd4d182627a38057abcc8fa4e023c",
+          "record_sha256": "df9e1923d0dad62670ca85a67cf2e95c51f041b6f2575218a87ece1dab628c3c"
+        },
+        "12": {
+          "predictions_sha256": "ffe67022d98e7dee2db67279794af2f1d1af0beb51af24874c1f6cd340962178",
+          "record_sha256": "2979460d2cdf8c8343187567b381a14a5df03b4e299827467e93127ba8671309"
+        }
+      },
+      "seed": 6741,
+      "signature": "5284021baa79669dce1c32879826f7bb650e3cf3d7cb58a948a2cbde60bf46b1"
+    },
+    {
+      "arm": "MLP-C",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-C",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6742,
+        "view": "G1_G2_G3_G4",
+        "weather_sha256": "d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef"
+      },
+      "fit": {
+        "attempt": "b4d061ae6ad047468ce46b2958fa844f",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.4701433493377005
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "f55cd01b76f610b89cbeeb31f54587a99ddc8abc4b66999cc10878aa663ee656",
+        "rows": 1663534,
+        "run_signature": "413b5e1d4853db9bbd4fa2461fa2da5f82b8e5f8ef085a86d548b74abcb15eee",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 17.981758099980652,
+        "transformer_hash": "e363e60af04decbb8e8beb8257f5c9ce",
+        "weights": null
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "f30588bb46abcc9c659d5296278da2c016b6ff7c7e09789ffb67aee071d82f4e",
+          "record_sha256": "1ee0d5c31f72a6d030f6484a62b241d68785c3b937a236b38ec22bb6cae0b240"
+        },
+        "12": {
+          "predictions_sha256": "1c2b076b14f0a89b1eb0d1433af9d562dd8cf6d4d4c47eeeb62ae5f08ce4a463",
+          "record_sha256": "1ee4593377c39e8849baa685be5d0cbc9ef3a38efef4c07ff0c01125b542d452"
+        }
+      },
+      "seed": 6742,
+      "signature": "413b5e1d4853db9bbd4fa2461fa2da5f82b8e5f8ef085a86d548b74abcb15eee"
+    },
+    {
+      "arm": "MLP-D",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-D",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6740,
+        "view": "G1_G2_G3_G4",
+        "weather_sha256": "d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef"
+      },
+      "fit": {
+        "attempt": "d1e84c1299b54452b7baa8b0cece14dd",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.8759776576576743
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "ecbd8b806dba3d9850dc8797f49304df329cc90d9466d3684993a547bc01e040",
+        "rows": 1663534,
+        "run_signature": "a3ba849080035414e1f78012ce78376698bcf29943ed31fb21fe703a109d50a7",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 18.34859209996648,
+        "transformer_hash": "e363e60af04decbb8e8beb8257f5c9ce",
+        "weights": [
+          0.40450891852378845,
+          2.612563371658325,
+          6.891764163970947
+        ]
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "43a8be5d6a07cc3d5ae9c43468f310fa1d3ccb9bde2ce21baefcbc5dd9275970",
+          "record_sha256": "811b3ef88db34758dbb05b4533b8d9db88c35695b14830a7722503bdc0fad156"
+        },
+        "12": {
+          "predictions_sha256": "a631e8defd053c8ce6c5f7c282d05d4a4abea44e742bfb855a996a546c181513",
+          "record_sha256": "517e2ad99789ca39c801ebb2605ef0aad82f4b83534ff7e49ec1a61adab3d156"
+        }
+      },
+      "seed": 6740,
+      "signature": "a3ba849080035414e1f78012ce78376698bcf29943ed31fb21fe703a109d50a7"
+    },
+    {
+      "arm": "MLP-D",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-D",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6741,
+        "view": "G1_G2_G3_G4",
+        "weather_sha256": "d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef"
+      },
+      "fit": {
+        "attempt": "e0c8cd6bb44f4e01aed69413073885d4",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.8751582362599429
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "6dad37735f632f520b7c706cbfde70c3aa921a9cb39d81f1a214caacee57caa1",
+        "rows": 1663534,
+        "run_signature": "14332e1ad04f302f6c5387e31881e788b4633e11a32275b32ca66e6a3786be84",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 18.673201999859884,
+        "transformer_hash": "e363e60af04decbb8e8beb8257f5c9ce",
+        "weights": [
+          0.40450891852378845,
+          2.612563371658325,
+          6.891764163970947
+        ]
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "58fb6070fc3c0721a40a6da4b6a8b7648c50a169214f29e909bb00f707494908",
+          "record_sha256": "7f163a40b8dafbb9b34d1bf405f993e9da38cb45d04e9940770a8bc82b7ca416"
+        },
+        "12": {
+          "predictions_sha256": "2e4274e42192ec53dfd9a422d4b31498ebc1fa7aefb15a8372edd3aa08d66fa2",
+          "record_sha256": "61ae2eba77ea2275510b84fbeeccd42535d5edebe1648bb68be9db9acbdcd447"
+        }
+      },
+      "seed": 6741,
+      "signature": "14332e1ad04f302f6c5387e31881e788b4633e11a32275b32ca66e6a3786be84"
+    },
+    {
+      "arm": "MLP-D",
+      "context": {
+        "code_sha256": "681307dd68229ff87b495ac026a3a61506ad3a905a75a8ac5845499a8a1147e3",
+        "config_sha256": "a86811a8689adb9ef99da3d2461ded3ee850cc2db2c6b059181fa86344a7b53c",
+        "environment": {
+          "cuda": null,
+          "cudnn": null,
+          "device": "cpu",
+          "gpu": null,
+          "platform": "Windows",
+          "python": "3.12.11",
+          "torch": "2.9.1+cpu"
+        },
+        "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+        "model": "MLP-D",
+        "phase": "phase4-frozen-holdout",
+        "protocol": {
+          "candidate": {
+            "dropout": 0.3,
+            "learning_rate": 0.0003,
+            "widths": [
+              256,
+              128
+            ]
+          },
+          "candidate_id": 6,
+          "context": {
+            "code": {
+              "mlp.py": "4642d84ca5e727ae945f8c8353d4e2875112119f09adf63c9221071bc6810489",
+              "phase4_inputs.py": "d0ac07b7a00b8e15d8fcc497be1bb3168cb819c1ff457e7d23f25cebd5b5ac2a",
+              "phase4_mlp.py": "f6d0dffbabffe65989b6302486424fe76d4dd38075af481fb458d522f79b8fcc"
+            },
+            "environment": {
+              "cuda": null,
+              "cudnn": null,
+              "device": "cpu",
+              "gpu": null,
+              "platform": "Windows",
+              "python": "3.12.11",
+              "torch": "2.9.1+cpu"
+            },
+            "input_sha256": "3b93d9c0cbfd1a7fc818cd5bbb6242722492c6e0fabc522e58841f40350a92bc",
+            "phase": "phase4-mlp-development",
+            "settings": {
+              "batch_size": 2048,
+              "candidates": [
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    64,
+                    32
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    128,
+                    64
+                  ]
+                },
+                {
+                  "dropout": 0.1,
+                  "learning_rate": 0.001,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                },
+                {
+                  "dropout": 0.3,
+                  "learning_rate": 0.0003,
+                  "widths": [
+                    256,
+                    128
+                  ]
+                }
+              ],
+              "development_months": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "development_seed": 6740,
+              "final_seeds": [
+                6740,
+                6741,
+                6742
+              ],
+              "max_epochs": 50,
+              "patience": 5,
+              "screening_months": [
+                4,
+                7,
+                10
+              ],
+              "threads": 4,
+              "weight_decay": 0.0001
+            }
+          },
+          "development_signature": "13e39cfc7f8bda5a44ecb6ebb99cf78e0474bd60636ef7cc43f8d372267390ca",
+          "epoch_rule": "median of seven inner stopping epochs for the winning candidate",
+          "epochs": 1,
+          "finalists": [
+            6,
+            4
+          ],
+          "settings": {
+            "batch_size": 2048,
+            "candidates": [
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  64,
+                  32
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.001,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.0003,
+                "widths": [
+                  128,
+                  64
+                ]
+              },
+              {
+                "dropout": 0.1,
+                "learning_rate": 0.001,
+                "widths": [
+                  256,
+                  128
+                ]
+              },
+              {
+                "dropout": 0.3,
+                "learning_rate": 0.0003,
+                "widths": [
+                  256,
+                  128
+                ]
+              }
+            ],
+            "development_months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "development_seed": 6740,
+            "final_seeds": [
+              6740,
+              6741,
+              6742
+            ],
+            "max_epochs": 50,
+            "patience": 5,
+            "screening_months": [
+              4,
+              7,
+              10
+            ],
+            "threads": 4,
+            "weight_decay": 0.0001
+          },
+          "sha256": "65d54af4c4f26365c27797401ac8a89b79e6ec75c0c1ef2b0a07a631f5edbf7c",
+          "tuning_summary_sha256": "1673cc41e6e9d61ea49eaad004f51bc406638b087fbddda7f44bfa722df7515c"
+        },
+        "seed": 6742,
+        "view": "G1_G2_G3_G4",
+        "weather_sha256": "d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef"
+      },
+      "fit": {
+        "attempt": "34e4f67317d74d7c985d0014339bfd02",
+        "curves": [
+          {
+            "epoch": 1,
+            "train_loss": 0.8761474414876484
+          }
+        ],
+        "epochs": 1,
+        "model_hash": "f7b022044052cb2876ec4bc54446e0e56cfd0a6869d2c81688cca6b6b5d2cef1",
+        "rows": 1663534,
+        "run_signature": "e13b86f77d9899046b5c2229484652e969102097e59701b5cf94dc1ac80564c8",
+        "train_class_counts": [
+          1370826,
+          212248,
+          80460
+        ],
+        "train_ids_sha256": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc",
+        "training_seconds": 18.72159119998105,
+        "transformer_hash": "e363e60af04decbb8e8beb8257f5c9ce",
+        "weights": [
+          0.40450891852378845,
+          2.612563371658325,
+          6.891764163970947
+        ]
+      },
+      "month_checkpoints": {
+        "11": {
+          "predictions_sha256": "b579f1e81610b6c774b4ce3498136a01e6deab4155a88cb15f5553a7d7a4efde",
+          "record_sha256": "945c510be3d6a92247d04d9adb58a58eac4fda4add59bb0b87d8f25505d57dc6"
+        },
+        "12": {
+          "predictions_sha256": "96c171f8669323ac2584126ca67ea0f4118f61f7f13d33a719e279362cdc2b0d",
+          "record_sha256": "43c26c0e08b5db9071e7238e7bcb145ded5bdf73c450e6c1b69e3b03c4c56b89"
+        }
+      },
+      "seed": 6742,
+      "signature": "e13b86f77d9899046b5c2229484652e969102097e59701b5cf94dc1ac80564c8"
+    }
+  ],
+  "input_sha256": "2a212c2673ca3da6c70ecef09713ee1e68fe3401acf25f4719520d0a9c794334",
+  "public_metrics_sha256": "70a7866342e3db9f37b11ebae0291aa523ff7d5b1c52436223341e3c7293e50a",
+  "shared_population": {
+    "11": "a8ab5b01bb72cd11763b26afd35ddf7a329956c29d8905971cce01c2b4a13ba4",
+    "12": "1fbd725dcce666a53855bd9c0920053a9a4b8c46a3a35be9d09b6542dc233450",
+    "train": "cf1f3815e76e2eec264aed28847ef26840af9d81145fea0422caa26dc9cc7fcc"
+  },
+  "status": "all_model_checkpoints_verified",
+  "weather_sha256": "d1a0049cd663e98b5fdb2a891e3107b0a488580d06d8aa31ccb0cf96d3629aef"
+}

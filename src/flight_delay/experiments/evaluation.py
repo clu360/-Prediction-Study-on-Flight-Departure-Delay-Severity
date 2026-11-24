@@ -26,13 +26,17 @@ def check_probabilities(p, n):
         )
 
 
-def evaluate(y, p, bins=10):
+def evaluate(y, p, bins=10, *, predicted=None):
     y, p = np.asarray(y), np.asarray(p, dtype=np.float64)
     check_probabilities(p, len(y))
     p = p / p.sum(axis=1, keepdims=True)
     if not np.isin(y, [0, 1, 2]).all() or bins != 10:
         raise ValueError("Locked labels [0,1,2] and 10 equal-width reliability bins")
-    predicted = np.argmax(p, axis=1)
+    argmax = np.argmax(p, axis=1)
+    explicit_prediction = predicted is not None
+    predicted = argmax if predicted is None else np.asarray(predicted)
+    if predicted.shape != y.shape or not np.isin(predicted, [0, 1, 2]).all():
+        raise ValueError("Expected one predicted class in [0,1,2] per label")
     precision, recall, f1, support = precision_recall_fscore_support(
         y, predicted, labels=[0, 1, 2], zero_division=0
     )
@@ -60,7 +64,7 @@ def evaluate(y, p, bins=10):
                     else None,
                 )
             )
-    return dict(
+    result = dict(
         n=len(y),
         accuracy=float(accuracy_score(y, predicted)),
         macro_f1=float(
@@ -84,19 +88,28 @@ def evaluate(y, p, bins=10):
         confusion_matrix=confusion_matrix(y, predicted, labels=[0, 1, 2]).tolist(),
         observed_proportions=(support / len(y)).tolist(),
         mean_probabilities=p.mean(axis=0).tolist(),
-        argmax_proportions=(np.bincount(predicted, minlength=3) / len(y)).tolist(),
+        argmax_proportions=(np.bincount(argmax, minlength=3) / len(y)).tolist(),
         calibration=curves,
         uncertainty="Counts only; flights are correlated, no IID confidence interval claimed",
     )
+    if explicit_prediction:
+        result["predicted_proportions"] = (
+            np.bincount(predicted.astype(int), minlength=3) / len(y)
+        ).tolist()
+    return result
 
 
-def airport_metrics(y, p, origins, airports):
+def airport_metrics(y, p, origins, airports, *, predicted=None):
     origins = np.asarray(origins)
-    if len(origins) != len(y):
+    if len(origins) != len(y) or (predicted is not None and len(predicted) != len(y)):
         raise ValueError("Origin metadata is misaligned")
     return {
         airport: evaluate(
-            np.asarray(y)[origins == airport], np.asarray(p)[origins == airport]
+            np.asarray(y)[origins == airport],
+            np.asarray(p)[origins == airport],
+            predicted=np.asarray(predicted)[origins == airport]
+            if predicted is not None
+            else None,
         )
         for airport in airports
         if np.any(origins == airport)

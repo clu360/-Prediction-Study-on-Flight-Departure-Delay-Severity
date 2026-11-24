@@ -2,7 +2,7 @@
 
 Team: Caleb Lu, Ho Young Lee, Christopher Yi.
 
-Phase 1 implements deterministic preprocessing of the twelve 2025 **BTS Reporting Carrier** monthly exports. Phase II constructs three causal feature groups and fold-aware sparse numerical matrices on the unchanged cohort. Phase III adds classical-model tuning and frozen holdout evaluation; actual run status is recorded in `reports/phase3/PHASE3_VALIDATION.md`. MLP training remains out of scope.
+Phase 1 implements deterministic preprocessing of the twelve 2025 **BTS Reporting Carrier** monthly exports. Phase II constructs three causal feature groups and fold-aware sparse numerical matrices on the unchanged cohort. Phase III adds classical-model tuning and frozen holdout evaluation; actual run status is recorded in `reports/phase3/PHASE3_VALIDATION.md`. Phase IV adds the weather and MLP protocol described in [the Phase IV execution guide](docs/phase4_execution.md).
 
 ## Install and run
 
@@ -42,7 +42,7 @@ python -m venv .venv
 & .\.venv\Scripts\python.exe -m pip install -e '.[dev]'
 ```
 
-The base dependencies support preprocessing, feature engineering and scikit-learn models. Install the pinned Phase III XGBoost dependency with `python -m pip install -e '.[dev,modeling]'`. Neural-network frameworks remain a later-phase dependency. Installing modeling dependencies does not train models or change the research protocol.
+The base dependencies support preprocessing, feature engineering and scikit-learn models. Install the pinned Phase III XGBoost dependency with `python -m pip install -e '.[dev,modeling]'`. Phase IV uses the optional `neural` dependency group. Installing modeling dependencies does not train models or change the research protocol.
 
 ## Outputs
 
@@ -160,6 +160,8 @@ The current configuration reads hash-equivalent local working inputs under `data
 
 PACE batch execution is documented in [the cluster guide](docs/phase3_pace.md). Its fold/view arrays retain the full grids and data, use isolated verified checkpoints, and feed the original selector and frozen final runner. Account selection is explicit; model computations run on allocated compute nodes.
 
+The current baseline estimates the historical three-class proportions on the training window, constructs their CDF, and samples one predicted class per observation using a fixed-seed uniform draw (seed 6740). Probability metrics still score the historical proportions. This is an explicit user-requested post-holdout baseline revision; learned-model predictions and frozen choices remain unchanged. The original argmax study is retained. See [the amendment methodology](docs/phase3_methodology.md#baseline-cdf-reporting-amendment), `baseline_revision.json` and `baseline_revision_verification.json` for revised scores, scope and replay evidence. To regenerate the amended comparison from the original private study, run `python scripts/revise_phase3_baseline.py --config configs/phase3_pace.yaml --source-run phase3-709172c896241ac3a355 --apply`, then rebuild and execute the notebook.
+
 The baseline fits once per development fold. Logistic regression, random forest and XGBoost use the four existing views. Official candidate grids are 6/8/8, screened on April/July/October; at most two finalists are evaluated on all seven April–October development folds. Selection uses equal-month macro-F1, with deterministic declared tie breakers. No official fitting population is downsampled.
 
 The final estimator and transformer fit once on August–October and remain unchanged for both November and December. **The primary December result does not use the December rolling training fold.** Once holdout scoring starts, persistent locks prevent retuning or changing the selected run. Resumption reloads the saved models. Inspect any interrupted `.writer.lock` PID before removing a stale lock; never delete the primary-holdout lock to retune against already examined months.
@@ -176,3 +178,9 @@ python scripts/execute_phase3_notebook.py
 The source notebook is `notebooks/03_classical_models_analysis.ipynb`. Its saved Markdown includes the methodology, all 13 configurations' monthly/pooled holdout scores and selected parameters, so the main results are readable without executing cells. Its code reads persisted aggregates, fits nothing, and recreates the analysis figures. The execution helper displays all aggregate-table rows and complete parameter dictionaries and enables automatic figure layout. Executed notebook copies remain private. Rebuild its source with `python scripts/build_phase3_notebook.py`. See the [artifact guide](reports/phase3/README.md) for file locations, [Phase III methodology](docs/phase3_methodology.md) for selection, causal input policy, numerical probability normalization, uncertainty and resource limitations, and [validation](reports/phase3/PHASE3_VALIDATION.md) for completed and incomplete runs.
 
 The complete single-file exports requested for handoff are `data/features/exports/full_features.csv` and `full_features.parquet`: all samples, one ID column and exactly twenty feature columns. Labels and metadata remain separate. Export verification checks every column against the validated partitioned table, preserves Parquet dtypes, independently reads every Parquet batch with Arrow, and writes SHA-256 checksums.
+
+## Completed Phase III and Phase IV notebook results
+
+The [notebook index](notebooks/README.md) identifies the complete analysis handoff. [03 classical models](notebooks/03_classical_models_analysis.ipynb) covers Phase III and its CDF baseline amendment. [04 weather and MLP](notebooks/04_weather_mlp_analysis.ipynb) now includes both the original Phase IV study (14 final fits) and the completed source-input follow-up (24 final fits), with fixed/tuned settings, every seed/month, all three classes, development evidence and verification limits. Saved tables are visible without execution; code regenerates figures using public aggregates only.
+
+Run `python scripts/validate_analysis_notebooks.py` to verify both notebooks without private inputs. See [coverage evidence](reports/analysis_notebook_coverage.json), [Phase IV validation](reports/phase4/PHASE4_VALIDATION.md) and [source-input results](reports/mlp_source/results.md). No model fitting is needed to view or regenerate the analysis.

@@ -38,3 +38,5 @@ The analysis notebook includes a dedicated CSV readiness table and comparison ch
 ## Historical limitation and completed official study
 
 The diagnostic originally ran while Windows cloud error 389 blocked the separate full upstream gate. That storage problem was subsequently resolved using checksum-equivalent private working copies. The fresh Phase I/II audit passed all 19 checks on 6,461,609 rows. The official Phase III run has now completed all 380 scientific fits and independently verified frozen holdout results. See [final validation](PHASE3_VALIDATION.md). Diagnostic scores remain explicitly excluded from study results; original records, features, folds and holdout protocols are unchanged.
+
+The retained readiness diagnostic predates the CDF baseline amendment and retains its historical argmax baseline scores. It is separate from the current full-study CDF baseline comparison; no diagnostic result was relabeled as revised study performance.

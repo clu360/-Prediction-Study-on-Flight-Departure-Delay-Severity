@@ -110,9 +110,17 @@ def test_end_to_end_development_sentinels_frozen_final_resume_pooling_and_redact
         ).n_unique()
         == saved.height
     )
-    assert np.array_equal(
-        saved["y_pred"].to_numpy(), saved.select(PROB_COLUMNS).to_numpy().argmax(axis=1)
-    )
+    from flight_delay.models.baseline import sampled_classes
+
+    for name in saved["model"].unique():
+        part = saved.filter(pl.col("model") == name)
+        p = part.select(PROB_COLUMNS).to_numpy()
+        expected = (
+            sampled_classes(p, part["target_record_id"].to_numpy())
+            if name == "baseline"
+            else p.argmax(axis=1)
+        )
+        assert np.array_equal(part["y_pred"].to_numpy(), expected)
     runner.frozen_final(
         cfg, store.root / "development/selected_configs.json", True, gate=gate
     )

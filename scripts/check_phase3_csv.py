@@ -252,7 +252,15 @@ def run_models(cfg, sample, output, rows_per_month, verification):
                     feature_view=view,
                     params=params,
                     model_fit_id=fit_id,
-                    metrics=evaluate(test["target_class"].to_numpy(), p),
+                    metrics=evaluate(
+                        test["target_class"].to_numpy(),
+                        p,
+                        **(
+                            {"predicted": predictions["y_pred"].to_numpy()}
+                            if name == "baseline"
+                            else {}
+                        ),
+                    ),
                     unknown_categories=unknown,
                     warnings=messages,
                     preprocessing_seconds=preprocessing,

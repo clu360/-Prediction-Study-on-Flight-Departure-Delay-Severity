@@ -1,0 +1,231 @@
+{
+  "metrics_summary_sha256": "70a7866342e3db9f37b11ebae0291aa523ff7d5b1c52436223341e3c7293e50a",
+  "repetitions": [
+    {
+      "arm": "XGB-base",
+      "maximum_absolute_probability_difference": 0.0,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "2b5f7992b84d112380aeccd442d140a14cf4dc04437a18f3183780672cb1aca1"
+    },
+    {
+      "arm": "XGB-base",
+      "maximum_absolute_probability_difference": 0.0,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "2b5f7992b84d112380aeccd442d140a14cf4dc04437a18f3183780672cb1aca1"
+    },
+    {
+      "arm": "XGB-weather",
+      "maximum_absolute_probability_difference": 0.0,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "758cb98246c7c5883bd8075b4342eba7afd92bf82ad5f5f2de9f8e3d22a7ddd5"
+    },
+    {
+      "arm": "XGB-weather",
+      "maximum_absolute_probability_difference": 0.0,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "758cb98246c7c5883bd8075b4342eba7afd92bf82ad5f5f2de9f8e3d22a7ddd5"
+    },
+    {
+      "arm": "MLP-A",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "4cefe7fb7b330e8d16b0d957c8cd309cae822448e598572a90b7168336d73796"
+    },
+    {
+      "arm": "MLP-A",
+      "maximum_absolute_probability_difference": 1.1920928955078125e-07,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "4cefe7fb7b330e8d16b0d957c8cd309cae822448e598572a90b7168336d73796"
+    },
+    {
+      "arm": "MLP-A",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6741,
+      "signature": "5e904c912a3a9a2bbb56f8a58e5b1833708e699bb55dc0ac9fe989b2617853db"
+    },
+    {
+      "arm": "MLP-A",
+      "maximum_absolute_probability_difference": 1.1920928955078125e-07,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6741,
+      "signature": "5e904c912a3a9a2bbb56f8a58e5b1833708e699bb55dc0ac9fe989b2617853db"
+    },
+    {
+      "arm": "MLP-A",
+      "maximum_absolute_probability_difference": 2.9802322387695312e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6742,
+      "signature": "4cb8eb59f813579d02efdf75fce7f23c1a70abcab40f4fa026c61399f264404d"
+    },
+    {
+      "arm": "MLP-A",
+      "maximum_absolute_probability_difference": 2.9802322387695312e-08,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6742,
+      "signature": "4cb8eb59f813579d02efdf75fce7f23c1a70abcab40f4fa026c61399f264404d"
+    },
+    {
+      "arm": "MLP-B",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "5d539560b186629ee024cbe6da5e3e2578db24da0cac5e677c46411cf0f9d16e"
+    },
+    {
+      "arm": "MLP-B",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "5d539560b186629ee024cbe6da5e3e2578db24da0cac5e677c46411cf0f9d16e"
+    },
+    {
+      "arm": "MLP-B",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6741,
+      "signature": "361ee14801cef55dfc1999b51147cd4d190c4e200224fe923fd845aa7d0f7191"
+    },
+    {
+      "arm": "MLP-B",
+      "maximum_absolute_probability_difference": 2.9802322387695312e-08,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6741,
+      "signature": "361ee14801cef55dfc1999b51147cd4d190c4e200224fe923fd845aa7d0f7191"
+    },
+    {
+      "arm": "MLP-B",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6742,
+      "signature": "d94090c29c77d8a252828413c1e8707c2d39fbb550074654a5446d930b58b838"
+    },
+    {
+      "arm": "MLP-B",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6742,
+      "signature": "d94090c29c77d8a252828413c1e8707c2d39fbb550074654a5446d930b58b838"
+    },
+    {
+      "arm": "MLP-C",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "5c206e07ba6bb395ef21f0559a21da44546817427f908f1dbcd894d6b5126508"
+    },
+    {
+      "arm": "MLP-C",
+      "maximum_absolute_probability_difference": 1.1920928955078125e-07,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "5c206e07ba6bb395ef21f0559a21da44546817427f908f1dbcd894d6b5126508"
+    },
+    {
+      "arm": "MLP-C",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6741,
+      "signature": "5284021baa79669dce1c32879826f7bb650e3cf3d7cb58a948a2cbde60bf46b1"
+    },
+    {
+      "arm": "MLP-C",
+      "maximum_absolute_probability_difference": 1.1920928955078125e-07,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6741,
+      "signature": "5284021baa79669dce1c32879826f7bb650e3cf3d7cb58a948a2cbde60bf46b1"
+    },
+    {
+      "arm": "MLP-C",
+      "maximum_absolute_probability_difference": 2.2351741790771484e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6742,
+      "signature": "413b5e1d4853db9bbd4fa2461fa2da5f82b8e5f8ef085a86d548b74abcb15eee"
+    },
+    {
+      "arm": "MLP-C",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6742,
+      "signature": "413b5e1d4853db9bbd4fa2461fa2da5f82b8e5f8ef085a86d548b74abcb15eee"
+    },
+    {
+      "arm": "MLP-D",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "a3ba849080035414e1f78012ce78376698bcf29943ed31fb21fe703a109d50a7"
+    },
+    {
+      "arm": "MLP-D",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6740,
+      "signature": "a3ba849080035414e1f78012ce78376698bcf29943ed31fb21fe703a109d50a7"
+    },
+    {
+      "arm": "MLP-D",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6741,
+      "signature": "14332e1ad04f302f6c5387e31881e788b4633e11a32275b32ca66e6a3786be84"
+    },
+    {
+      "arm": "MLP-D",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6741,
+      "signature": "14332e1ad04f302f6c5387e31881e788b4633e11a32275b32ca66e6a3786be84"
+    },
+    {
+      "arm": "MLP-D",
+      "maximum_absolute_probability_difference": 1.1920928955078125e-07,
+      "month": 11,
+      "rows": 2048,
+      "seed": 6742,
+      "signature": "e13b86f77d9899046b5c2229484652e969102097e59701b5cf94dc1ac80564c8"
+    },
+    {
+      "arm": "MLP-D",
+      "maximum_absolute_probability_difference": 5.960464477539063e-08,
+      "month": 12,
+      "rows": 2048,
+      "seed": 6742,
+      "signature": "e13b86f77d9899046b5c2229484652e969102097e59701b5cf94dc1ac80564c8"
+    }
+  ],
+  "status": "passed",
+  "tolerance": 2e-06
+}

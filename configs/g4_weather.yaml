@@ -1,0 +1,10 @@
+start: '2024-12-30'
+end_exclusive: '2026-01-02'
+availability_lag_minutes: 10
+maximum_latest_age_minutes: 180
+features:
+  - g4_origin_worst_category_180m
+  - g4_origin_frozen_precip_180m
+  - g4_origin_thunderstorm_60m
+  - g4_origin_wind_max_kt
+  - g4_dest_worst_category_180m

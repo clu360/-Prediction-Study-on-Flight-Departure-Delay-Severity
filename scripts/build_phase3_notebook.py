@@ -5,6 +5,41 @@ import csv
 import json
 
 
+def saved_baseline_revision(revision):
+    if not revision:
+        return ""
+    summary = next(
+        row for row in revision["performance"] if row["period"] == "2025-11_12_pooled"
+    )
+    return (
+        "\n### Revised historical-probability CDF baseline\n\n"
+        "This is an explicitly **post-holdout, user-requested baseline revision**. "
+        "Only baseline classification/reporting changes; learned fits, predictions "
+        "and frozen hyperparameters are reused unchanged. Training proportions "
+        "remain unsmoothed and are frozen for both holdouts from August-October. "
+        "For each observation draw U uniformly on [0,1), then predict class 0 "
+        "if U<p0, class 1 if p0<=U<p0+p1, and class 2 otherwise. "
+        "The fixed seed is 6740. Domain-separated SHA-256 supplies 53 random "
+        "bits per stable ID so draws are invariant to row order, batching and "
+        "monthly versus pooled reporting. IDs address the pseudorandom stream "
+        "and carry no predictive signal. No seed was selected by performance.\n\n"
+        f"Pooled baseline accuracy is **{summary['accuracy']:.4f}**, macro-F1 "
+        f"**{summary['macro_f1']:.4f}**, severe precision "
+        f"**{100 * summary['severe_precision']:.2f}%**, and severe recall "
+        f"**{100 * summary['severe_recall']:.2f}%**. Log loss "
+        f"({summary['log_loss']:.4f}) and Brier ({summary['brier']:.4f}) "
+        "still evaluate historical probability vectors, not one-hot samples. "
+        "Reported predicted-class shares are sampled shares; actual probability "
+        "argmax shares remain separately retained. Original pre-holdout selection "
+        "evidence remains byte-identical. The baseline has no hyperparameters; "
+        "its updated development mean is a reporting revision, not a new selection. "
+        "Original argmax scores, report/code hashes and independent full-population "
+        "CDF verification are saved in [baseline_revision.json](../reports/phase3/baseline_revision.json) "
+        "and [baseline_revision_verification.json](../reports/phase3/baseline_revision_verification.json). "
+        "This is one fixed random realization; no seed search or IID uncertainty claim is made.\n"
+    )
+
+
 def saved_class_tables(reports, run_id):
     """Render persisted per-class metrics without changing executable analysis."""
     path = reports / "metric_details.json"
@@ -112,6 +147,13 @@ def saved_result_tables(root):
         "the same reports; no model is retrained. Scores are rounded to four "
         "decimal places here; CSV/JSON reports retain full exported precision.\n"
     ]
+    revision_path = reports / "baseline_revision.json"
+    revision = (
+        json.loads(revision_path.read_text(encoding="utf-8"))
+        if revision_path.exists()
+        else {}
+    )
+    sections.append(saved_baseline_revision(revision))
     for period, label in [
         ("2025-11_12_pooled", "Pooled November and December"),
         ("2025-11", "November"),
@@ -155,6 +197,8 @@ def saved_result_tables(root):
         selected["selected"].values(),
         key=lambda row: (row["model"], row["feature_view"]),
     ):
+        if choice["model"] == "baseline" and revision:
+            choice = dict(choice, **revision["development_summary"])
         sections.append(
             f"| {choice['model']} | {choice['feature_view']} | "
             f"{choice['mean_macro_f1']:.4f} | {choice['macro_f1_std']:.4f} | "
@@ -221,6 +265,8 @@ def build():
 This notebook reads persisted **aggregate** reports only. It does not fit models,
 tune hyperparameters, construct features, or access flight-level records.
 
+This notebook covers Phase III, including the CDF baseline revision. The completed weather/MLP study and both fixed/tuned source-input MLP follow-ups are collected in [04_weather_mlp_analysis.ipynb](04_weather_mlp_analysis.ipynb), with all model/seed/month results and their separate development-selection evidence.
+
 Development: seven rolling three-month train / next-month validation folds,
 April–October 2025. Screen on April/July/October, then compare at most two
 finalists on all seven months using equal-month macro-F1 and declared tie breakers.
@@ -232,7 +278,7 @@ update from earlier observed test-month departures; learned state never updates.
 Pooled metrics are recomputed from all held-out predictions. Classes: 0 minimal
 (<15 min), 1 moderate (15–<60), 2 severe (>=60).
 
-Recreate the panels from the committed aggregates with `python scripts/execute_phase3_notebook.py --check-name official_phase3_final`. Rebuilding aggregates requires the original private checkpoints: run `phase3-report --config configs/phase3_pace.yaml`, then `python scripts/summarize_phase3_execution.py --config configs/phase3_pace.yaml`. Rebuild this source with `python scripts/build_phase3_notebook.py`. Install the `notebook` extra. Missing experiments are marked unavailable. Synthetic smoke scores remain private and do not enter the study.
+Recreate the panels from the committed aggregates with `python scripts/execute_phase3_notebook.py --check-name official_phase3_cdf_baseline`. Rebuilding the current amended comparison requires the original private checkpoints: run `python scripts/revise_phase3_baseline.py --config configs/phase3_pace.yaml --source-run phase3-709172c896241ac3a355 --apply`, then rebuild this source. Original scientific verification remains historical; the baseline revision has separate replay evidence. Rebuild this source with `python scripts/build_phase3_notebook.py`. Install the `notebook` extra. Missing experiments are marked unavailable. Synthetic smoke scores remain private and do not enter the study.
 
 ## Methodology
 
@@ -263,21 +309,21 @@ The four views are G1 (9 columns), G1_G2 (14), G1_G3 (15), and G1_G2_G3 (20). Hi
 
 There is no random train/test split. Every window fits numeric medians/scaling and categorical vocabularies on its training rows only, then freezes them. Unknown categories map to all-zero one-hot blocks; the following month's month category is necessarily unseen. Matrices are sparse CSR float32. IDs and labels are checked one-to-one, and all compared models score identical populations.
 
-The models are the class-prior baseline, L2 logistic regression with SAGA, bootstrap random forest, and CPU-histogram XGBoost 3.1.2 with three-class soft probabilities. Logistic/forest/XGBoost grids contain 6/8/8 candidates per view. The three screening months require 264 learned fits plus seven baseline fits; two finalists per family/view add 96 fits across the remaining four months. Selected backtests reuse verified candidate predictions. Thus development has 367 fits; the 13 fresh final fits bring the scientific total to 380. Four additional independent seeded family repeats are verification only.
+The models are the historical-prior CDF-sampled baseline, L2 logistic regression with SAGA, bootstrap random forest, and CPU-histogram XGBoost 3.1.2 with three-class soft probabilities. Logistic/forest/XGBoost grids contain 6/8/8 candidates per view. The three screening months require 264 learned fits plus seven baseline fits; two finalists per family/view add 96 fits across the remaining four months. Selected backtests reuse verified candidate predictions. Thus development has 367 fits; the 13 fresh final fits bring the scientific total to 380. Four additional independent seeded family repeats are verification only.
 
 Rank candidates by equal-month mean macro-F1. Within the declared 1e-6 tolerance, use lower mean log loss, lower population standard deviation of monthly macro-F1, lower median fit time, then lexical parameter JSON. Finalists use all seven development months. Freeze the 13 configurations and selection checksum before accessing either holdout. August-October is the only final training population; December does not refit on September-November. Earlier observed holdout outcomes may enter causal G3 inputs, but never update weights, preprocessing, thresholds or calibration.
 
 ### Evaluation and independent checks
 
-Probabilities are ordered [minimal, moderate, severe], finite, within [0,1], and sum to one within 1e-6 before numerical normalization of roundoff. Predictions use argmax. Metrics include accuracy, macro/weighted F1, per-class precision/recall/F1, log loss, multiclass Brier (mean summed squared error over three classes), one-vs-rest AUC, confusion matrices and ten equal-width reliability bins with counts. Undefined AUC is explicitly null. Pooled metrics use concatenated held-out predictions. ATL, DFW, DEN, ORD and LAX are target-origin evaluation slices of network-wide training.
+Probabilities are ordered [minimal, moderate, severe], finite, within [0,1], and sum to one within 1e-6 before numerical normalization of roundoff. Learned models use argmax; the baseline uses a fixed-seed uniform draw against the historical class-prior CDF. Baseline precision/recall/F1 use sampled classes; log loss, Brier and calibration retain the historical probability vector. Pooled results reuse monthly predictions without resampling. Metrics include accuracy, macro/weighted F1, per-class precision/recall/F1, log loss, multiclass Brier (mean summed squared error over three classes), one-vs-rest AUC, confusion matrices and ten equal-width reliability bins with counts. Undefined AUC is explicitly null. Pooled metrics use concatenated held-out predictions. ATL, DFW, DEN, ORD and LAX are target-origin evaluation slices of network-wide training.
 
 Verification rereads every stored prediction, checks original IDs/labels, class order/simplex/argmax and consolidated-file equality, then recomputes monthly, pooled and airport metrics. Each saved model/transformer is reloaded for a deterministic 1,024-row replay per month; state hashes must stay unchanged. The release suite passed 112 tests on Linux (111 plus one symlink-privilege skip on Windows). Four independent PACE family repeats matched within 1e-7; this does not establish that all 380 fits were repeated. The separate Windows/PACE diagnostic records XGBoost numerical differences explicitly. See [the acceptance checklist](../reports/phase3/METHODOLOGY_CHECKS.md) for all 14 requirements and [validation](../reports/phase3/PHASE3_VALIDATION.md) for limitations and recovery history.
 
 ## Interpretation of the verified classical-model study
 
-These findings describe run `phase3-709172c896241ac3a355`. All 13 configurations were frozen using April-October development scores before final evaluation. The 367 development fits and 13 fresh August-October fits completed; each final model and transformer stayed identical for November and December. Independent checks covered all 13,676,312 saved final prediction rows and replayed 26,624 rows from reloaded models. These holdout comparisons describe the prespecified models and do not change the selected configurations or decision rule.
+These findings describe run `phase3-709172c896241ac3a355`. The original 13 configurations were frozen using April-October development scores before final evaluation. The user subsequently requested CDF-sampled baseline classification; this amendment does not alter any learned-model choice or prediction. The 367 development fits and 13 fresh August-October fits completed; each final model and transformer stayed identical for November and December. Independent checks covered all 13,676,312 saved final prediction rows and replayed 26,624 rows from reloaded models. These holdout comparisons describe the prespecified models and do not change the selected configurations or decision rule.
 
-The two-month population contains **1,052,024 flights**: 519,971 in November and 532,053 in December. Minimal, moderate and severe supports are 830,013, 154,436 and 67,575. The prior baseline attains 78.9% accuracy but macro-F1 0.2940 and zero severe recall. The G1 and G1_G3 forests also predict the minimal class for every held-out row under argmax, illustrating why accuracy alone is insufficient.
+The two-month population contains **1,052,024 flights**: 519,971 in November and 532,053 in December. Minimal, moderate and severe supports are 830,013, 154,436 and 67,575. The revised CDF-sampled baseline performance is reported below; its prediction policy is an explicitly post-holdout reporting amendment. The G1 and G1_G3 forests also predict the minimal class for every held-out row under argmax, illustrating why accuracy alone is insufficient.
 
 XGBoost with incoming-aircraft information produces the largest observed pooled macro-F1 among the prespecified configurations. The complete 13-model/view tables and three separate evaluation periods remain below.
 
@@ -331,9 +377,9 @@ display(Markdown('**Run status:** ' + manifest['completion_status']))
 if not metrics.height:
     display(Markdown('Official full-study model scores are unavailable. CSV readiness diagnostics, if present, are shown separately below.'))
 """)
-    md("""## Completed CSV readiness diagnostic — not official study results
+    md("""## Historical CSV readiness diagnostic — not official study results
 
-This fixed chronological subset checks whether the real CSVs can train models and
+This diagnostic predates the CDF baseline amendment and retains its historical argmax baseline. This fixed chronological subset checks whether the real CSVs can train models and
 produce valid outputs. It uses the earliest 2,000 targets per month: 6,000
 January–March training rows and 2,000 April scoring rows. Model settings are the
 first predeclared candidates, not development-tuned selections. These scores do
@@ -369,6 +415,13 @@ else:
     code("""choices = [dict(model=x['model'], view=x['feature_view'], parameters=json.dumps(x['params'], sort_keys=True),
                 mean_macro_f1=x['mean_macro_f1'], month_std=x['macro_f1_std'],
                 mean_log_loss=x['mean_log_loss']) for x in selected.get('selected', {}).values()]
+baseline_revision = load_json('baseline_revision.json', {})
+if baseline_revision:
+    for choice in choices:
+        if choice['model'] == 'baseline':
+            summary = baseline_revision['development_summary']
+            choice.update(mean_macro_f1=summary['mean_macro_f1'], month_std=summary['macro_f1_std'], mean_log_loss=summary['mean_log_loss'])
+    display(Markdown('**Baseline reporting revision:** CDF sampling after holdout review; learned configurations and original selection evidence unchanged.'))
 display(pl.DataFrame(choices)) if choices else display(Markdown('Parameter selection unavailable.'))
 candidate_scores = load_json('candidate_scores.json', [])
 if candidate_scores:
@@ -438,8 +491,8 @@ for r in holdout_details:
     axes[1].plot([0,1],[0,1],'k--'); axes[1].legend(title='Class')
     axes[1].set(xlabel='Mean predicted probability',ylabel='Observed rate',title='Reliability (counts in report)')
     x=np.arange(3)
-    for offset,key,label in [(-.25,'observed_proportions','Observed'),(0,'mean_probabilities','Mean probability'),(.25,'argmax_proportions','Argmax share')]:
-        axes[2].bar(x+offset,m[key],width=.25,label=label)
+    for offset,key,label in [(-.25,'observed_proportions','Observed'),(0,'mean_probabilities','Mean probability'),(.25,'predicted_proportions','Predicted share')]:
+        axes[2].bar(x+offset,m.get(key,m['argmax_proportions']),width=.25,label=label)
     axes[2].set(xticks=x,title='Class distributions'); axes[2].legend(fontsize=8)
     fig.suptitle(r['model']+'/'+r['feature_view']+' '+r['scored_month']+' frozen holdout'); plt.show(); plt.close(fig)
 if not holdout_details:
@@ -455,7 +508,7 @@ for r in holdout_details:
             n=m['n'],macro_f1=m['macro_f1'],severe_recall=m['severe_recall'],log_loss=m['log_loss'],
             observed_minimal=m['observed_proportions'][0],observed_moderate=m['observed_proportions'][1],observed_severe=m['observed_proportions'][2],
             mean_p_minimal=m['mean_probabilities'][0],mean_p_moderate=m['mean_probabilities'][1],mean_p_severe=m['mean_probabilities'][2],
-            argmax_severe_share=m['argmax_proportions'][2]))
+            predicted_severe_share=m.get('predicted_proportions',m['argmax_proportions'])[2]))
 display(pl.DataFrame(airport_rows)) if airport_rows else display(Markdown('Airport comparisons unavailable.'))
 """)
     md(
@@ -522,8 +575,8 @@ if cross_platform and cross_platform.get('corrected_run') == manifest.get('run_i
         / "notebooks/03_classical_models_analysis.ipynb"
     )
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(
-        json.dumps(notebook, indent=1, sort_keys=True) + "\n", encoding="utf-8"
+    path.write_bytes(
+        (json.dumps(notebook, indent=1, sort_keys=True) + "\n").encode("utf-8")
     )
 
 

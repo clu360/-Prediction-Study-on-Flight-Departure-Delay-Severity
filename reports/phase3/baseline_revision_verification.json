@@ -1,0 +1,17 @@
+{
+  "baseline_provenance_hash": "a902dd540593d103c4e7b9c9df9029fbfe1b681e7e43a053dfe591174fcc32b5",
+  "holdout_prediction_rows": 1052024,
+  "independent_full_population_cdf_replay": true,
+  "input_files_rehashed": 8530,
+  "input_subset_digest": "748d082d8c8a47ab1fee95b7996ae97d9531e82a4e9dcae96091e7deb4bae713",
+  "learned_model_metric_records_unchanged": 120,
+  "original_result_verification_scope": "Original argmax study; revised baseline classes verified separately here",
+  "original_run_id": "phase3-709172c896241ac3a355",
+  "passed": true,
+  "periods_verified": 9,
+  "pooled_predictions_reused_without_resampling": true,
+  "prediction_rows": 4953458,
+  "probabilities_match_original_training_priors": true,
+  "report_revision_id": "baseline-cdf-d16c277eb09b46119ffa",
+  "selected_configuration_bytes_unchanged": true
+}

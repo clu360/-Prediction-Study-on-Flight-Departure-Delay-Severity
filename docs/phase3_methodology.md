@@ -22,14 +22,14 @@ IDs and labels are joined one-to-one. Manifest IDs are checked against exact fea
 
 ## Models and probability semantics
 
-- Baseline: unsmoothed training-class proportions, independent of predictors.
+- Baseline: unsmoothed training-class proportions, independent of predictors, with one seeded Uniform[0,1) inverse-CDF class draw per observation. Probability metrics retain the historical probability vector; classification metrics use the sampled class.
 - Logistic regression: sparse SAGA, L2; C and class weighting are explicit candidates. Convergence warnings are retained.
 - Random forest: bounded depth/leaves/tree counts, bootstrap and sqrt feature sampling, at most four threads.
 - XGBoost: pinned 3.1.2, CPU histogram, `multi:softprob`, three classes and multiclass log loss. No early stopping against a scored month.
 
 Factories reject unknown parameters and return unfitted estimators. Probability columns are explicitly mapped using classes_, never implicit numeric position. Missing-class baselines remain three-dimensional; logistic/forest probabilities for absent classes are zero. Learned fits with fewer than two classes and XGBoost fits without all three classes fail explicitly instead of fabricating observations. A real eligible training population is never supplemented or silently downsampled.
 
-Probabilities must be finite, in [0,1], shape N×3 and sum to one within 1e-6. Only after that check, tiny float32 summation error is normalized numerically; this is not fitted calibration. The predicted class is argmax over the ordered vector.
+Probabilities must be finite, in [0,1], shape N×3 and sum to one within 1e-6. Only after that check, tiny float32 summation error is normalized numerically; this is not fitted calibration. Learned-model predicted classes are argmax over the ordered vector. The baseline instead predicts class 0 for U<p0, class 1 for p0<=U<p0+p1, and class 2 for U>=p0+p1, using its training-period class probabilities and a fixed seed of 6740. Domain-separated SHA-256 of the seed and stable observation ID supplies an exactly representable 53-bit uniform fraction in [0,1). IDs only address random draws; they are not predictive features. Draws do not depend on labels and are invariant to row ordering, batching, resumption and monthly versus pooled reporting. Zero-mass intervals are skipped. No seed was chosen by performance.
 
 ## Selection artifacts, evaluation and interpretation
 
@@ -63,10 +63,46 @@ Unavailable master-event storage was recovered with the unchanged normalization 
 
 ## Notebook
 
-`notebooks/03_classical_models_analysis.ipynb` reads aggregate CSV/JSON files only. It contains parameter-selection tables, development trends, frozen monthly/pooled comparisons, ablations, separate November/December/pooled confusion/calibration/distribution panels, airport slices, source/group importances and compute/limitation summaries. Confusion matrices show ordered class labels and counts. Airport tables distinguish empirical severe frequency, mean severe probability and argmax severe share. Independent result-verification and repeated-prediction evidence are displayed separately from performance scores. Missing real results are marked unavailable. `scripts/execute_phase3_notebook.py` verifies execution in a minimal checkout containing only aggregate reports; executed outputs remain private. Its optional `--reports-dir` and `--check-name` arguments support isolated rendering checks with retained synthetic aggregates. These checks never write synthetic performance to public reports. The committed notebook contains no saved outputs or estimator fitting.
+`notebooks/03_classical_models_analysis.ipynb` reads aggregate CSV/JSON files only. It contains parameter-selection tables, development trends, frozen monthly/pooled comparisons, ablations, separate November/December/pooled confusion/calibration/distribution panels, airport slices, source/group importances and compute/limitation summaries. Confusion matrices show ordered class labels and counts. Airport tables distinguish empirical severe frequency, mean severe probability and predicted severe share (CDF-sampled for baseline, argmax for learned models). Independent result-verification and repeated-prediction evidence are displayed separately from performance scores. Missing real results are marked unavailable. `scripts/execute_phase3_notebook.py` verifies execution in a minimal checkout containing only aggregate reports; executed outputs remain private. Its optional `--reports-dir` and `--check-name` arguments support isolated rendering checks with retained synthetic aggregates. These checks never write synthetic performance to public reports. The committed notebook contains no saved outputs or estimator fitting.
 
 After independently verifying final results and exporting aggregates, run `python scripts/summarize_phase3_execution.py --config configs/phase3.yaml` (or the PACE configuration). This read-only analysis verifies stored fit records/artifacts and the selected configuration digest, then exports `execution_summary.json` and augments the experiment manifest with all-fit warning summaries, unique fit counts/times, input-schema hashes and learned preprocessing/model hashes. Development selected backtests and the two holdout months do not count as additional fits. Shared preprocessing times and repeated monthly fit resources are not summed; measured fit seconds are distinguished from scheduler CPU billing and elapsed time. The notebook displays warnings for unselected candidates as well as chosen/final fits. Re-run this exporter after `phase3-report`, which regenerates the base manifest. Both end-to-end launchers run it before notebook execution.
 
 Seeded full-population repeat verification runs before final scoring using `scripts/repeat_phase3_seeded.py`. It independently fits one baseline, logistic model, forest and XGBoost model on January-March and compares all April/G1 prediction vectors at atol=1e-7, rtol=0. The first declared parameters are used, with an optional declared-grid XGBoost config ID to repeat an already diagnosed case. Separate signed stores keep these four additional verification fits out of the 380 scientific fits and all selection evidence. Actual reference parameters, IDs, input digest and versions must match; completed independent repeats can resume without further fitting.
 
 Cross-platform comparisons are distinct from within-environment seeded repeats. An early Windows/Linux XGBoost probe exceeded 1e-7 despite matching input, preprocessing, parameter and package-version evidence: maximum probability difference 0.17829, mean absolute difference 0.004817, and 21 changed argmax labels among 547,836 April records. These differences are recorded without changing the tolerance or official candidates. `check_phase3_reproducibility.py --diagnose-differences` reports all cross-platform numerical failures to `cross_platform_reproducibility.json`; metadata, ordered-ID and label mismatches remain hard errors. The official study uses PACE consistently and does not claim Windows/Linux bitwise equivalence. The strict same-platform repeat must pass before holdouts open.
+
+## Baseline CDF reporting amendment
+
+The CDF classification rule is a user-requested revision made after the original holdout results were reviewed. It replaces the original majority/argmax classification baseline in the current comparison reports; it is not presented as a preregistered choice. The original signed study, prior estimates, selection locks and learned predictions remain unchanged. Each development fold still uses only its three training months. The final priors still come only from August-October and remain identical for November and December. There is no refitting on November, no retuning and no search over random seeds.
+
+Classification precision, recall, F1 and accuracy use the sampled class. Log loss, Brier, AUC and reliability bins use the original prior vector, not a one-hot vector for the sampled label. `argmax_proportions` keeps its literal probability-argmax meaning; revised baseline metrics additionally contain `predicted_proportions`, and the notebook displays the latter. Airport slices and pooled metrics reuse the saved sampled classes without resampling. A single fixed random realization is reported, with no IID interval or seed-optimized claim.
+
+Reproduce the current baseline-only overlay with:
+
+```sh
+python scripts/revise_phase3_baseline.py --config configs/phase3_pace.yaml --source-run phase3-709172c896241ac3a355 --apply
+python scripts/build_phase3_notebook.py
+python scripts/execute_phase3_notebook.py --check-name official_phase3_cdf_baseline
+```
+
+The revision script reads the original signed checkpoints, rehashes the original target/fold/origin-metadata inputs, recomputes training-only priors and checks all saved IDs and labels. Every revised class is replayed with an independent scalar CDF implementation, every saved revised prediction file is reread, and confusion matrices and monthly/pooled/airport metrics are recomputed. Original reports are snapshotted privately under ignored `data/model_outputs/phase3_pace/baseline_revisions/`. Current CSV/detail/candidate summaries replace baseline rows only; all 120 learned-model metric records and frozen selection bytes remain identical. `selected_configs.json` retains original pre-holdout evidence; updated baseline development summary statistics come from `baseline_revision.json` for display only.
+
+`experiment_manifest.json` retains original scientific `source_code_hashes` and `analysis_code_hash` as historical provenance and separately records `report_source_code_hashes`, `report_analysis_code_hash` and the baseline revision identity. `result_verification.json` and the strict PACE repeat describe the original saved study; `baseline_revision_verification.json` independently verifies the new sampled classes. Never overwrite the original result store or claim its original argmax verification alone validates the amendment. Re-running the original `phase3-report` would restore original baseline scores; the amendment script must then reapply the CDF overlay.
+
+### Measured CDF baseline performance
+
+| Holdout period | Flights | Accuracy (%) | Macro-F1 | Severe precision (%) | Severe recall (%) |
+|---|---:|---:|---:|---:|---:|
+| 2025-11 | 519,971 | 69.46 | 0.3341 | 5.89 | 5.08 |
+| 2025-12 | 532,053 | 64.98 | 0.3314 | 7.31 | 4.91 |
+| 2025-11_12_pooled | 1,052,024 | 67.20 | 0.3332 | 6.61 | 4.99 |
+
+Final training contains 1,663,534 August-October flights. The frozen priors and CDF are:
+
+| Class | Historical probability | Cumulative probability |
+|---|---:|---:|
+| Minimal (<15 minutes) | 0.82404447 | 0.82404447 |
+| Moderate (15 to <60 minutes) | 0.12758862 | 0.95163309 |
+| Severe (>=60 minutes) | 0.04836691 | 1.00000000 |
+
+Independent verification covered all **4,953,458** unique scored baseline rows over nine development/holdout months, including all **1,052,024** held-out flights. It rehashed 8,530 original target/fold/metadata files. All 120 learned-model aggregate records and the frozen selection file remain unchanged. Pooled log loss remains 0.649499 and Brier remains 0.353705, since historical probability forecasts are unchanged.

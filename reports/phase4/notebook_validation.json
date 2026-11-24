@@ -1,0 +1,14 @@
+{
+  "contains_private_input_tree": false,
+  "cross_phase_notebook_coverage": "reports/analysis_notebook_coverage.json",
+  "executed_code_cells": 4,
+  "executed_notebook_sha256": "d50f5f7ec8e1d989c6239ee90f7b48da3fd4d12d9ca3370a297b08ea39167da1",
+  "historical_source_commit": "f7d52708b91edf3e1d347a986d268d2d72d542c7",
+  "includes_source_input_followup": true,
+  "input_notebook_sha256": "665227d5af62f58b7e26b0ef00699931efc38d15da44a72e5eda0c1cfaa012c9",
+  "metrics_summary_sha256": "70a7866342e3db9f37b11ebae0291aa523ff7d5b1c52436223341e3c7293e50a",
+  "rendered_figures": 4,
+  "source_manifest_sha256": "2bb406654d8ce8b03c870bdf5637d0a8e7dcbc0c10a812ebe34988f6b257838f",
+  "status": "passed",
+  "tracebacks": 0
+}

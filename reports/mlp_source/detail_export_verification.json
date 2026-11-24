@@ -1,0 +1,13 @@
+{
+  "class_metric_records": 216,
+  "completed_fits": 24,
+  "details_sha256": "eee618d13bed0f17c9340e441af162ab66f827196ed0d10060539cc95a607181",
+  "elapsed_seconds": 127.4539999999106,
+  "metric_records": 72,
+  "original_headline_metrics_unchanged": true,
+  "prediction_rows_verified": 25248576,
+  "scope": "Read-only export from signed frozen predictions; no refits",
+  "source_manifest_sha256": "9fe91bd105dde9d1783b29ad251672cebeb7d8e757001af68baabd319bc87b29",
+  "source_per_seed_metrics_sha256": "1c366fda00a608eef3c8fb92c98fd658df9667176f407a8d30f36dad8dde31e2",
+  "status": "passed"
+}

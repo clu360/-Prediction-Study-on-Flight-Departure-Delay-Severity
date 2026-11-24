@@ -1,6 +1,6 @@
 # Project guardrails
 
-Phase II feature engineering is authorized by docs/phase2_specification.md. Phase III classical classifiers, development tuning and frozen holdout evaluation are authorized by docs/phase3_specification.md. Do not implement MLP training or the final project report.
+Phase II feature engineering is authorized by docs/phase2_specification.md. Phase III classical classifiers, development tuning and frozen holdout evaluation are authorized by docs/phase3_specification.md. Phase IV authorizes the specified five causal METAR predictors, fixed-parameter XGBoost comparison, and four MLP arms with the existing frozen November/December holdout. This authorization supersedes earlier prohibitions on Phase IV experiments only. Do not implement the final project report or presentation.
 Read docs/phase1_specification.md and preserve its research protocol.
 Never commit source or processed flight records, local paths, secrets, or checkpoints.
 Keep all input bytes unchanged. Use explicit predictor allowlists in future phases.
@@ -18,3 +18,5 @@ Phase III selects hyperparameters using April–October only. Screen on April/Ju
 The primary final model and transformer fit once on August–October and remain identical for November and December. This supersedes the earlier permission to refit for December; never use the December rolling fold for the primary holdout.
 Never fit, tune, calibrate or select using November/December rows or labels. Earlier observed outcomes may enter causal precomputed G3 inputs without updating learned state.
 Private fitted models, prediction rows and experiment checkpoints stay under ignored data/model_outputs. Public Phase III artifacts contain aggregates only.
+
+The user has amended the Phase III baseline classification rule to seeded historical-prior CDF sampling. Learned models retain argmax. Keep baseline probability scores based on historical proportions, retain original study/selection evidence, and label the baseline-only reporting overlay as post-holdout; do not retrain or reselect learned models for that overlay.

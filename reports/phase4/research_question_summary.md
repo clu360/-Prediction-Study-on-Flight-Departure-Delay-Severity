@@ -1,0 +1,16 @@
+# Phase IV research-question evidence
+
+All Phase IV comparisons use frozen August–October fits on the same 1,052,024 November–December 2025 targets per seed. MLP values are means of three seed-level results computed from pooled predictions for each seed. Weather and weighting comparisons are exploratory because November and December had already been examined.
+
+| Question | Evidence |
+| --- | --- |
+| RQ1. Which previous feature group contributes more? | In Phase III's pooled XGBoost results, macro-F1 was 0.297514 for G1, 0.647471 for G1+G2 and 0.297954 for G1+G3. The G1+G2 macro-F1 remains the strongest original Phase III result. |
+| RQ2. How does the MLP compare with classical ML? | On the same 20 source features, MLP-A macro-F1 was 0.621756 versus 0.647112 for the original Phase III G1–G3 XGBoost and 0.646663 for the same-workstation refit. Against that refit, MLP-A had higher severe recall (43.04% versus 38.08%) and lower severe precision (65.61% versus 87.74%). |
+| RQ3. How much do weather and weighting change performance? | G4 raised paired XGBoost macro-F1 by 0.001544 and lowered log loss by 0.002739. For standard MLP loss, G4 reduced macro-F1 by 0.013016 and severe average precision by 0.020985. With weighted loss, the G4 macro-F1 difference was −0.000153 and the severe average-precision difference was −0.024273. With G1–G3, weighting raised severe recall by 18.31 percentage points and reduced severe precision by 39.85 points. The macro-F1 interaction was +0.012862. |
+| RQ4. Does performance vary by airport or prediction lead time? | At ATL, DFW, DEN, ORD and LAX, G4 increased XGBoost macro-F1 by 0.000840 to 0.002222. In the adverse-weather stratum the increase was 0.005134, compared with a decrease of 0.002236 in the benign stratum. XGB-weather severe recall was 70.29% at lead times up to 120 minutes, 20.69% at 120–360 minutes, and 0.61% above 360 minutes. |
+| RQ5. How do models handle severe delays after on-time incoming departures? | Among flights with incoming departure delay below 15 minutes, pooled severe recall was about 0.0014% for MLP-A, 21.95% for MLP-B, 0% for MLP-C, 24.20% for MLP-D, 2.21% for XGB-base and 2.35% for XGB-weather. The subgroup rows include precision and counts for interpreting these recalls. |
+| RQ6. How do predicted and observed distributions compare? | Severe prevalence was 6.42% pooled. MLP-A assigned a mean severe probability of 8.26% and classified 4.22% of flights as severe by argmax. MLP-B assigned 29.43% mean severe probability and classified 15.42% as severe. These two measures capture different behavior. The time-shift evidence covers two months within 2025. |
+
+The reported deltas describe predictive performance under the fixed study protocol. Weather availability uses an approximate 10-minute reporting lag. The fixed one-epoch MLP fit supports matched comparisons across all four arms. Additional tuning could yield different results. The data represent correlated flights, so the reports give sample counts and variation across seeds.
+
+[Phase III metrics](../phase3/metrics_summary.csv) · [Phase IV per-seed scores](metrics_summary.csv) · [Seed means and variation](seed_summary.csv) · [Factorial contrasts](factorial_contrasts.csv) · [Metric details and reliability curves](metric_details.json)

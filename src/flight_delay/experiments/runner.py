@@ -12,6 +12,7 @@ import time
 import warnings
 import joblib
 from ..models.state import state_hash
+from ..models.baseline import CDF_RULE, sampled_classes
 import numpy as np
 import polars as pl
 import psutil
@@ -216,6 +217,11 @@ def evaluate_development(
         )
     )
     p, inference = predict_frozen(estimator, transformer, bundle.X_test)
+    classification = (
+        {"predicted": sampled_classes(p, bundle.test_ids, cfg["seed"])}
+        if model == "baseline"
+        else {}
+    )
     record = dict(
         run_id=store.run_id,
         model=model,
@@ -231,9 +237,10 @@ def evaluate_development(
         probability_hash=probabilities_hash(p),
         transformer_hash=state_hash(transformer),
         model_hash=state_hash(estimator),
-        metrics=evaluate(bundle.y_test, p),
+        prediction_rule=CDF_RULE if model == "baseline" else "argmax",
+        metrics=evaluate(bundle.y_test, p, **classification),
         airport_metrics=airport_metrics(
-            bundle.y_test, p, origins, cfg["evaluation_airports"]
+            bundle.y_test, p, origins, cfg["evaluation_airports"], **classification
         ),
         warnings=messages,
         resources=dict(
@@ -268,6 +275,7 @@ def evaluate_development(
                 bundle.y_test,
                 p,
                 fit_id,
+                **classification,
             ),
         )
         return record, path
@@ -329,6 +337,7 @@ def baseline_development(cfg, store, fold, budget, save_predictions=False):
         )
     )
     ids, y = b["target_record_id"].to_numpy(), b["target_class"].to_numpy()
+    predicted = sampled_classes(p, ids, cfg["seed"])
     record = dict(
         run_id=store.run_id,
         model="baseline",
@@ -342,9 +351,14 @@ def baseline_development(cfg, store, fold, budget, save_predictions=False):
         train_ids_hash=ids_hash(a["target_record_id"].to_list()),
         test_ids_hash=ids_hash(ids),
         probability_hash=probabilities_hash(p),
-        metrics=evaluate(y, p),
+        prediction_rule=CDF_RULE,
+        metrics=evaluate(y, p, predicted=predicted),
         airport_metrics=airport_metrics(
-            y, p, origins_for(cfg, ids, int(fold[-2:])), cfg["evaluation_airports"]
+            y,
+            p,
+            origins_for(cfg, ids, int(fold[-2:])),
+            cfg["evaluation_airports"],
+            predicted=predicted,
         ),
         resources=dict(
             fit_seconds=seconds,
@@ -373,6 +387,7 @@ def baseline_development(cfg, store, fold, budget, save_predictions=False):
                 y,
                 p,
                 fit_id,
+                predicted=predicted,
             ),
         )
         return record, path
@@ -836,6 +851,11 @@ def frozen_final(cfg, selected_path, resume=False, *, gate=None):
                         or state_hash(transformer) != fitted["transformer_hash"]
                     ):
                         raise ValueError("Final fit checksum changed between months")
+                    classification = (
+                        {"predicted": sampled_classes(p, ids, cfg["seed"])}
+                        if name == "baseline"
+                        else {}
+                    )
                     record = dict(
                         run_id=store.run_id,
                         model=name,
@@ -849,12 +869,14 @@ def frozen_final(cfg, selected_path, resume=False, *, gate=None):
                         test_ids_hash=ids_hash(ids),
                         model_hash=state_hash(estimator),
                         transformer_hash=state_hash(transformer),
-                        metrics=evaluate(y, p),
+                        prediction_rule=CDF_RULE if name == "baseline" else "argmax",
+                        metrics=evaluate(y, p, **classification),
                         airport_metrics=airport_metrics(
                             y,
                             p,
                             origins_for(cfg, ids, month),
                             cfg["evaluation_airports"],
+                            **classification,
                         ),
                         warnings=fitted["warnings"],
                         transform=transform_diagnostics(transformer, unknown, len(y))
@@ -879,6 +901,7 @@ def frozen_final(cfg, selected_path, resume=False, *, gate=None):
                             y,
                             p,
                             fitted["model_fit_id"],
+                            **classification,
                         ),
                     )
                     store.save(record_key, record, [path])
@@ -920,13 +943,24 @@ def frozen_final(cfg, selected_path, resume=False, *, gate=None):
                 month_records[0][0],
                 scored_month="2025-11_12_pooled",
                 metrics=evaluate(
-                    pooled["y_true"].to_numpy(), pooled.select(PROB_COLUMNS).to_numpy()
+                    pooled["y_true"].to_numpy(),
+                    pooled.select(PROB_COLUMNS).to_numpy(),
+                    **(
+                        {"predicted": pooled["y_pred"].to_numpy()}
+                        if name == "baseline"
+                        else {}
+                    ),
                 ),
                 airport_metrics=airport_metrics(
                     pooled["y_true"].to_numpy(),
                     pooled.select(PROB_COLUMNS).to_numpy(),
                     origins,
                     cfg["evaluation_airports"],
+                    **(
+                        {"predicted": pooled["y_pred"].to_numpy()}
+                        if name == "baseline"
+                        else {}
+                    ),
                 ),
             )
             r["test_ids_hash"] = ids_hash(pooled["target_record_id"].to_list())
@@ -1052,6 +1086,7 @@ def report(cfg, store=None, status=None, error=None):
         final_training_months=[8, 9, 10],
         final_scored_months=[11, 12],
         baseline_feature_independent=True,
+        baseline_prediction_rule=CDF_RULE,
         as_of_history_policy=cfg["history_policy"],
         selected_configs_hash=selected.get("selection_hash"),
         run_context=store.context if store else None,
